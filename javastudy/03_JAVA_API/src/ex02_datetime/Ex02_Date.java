@@ -36,10 +36,10 @@ public class Ex02_Date {
 		// 2. 객체를 만들어서 호출
 		//    String str = new String("Hello");  // 클래스 String, 객체 str
 		//    str.equals("Hello")
-		//      Date now = new Date();  // 클래스 Date, 객체 now
-		//      now.getMonth()
-		//        StringBuilder sb = new StringBuilder();  // 클래스 StringBuilder, 객체 sb
-		//        sb.append()
+		//    Date now = new Date();  // 클래스 Date, 객체 now
+		//    now.getMonth()
+		//    StringBuilder sb = new StringBuilder();  // 클래스 StringBuilder, 객체 sb
+		//    sb.append()
 		
 		// Date 클래스와 now 객체
 		Date now = new Date();
