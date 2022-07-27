@@ -1,5 +1,6 @@
 package re_exam;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class ReExam {
@@ -14,7 +15,7 @@ public class ReExam {
 		System.out.println("=====문제4=====");
 		//q4();
 		System.out.println("=====문제5=====");
-		q5();
+		//q5();
 		System.out.println("=====문제6=====");
 		q6();
 		System.out.println("=====문제7=====");
@@ -92,10 +93,16 @@ public class ReExam {
 	// 예시3)
 	// 3690초는 1시간 1분 30초입니다.
 	public static void q6() {
-		int second = 40;  // 아래 값으로 바꿔가면서 테스트
+		// int second = 40;  // 아래 값으로 바꿔가면서 테스트
 		// int second = 90;
-		// int second = 3690;
-		
+		int second = 3690;
+		if(second < 60) {
+			System.out.println(second + "초");
+		} else if(second < 3600) {
+			System.out.println((second / 60) + "분 " + (second % 60) + "초");
+		} else {
+			System.out.println((second / 3600) + "시간 " + (second % 3600 / 60) + "분 " + (second % 60) + "초");
+		}
 	}
 	
 	// 문제7. 키(height) 정보를 이용해 워터파크에서 탑승이 가능한 모든 어트랙션를 출력하시오.
@@ -106,7 +113,16 @@ public class ReExam {
 	// 슬라이드 탑승 가능합니다.
 	public static void q7() {
 		String height = "125.5";
-		
+		double tall = Double.parseDouble(height);
+		if(tall >= 120) {
+			System.out.println("슬라이드");
+		}
+		if(tall >= 130) {
+			System.out.println("부메랑고");
+		}
+		if(tall >= 140) {
+			System.out.println("인피닛풀");
+		}
 	}
 	
 	// 문제8. 두 변수 a, b에 저장된 값 중에서 정수 10과 가까운 값을 출력하시오.
@@ -115,7 +131,9 @@ public class ReExam {
 	public static void q8() {
 		int a = 8;
 		int b = 14;
-		
+		int diff1 = (a > 10) ? a - 10 : 10 - a;
+		int diff2 = (b > 10) ? b - 10 : 10 - b;
+		System.out.println(diff1 < diff2 ? a : b);
 	}
 	
 	// 문제9. 주민등록번호(personalId)를 분석하여 나이와 성별을 출력하시오.
@@ -124,8 +142,20 @@ public class ReExam {
 	// 예시)
 	// 28살 여자입니다.
 	public static void q9() {
-		String personalId = "951212-2345678";
-		
+		String personalId = "141212-3345678";
+		Calendar calendar = Calendar.getInstance();
+		int nowYear = calendar.get(Calendar.YEAR);
+		String genderNo = personalId.substring(7, 8);
+		String birthYear = "";
+		switch(genderNo) {
+		case "1":
+		case "2": birthYear = 19 + personalId.substring(0, 2); break;
+		case "3":
+		case "4": birthYear = 20 + personalId.substring(0, 2); break;
+		}
+		int age = nowYear - Integer.parseInt(birthYear) + 1;
+		String[] gender = {"여자", "남자"};
+		System.out.println(age + "살 " + gender[Integer.parseInt(genderNo) % 2] + "입니다.");
 	}
 	
 }
