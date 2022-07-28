@@ -7,15 +7,15 @@ public class ReExam {
 
 	public static void main(String[] args) {
 		System.out.println("=====문제1=====");
-		//q1();
+		q1();
 		System.out.println("=====문제2=====");
-		//q2();
+		q2();
 		System.out.println("=====문제3=====");
-		//q3();
+		q3();
 		System.out.println("=====문제4=====");
-		//q4();
+		q4();
 		System.out.println("=====문제5=====");
-		//q5();
+		q5();
 		System.out.println("=====문제6=====");
 		q6();
 		System.out.println("=====문제7=====");
