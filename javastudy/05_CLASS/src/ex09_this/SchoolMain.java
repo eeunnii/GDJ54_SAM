@@ -16,7 +16,6 @@ public class SchoolMain {
 		school.addStudent(student1);
 		school.printStudents();
 		
-		
 	}
 
 }
