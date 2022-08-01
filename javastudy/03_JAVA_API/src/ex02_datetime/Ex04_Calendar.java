@@ -33,7 +33,7 @@ public class Ex04_Calendar {
 		
 		// 오전/오후, 시, 분, 초
 		int ampm = cal.get(Calendar.AM_PM);          // 오전(0), 오후(1)
-		int hour12 = cal.get(Calendar.HOUR);         // 시(1 ~ 12)
+		int hour12 = cal.get(Calendar.HOUR);         // 시(0 ~ 11)
 		int hour24 = cal.get(Calendar.HOUR_OF_DAY);  // 시(0 ~ 23)
 		int minute = cal.get(Calendar.MINUTE);       // 분(0 ~ 59)
 		int second = cal.get(Calendar.SECOND);       // 초(0 ~ 59)
