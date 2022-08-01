@@ -13,7 +13,7 @@ public class Ex06_SimpleDateFormat {
 		Date date1 = new Date();
 		java.sql.Date date2 = new java.sql.Date(System.currentTimeMillis());
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd u HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		String result1 = sdf.format(date1);
 		String result2 = sdf.format(date2);
