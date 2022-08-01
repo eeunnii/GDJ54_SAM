@@ -9,8 +9,8 @@ public class Main {
 		
 		Person alba = new Alba();
 		alba.eat();
-		alba.study();
-		alba.work();
+		alba.study();  // 호출은 Person의 study()이지만, 실제 실행은 new Alba()를 보고 Alba의 study() 호출
+		alba.work();   // 호출은 Person의 work()이지만, 실제 실행은 new Alba()를 보고 Alba의 work() 호출
 		
 		
 		// new Student()와 new Alba()는 모두

@@ -7,6 +7,7 @@ public class Person {
 	}
 	
 	// Person 타입의 객체가 호출할 수 있도록 추가해 둔 메소드
+	// 실행되지는 않는다.
 	public void study() {}
 	public void work() {}
 	
