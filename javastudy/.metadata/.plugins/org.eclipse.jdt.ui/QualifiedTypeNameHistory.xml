@@ -2,12 +2,10 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="ex01_field.User"/>
     <fullyQualifiedTypeName name="ex02_field.School"/>
     <fullyQualifiedTypeName name="ex02_field.Student"/>
@@ -21,4 +19,14 @@
     <fullyQualifiedTypeName name="ex09_this.Student"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="prac1.Bank"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="ex06_constructor.Student"/>
+    <fullyQualifiedTypeName name="ex06_constructor.Alba"/>
+    <fullyQualifiedTypeName name="ex07_override.Espresso"/>
+    <fullyQualifiedTypeName name="ex08_override.Circle"/>
+    <fullyQualifiedTypeName name="ex08_override.Rectangle"/>
+    <fullyQualifiedTypeName name="ex08_override.Square"/>
+    <fullyQualifiedTypeName name="quiz02_coffee.Espresso"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
 </qualifiedTypeNameHistroy>
