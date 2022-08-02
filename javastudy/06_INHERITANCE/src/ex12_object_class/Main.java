@@ -12,7 +12,7 @@ public class Main {
 		if(p instanceof Person) {
 			((Person) p).eat();
 		}
-
+		
 	}
 
 }
