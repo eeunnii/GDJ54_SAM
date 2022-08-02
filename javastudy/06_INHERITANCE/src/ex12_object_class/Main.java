@@ -4,6 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		
 		// Object 클래스는 모든 객체(변수)를 저장할 수 있다.
 		Object p = new Person();
 		
@@ -12,6 +13,7 @@ public class Main {
 		if(p instanceof Person) {
 			((Person) p).eat();
 		}
+		
 		
 		// 새로운 Person(toString() 확인용)
 		Person person = new Person();
@@ -26,6 +28,7 @@ public class Main {
 		p1.setName("kim");
 		p2.setName("kim");
 		System.out.println(p1.equals(p2));  // 동일한 name은 true
+		
 		
 	}
 
