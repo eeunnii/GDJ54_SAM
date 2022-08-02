@@ -13,6 +13,20 @@ public class Main {
 			((Person) p).eat();
 		}
 		
+		// 새로운 Person(toString() 확인용)
+		Person person = new Person();
+		person.setName("james");		
+		System.out.println(person);  // 이름 : james
+		
+		
+		// 새로운 Person(equals() 확인용)
+		// name이 같으면 동일한 객체로 인식하기
+		Person p1 = new Person();
+		Person p2 = new Person();
+		p1.setName("kim");
+		p2.setName("kim");
+		System.out.println(p1.equals(p2));  // 동일한 name은 true
+		
 	}
 
 }
