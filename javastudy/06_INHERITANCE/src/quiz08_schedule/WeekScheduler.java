@@ -23,7 +23,12 @@ public class WeekScheduler {
 		for(int i = 0; i < week.length; i++) {
 			if(dayName.equals(dayNames[i])) {
 				if(week[i] == null) {  // 등록된 스케쥴이 없으면
-					
+					System.out.print("스케쥴 입력 >>> ");
+					String schedule = sc.nextLine();  // 스케쥴에 공백 입력이 가능함
+					Day day = new Day();
+					day.setSchedule(schedule);
+					week[i] = day;
+					System.out.println(dayName + "요일에 새 스케쥴이 등록되었습니다.");
 				} else {
 					System.out.println(dayName + "요일은 이미 스케쥴이 있습니다.");
 				}
@@ -35,14 +40,80 @@ public class WeekScheduler {
 	
 	private void changeSchedule() {
 		System.out.println("▒▒▒ 수정 ▒▒▒");
+		System.out.print("변경할 요일 입력 >>> ");
+		String dayName = sc.next().substring(0, 1);
+		sc.nextLine();
+		for(int i = 0; i < week.length; i++) {
+			if(dayName.equals(dayNames[i])) {
+				if(week[i] == null) {
+					System.out.println(dayName + "요일은 스케쥴이 없습니다.");
+					System.out.print("새 스케쥴을 등록할까요?(y/n) >>> ");
+					String yesNo = sc.next().substring(0, 1);
+					sc.nextLine();
+					if(yesNo.equalsIgnoreCase("y")) {
+						System.out.print("새 스케쥴 입력 >> ");
+						String schedule = sc.nextLine();
+						Day day = new Day();
+						day.setSchedule(schedule);
+						week[i] = day;
+						System.out.println(dayName + "요일에 새 스케쥴이 등록되었습니다.");
+					} else {
+						System.out.println("스케쥴 변경이 취소되었습니다.");
+					}
+				} else {
+					System.out.println(dayName + "요일의 스케쥴은 " + week[i].getSchedule() + "입니다.");
+					System.out.print("변경할까요?(y/n) >>> ");
+					String yesNo = sc.next().substring(0, 1);
+					sc.nextLine();
+					if(yesNo.equalsIgnoreCase("y")) {
+						System.out.print("변경할 스케쥴 입력 >> ");
+						String schedule = sc.nextLine();
+						week[i].setSchedule(schedule);
+						System.out.println(dayName + "요일의 스케쥴이 변경되었습니다.");
+					} else {
+						System.out.println("스케쥴 변경이 취소되었습니다.");
+					}
+				}
+				return;
+			}
+		}
+		System.out.println(dayName + "요일은 없는 요일입니다.");
 	}
 	
 	private void deleteSchedule() {
 		System.out.println("▒▒▒ 삭제 ▒▒▒");
+		System.out.print("삭제할 요일 입력 >>> ");
+		String dayName = sc.next().substring(0, 1);
+		sc.nextLine();
+		for(int i = 0; i < week.length; i++) {
+			if(dayName.equals(dayNames[i])) {
+				if(week[i] == null) {
+					System.out.println(dayName + "요일은 스케쥴이 없습니다.");
+				} else {
+					System.out.println(dayName + "요일의 스케쥴은 " + week[i].getSchedule() + "입니다.");
+					System.out.print("삭제할까요(y/n)? >>> ");
+					String yesNo = sc.next().substring(0, 1);
+					sc.nextLine();
+					if(yesNo.equalsIgnoreCase("y")) {
+						week[i] = null;
+						System.out.println(dayName + "요일의 스케쥴이 취소되었습니다.");
+					} else {
+						System.out.println("스케쥴 삭제가 취소되었습니다.");
+					}
+				}
+				return;
+			}
+		}
+		System.out.println(dayName + "요일은 없는 요일입니다.");
 	}
 	
 	private void printWeekSchedule() {
 		System.out.println("▒▒▒ 전체조회 ▒▒▒");
+		System.out.println(nthWeek + "주차 스케쥴 안내");
+		for(int i = 0; i < week.length; i++) {
+			System.out.print(dayNames[i] + "요일 - ");
+			System.out.println(week[i] == null ? "X" : week[i].getSchedule());
+		}
 	}
 	
 	public void manage() {
