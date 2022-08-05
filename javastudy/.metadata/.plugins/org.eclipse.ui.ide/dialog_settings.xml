@@ -2,21 +2,31 @@
 <section name="Workbench">
 	<section name="ExternalProjectImportWizard">
 		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
-		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
-			<item value="C:\Users\GDJ54\Desktop\ReExam01"/>
-			<item value="C:\Users\GDJ54\Downloads\Exam"/>
-			<item value="C:\Users\GDJ54\Downloads\mania1669_62dfa0d6eee76"/>
-			<item value="C:\Users\GDJ54\Downloads\mania1684_62dfaba6ae187"/>
-			<item value="C:\Users\GDJ54\Downloads\mania1681_62df9fb009224"/>
-			<item value="C:\Users\GDJ54\Downloads"/>
-			<item value="C:\Users\GDJ54\Downloads\mania1693_62df9652a54b7"/>
-			<item value="C:\Users\GDJ54\Downloads\mania1698_62df9f011c1ef"/>
-			<item value="C:\Users\GDJ54\Desktop\Exam"/>
-			<item value="D:\GDJ\javastudy\HelloProject"/>
+			<item value="C:\Users\GDJ54\Downloads\ParkingLotProject"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1690_62eb7dd0bd2dc"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1680_62eb7b75e451d"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1697_62eb6e29c737e"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1674_62eb72ebe99e8"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1689_62eb86ce71949"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1685_62eb653709383"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1677_62eb873bb2a2a"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1676_62eb82836832a"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1681_62eb7e746ad0d"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1691_62eb657ac4069"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1693_62eb647a0cdf2"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1671_62eb7c302d960"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1679_62eb70f360c89"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1673_62eb653c009b4"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1698_62eb70bbd0118"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1686_62eb7bcdd157e"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1672_62eb7470143e4"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1692_62eb723fb5196"/>
+			<item value="C:\Users\GDJ54\Downloads\mania1688_62eb71f9e5953"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>

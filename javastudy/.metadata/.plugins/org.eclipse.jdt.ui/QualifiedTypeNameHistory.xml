@@ -32,7 +32,6 @@
     <fullyQualifiedTypeName name="library.Book"/>
     <fullyQualifiedTypeName name="ex15_interface.SmartPhone"/>
     <fullyQualifiedTypeName name="java.lang.Cloneable"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="quiz08_schedule.WeekScheduler"/>
     <fullyQualifiedTypeName name="quiz08_schedule.Day"/>
     <fullyQualifiedTypeName name="ex02_constructor.User"/>
@@ -44,4 +43,14 @@
     <fullyQualifiedTypeName name="lombok.Builder"/>
     <fullyQualifiedTypeName name="lombok.ToString"/>
     <fullyQualifiedTypeName name="ex05_lombok.User"/>
+    <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+    <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+    <fullyQualifiedTypeName name="java.lang.ArithmeticException"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.io.FileReader"/>
+    <fullyQualifiedTypeName name="javax.management.RuntimeErrorException"/>
+    <fullyQualifiedTypeName name="quiz01_updown.UpDownGame"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
+    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
 </qualifiedTypeNameHistroy>
