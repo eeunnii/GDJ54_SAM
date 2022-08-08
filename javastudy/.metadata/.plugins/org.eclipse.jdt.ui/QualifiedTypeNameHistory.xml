@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-    <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
-    <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
-    <fullyQualifiedTypeName name="ex01_field.User"/>
-    <fullyQualifiedTypeName name="ex02_field.School"/>
-    <fullyQualifiedTypeName name="ex02_field.Student"/>
-    <fullyQualifiedTypeName name="ex03_method.Calculator"/>
-    <fullyQualifiedTypeName name="ex04_method.VendingMachine"/>
-    <fullyQualifiedTypeName name="ex06_method_overload.Calculator"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="java.util.Calendar"/>
     <fullyQualifiedTypeName name="ex07_constructor.Computer"/>
     <fullyQualifiedTypeName name="ex09_this.Student"/>
@@ -50,14 +40,24 @@
     <fullyQualifiedTypeName name="ex06_exception_class.ParkingLot"/>
     <fullyQualifiedTypeName name="quiz03_bank.Bank"/>
     <fullyQualifiedTypeName name="quiz03_bank.BankException"/>
-    <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
-    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="quiz04_employee.Employee"/>
     <fullyQualifiedTypeName name="quiz04_employee.Company"/>
     <fullyQualifiedTypeName name="quiz04_employee.Regular"/>
     <fullyQualifiedTypeName name="quiz04_employee.EmployeeException"/>
     <fullyQualifiedTypeName name="prac2.SeatGroup"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="prac2.Hall"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="quiz01_library.Book"/>
+    <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
+    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="ex03_hash.Book"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 </qualifiedTypeNameHistroy>
