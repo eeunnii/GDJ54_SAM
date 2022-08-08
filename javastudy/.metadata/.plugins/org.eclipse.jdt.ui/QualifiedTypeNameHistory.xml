@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
-    <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
@@ -18,7 +15,6 @@
     <fullyQualifiedTypeName name="ex09_this.Student"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="prac1.Bank"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="ex06_constructor.Student"/>
     <fullyQualifiedTypeName name="ex06_constructor.Alba"/>
     <fullyQualifiedTypeName name="ex07_override.Espresso"/>
@@ -50,7 +46,18 @@
     <fullyQualifiedTypeName name="java.io.FileReader"/>
     <fullyQualifiedTypeName name="javax.management.RuntimeErrorException"/>
     <fullyQualifiedTypeName name="quiz01_updown.UpDownGame"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="ex06_exception_class.MyException"/>
+    <fullyQualifiedTypeName name="ex06_exception_class.ParkingLot"/>
+    <fullyQualifiedTypeName name="quiz03_bank.Bank"/>
+    <fullyQualifiedTypeName name="quiz03_bank.BankException"/>
     <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+    <fullyQualifiedTypeName name="quiz04_employee.Employee"/>
+    <fullyQualifiedTypeName name="quiz04_employee.Company"/>
+    <fullyQualifiedTypeName name="quiz04_employee.Regular"/>
+    <fullyQualifiedTypeName name="quiz04_employee.EmployeeException"/>
+    <fullyQualifiedTypeName name="prac2.SeatGroup"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="prac2.Hall"/>
 </qualifiedTypeNameHistroy>
