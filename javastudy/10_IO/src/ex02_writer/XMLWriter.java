@@ -48,7 +48,11 @@ public class XMLWriter {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.newDocument();
-			document.setXmlStandalone(true);
+			document.setXmlStandalone(true);  // standalone="no" 제거
+			
+			// 추가 2라인
+			Element products = document.createElement("products");
+			document.appendChild(products);
 			
 			List<String> product1 = Arrays.asList("100", "새우깡", "1500");
 			List<String> product2 = Arrays.asList("101", "양파링", "2000");
@@ -66,7 +70,7 @@ public class XMLWriter {
 				Element price = document.createElement("price");
 				price.setTextContent(line.get(2));
 				// 태그 배치
-				document.appendChild(product);
+				products.appendChild(product);  // 변경
 				product.appendChild(number);
 				product.appendChild(name);
 				product.appendChild(price);
@@ -77,6 +81,7 @@ public class XMLWriter {
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty("encoding", "UTF-8");
 			transformer.setOutputProperty("indent", "yes");
+			transformer.setOutputProperty("doctype-public", "yes");  // document.setXmlStandalone(true); 하면 개행이 안 되기 때문에 추가
 			
 			Source source = new DOMSource(document);
 			File file = new File("C:\\storage", "product.xml");
