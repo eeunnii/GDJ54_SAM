@@ -1,5 +1,6 @@
 package ex02_writer;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -114,8 +115,44 @@ public class Main {
 		
 	}
 	
+	public static void m5() {
+		
+		// FileWriter는 느리기 때문에
+		// 빠른 속도가 필요한 경우 BufferedWriter를 추가해서 함께 사용한다.
+		
+		File file = new File("C:\\storage", "m5.txt");
+		
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		
+		try {
+			
+			// 출력 메인 스트림
+			fw = new FileWriter(file);
+			
+			// 속도 향상을 위한 보조 스트림
+			// 메인 스트림이 없으면 사용 불가
+			bw = new BufferedWriter(fw);
+			
+			bw.write("오늘은 수요일인데 수업이 안 끝나요. ㅎㅎㅎ");
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 메인 스트림은 닫을 필요가 없음(자동으로 메인 스트림이 닫히므로)
+				if(bw != null) {
+					bw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		m4();
+		m5();
 	}
 
 }
