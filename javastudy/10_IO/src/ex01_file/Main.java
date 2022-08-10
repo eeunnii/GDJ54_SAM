@@ -108,7 +108,7 @@ public class Main {
 				directory = "     ";
 				size = new DecimalFormat("#,##0").format(file.length()) + "";
 				fileCnt++;
-				totalSize += Long.parseLong(size);
+				totalSize += Long.parseLong(size.replace(",", ""));
 			}
 			String name = file.getName();
 			System.out.println(lastModified + " " + directory + " " + size + " " + name);
