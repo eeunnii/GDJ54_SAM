@@ -96,8 +96,26 @@ public class Main {
 		
 	}
 	
+	public static void m4() {
+		
+		File file = new File("C:\\storage", "m4.txt");
+		
+		try(FileWriter fw = new FileWriter(file)) {
+			
+			char[] cbuf = {'a', 'b', 'c', 'd', 'e'};
+			String str = "abcde";
+			
+			fw.write(cbuf, 0, 2);  // 인덱스 0부터 2글자만 씀
+			fw.write(str, 2, 3);   // 인덱스 2부터 3글자만 씀
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		m3();
+		m4();
 	}
 
 }
