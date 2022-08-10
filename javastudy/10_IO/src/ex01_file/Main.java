@@ -85,6 +85,14 @@ public class Main {
 		
 	}
 	
+	public static void m5() {
+		
+		// 플랫폼마다 다른 경로 구분자 지원
+		File file = new File("C:" + File.separator + "storage" + File.separator + "my.txt");
+		System.out.println(file.getName());
+		
+	}
+	
 	public static void q1() {
 		
 		File dir = new File("D:\\GDJ54");
@@ -119,8 +127,27 @@ public class Main {
 		
 	}
 	
+	public static void q2() {
+		
+		// C:\storage 디렉터리 삭제하기
+		// 디렉터리가 비어 있어야 삭제할 수 있으므로 내부 파일을 먼저 삭제
+		
+		String sep = File.separator;
+		
+		File file = new File("C:" + sep + "storage", "my.txt");
+		if(file.exists()) {
+			file.delete();
+		}
+		
+		File dir = new File("C:" + sep + "storage");
+		if(dir.exists()) {
+			dir.delete();
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		q1();
+		q2();
 	}
 
 }
