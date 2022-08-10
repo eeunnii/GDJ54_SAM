@@ -2,6 +2,7 @@ package ex01_file;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 public class Main {
@@ -85,6 +86,36 @@ public class Main {
 	}
 	
 	public static void q1() {
+		
+		File dir = new File("D:\\GDJ54");
+		File[] list = dir.listFiles();
+		
+		int dirCnt = 0;
+		int fileCnt = 0;
+		long totalSize = 0;
+		for(File file : list) {
+			if(file.isHidden()) {
+				continue;
+			}
+			String lastModified = new SimpleDateFormat("yyyy-MM-dd a hh:mm").format(file.lastModified());
+			String directory = ""; 
+			String size = "";
+			if(file.isDirectory()) {
+				directory = "<DIR>";
+				size = "     ";
+				dirCnt++;
+			} else if(file.isFile()) {
+				directory = "     ";
+				size = new DecimalFormat("#,##0").format(file.length()) + "";
+				fileCnt++;
+				totalSize += Long.parseLong(size);
+			}
+			String name = file.getName();
+			System.out.println(lastModified + " " + directory + " " + size + " " + name);
+		}
+		
+		System.out.println(dirCnt + "개 디렉터리");
+		System.out.println(fileCnt + "개 파일 " + new DecimalFormat("#,##0").format(totalSize) + "바이트");
 		
 	}
 	
