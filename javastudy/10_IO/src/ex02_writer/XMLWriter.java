@@ -25,6 +25,7 @@ public class XMLWriter {
 		// 3. 표준 마크업 언어인 HTML의 확장 버전
 		// 4. 정해진 태그(<>) 외 사용자 정의 태그 사용
 		/*
+		<products>
 			<product>
 				<number>100</number>
 				<name>새우깡</name>
@@ -40,6 +41,7 @@ public class XMLWriter {
 				<name>홈런볼</name>
 				<price>3000</price>
 			</product>
+		</products>
 		*/
 		
 		try {
@@ -50,7 +52,7 @@ public class XMLWriter {
 			Document document = builder.newDocument();
 			document.setXmlStandalone(true);  // standalone="no" 제거
 			
-			// 추가 2라인
+			// Document에 products 태그 추가
 			Element products = document.createElement("products");
 			document.appendChild(products);
 			
@@ -80,7 +82,7 @@ public class XMLWriter {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty("encoding", "UTF-8");
-			transformer.setOutputProperty("indent", "yes");
+			transformer.setOutputProperty("indent", "yes");  // 들여쓰기
 			transformer.setOutputProperty("doctype-public", "yes");  // document.setXmlStandalone(true); 하면 개행이 안 되기 때문에 추가
 			
 			Source source = new DOMSource(document);
