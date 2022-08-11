@@ -1,5 +1,6 @@
 package ex03_reader;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -161,8 +162,62 @@ public class Main {
 		
 	}
 	
+	public static void m4() {
+		
+		// FileReader는 느리기 때문에
+		// BufferedReader를 추가해서 속도를 향상시킨다.
+		
+		// BufferedReader는 readLine() 메소드를 지원한다.
+		// readLine() 메소드는 한 줄씩 읽어서 String에 저장한다.
+		// 읽은 내용이 없으면 null을 반환한다.
+		
+		File file = new File("C:\\storage", "m3.txt");
+		FileReader fr = null;
+		BufferedReader br = null;
+		try {
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			String str = sb.toString();
+			System.out.println(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public static void m5() {
+		
+		// try-catch-resources문으로 m4() 다시 풀기
+		
+		try (BufferedReader br = new BufferedReader(new FileReader("C:\\storage\\m3.txt"))) {
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			String str = sb.toString();
+			System.out.println(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		m1();
+		m5();
 	}
 
 }
