@@ -3,7 +3,6 @@ package ex03_reader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Main {
 
@@ -29,12 +28,21 @@ public class Main {
 			// 2. 모두 읽어서 읽은 문자가 없으면 -1 반환
 			
 			// String str에 파일 내용 저장하기
+			/*
 			StringBuilder sb = new StringBuilder();
 			while(true) {
 				c = fr.read();
 				if(c == -1) {
 					break;
 				}
+				sb.append((char)c);
+			}
+			String str = sb.toString();
+			System.out.println(str);
+			*/
+			
+			StringBuilder sb = new StringBuilder();
+			while((c = fr.read()) != -1) {
 				sb.append((char)c);
 			}
 			String str = sb.toString();
@@ -64,12 +72,20 @@ public class Main {
 			fr = new FileReader(file);
 			
 			// 5글자를 저장할 배열
-			char[] cbuf = new char[9];
+			char[] cbuf = new char[5];
 			
 			// read(char[] cbuf) 메소드
 			// 1. 읽은 글자는 cbuf 배열에 저장
 			// 2. 실제로 읽은 글자 수를 반환
 			// 3. 읽은 글자가 없으면 -1 반환
+			
+			// m3.txt 파일 읽는 과정
+			//      readCnt     cbuf
+			// 1      5         a   p   p   l   e
+			// 2      5         \n  m   a   n   g
+			// 3      2         o   \n  a   n   g
+			// 4     -1
+			
 			while(true) {
 				
 				int readCnt = fr.read(cbuf);
@@ -98,8 +114,55 @@ public class Main {
 		
 	}
 	
+	public static void m3() {
+		
+		// m3.txt 읽어서 String str에 저장하기
+		
+		File file = new File("C:\\storage", "m3.txt");
+		FileReader fr = null;
+		try {
+			
+			fr = new FileReader(file);
+			
+			/*
+			char[] cbuf = new char[5];
+			StringBuilder sb = new StringBuilder();
+			while(true) {
+				int readCnt = fr.read(cbuf);
+				if(readCnt == -1) {
+					break;
+				}
+				sb.append(cbuf, 0, readCnt);  // cbuf 배열의 인덱스 0부터 readCnt개만 추가
+			}
+			String str = sb.toString();
+			System.out.println(str);
+			*/
+			
+			char[] cbuf = new char[5];
+			StringBuilder sb = new StringBuilder();
+			int readCnt;
+			while((readCnt = fr.read(cbuf)) != -1) {
+				sb.append(cbuf, 0, readCnt);
+			}
+			String str = sb.toString();
+			System.out.println(str);
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(fr != null) {
+					fr.close();
+				}
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		m2();
+		m1();
 	}
 
 }
