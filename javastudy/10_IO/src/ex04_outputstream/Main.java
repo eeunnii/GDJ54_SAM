@@ -5,7 +5,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -109,8 +112,47 @@ public class Main {
 	
 	}
 	
+	public static void m4() {
+		
+		// 객체를 그대로 출력하는 ObjectOutputStream
+		
+		File file = new File("C:\\storage", "b4.dat");
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		
+		try {
+			
+			// 1. User를 3개 저장한 ArrayList
+			List<User> users = Arrays.asList(
+					new User(1, "kim", 30),
+					new User(2, "lee", 40),
+					new User(3, "choi", 50)
+			);
+			
+			// 2. User 1개
+			User user = new User(4, "min", 60);
+			
+			
+			fos = new FileOutputStream(file);
+			oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(users);
+			oos.writeObject(user);
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) oos.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		m3();
+		m4();
 	}
 
 }
