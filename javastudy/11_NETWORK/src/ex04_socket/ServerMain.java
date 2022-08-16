@@ -52,8 +52,8 @@ public class ServerMain {
 				System.out.println("[서버] 클라이언트가 보낸 메시지 : " + sb.toString());
 				
 				// 입출력 스트림 종료
-				out.close();
 				in.close();
+				out.close();
 				
 				// 클라이언트 접속 종료
 				clientSocket.close();
