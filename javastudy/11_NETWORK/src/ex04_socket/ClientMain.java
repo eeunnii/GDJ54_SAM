@@ -2,8 +2,10 @@ package ex04_socket;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientMain {
 
@@ -25,7 +27,18 @@ public class ClientMain {
 			DataInputStream in = new DataInputStream(clientSocket.getInputStream());
 			String message = in.readUTF();
 			System.out.println("[클라이언트] " + message);
+			
+			// Scanner 클래스를 이용해 입력 받은 데이터를 서버로 보내기
+			Scanner sc = new Scanner(System.in);
+			System.out.print("서버로 전송할 메시지 >>> ");
+			String send = sc.nextLine();
+			OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream());
+			out.write(send);
+
+			// 입출력 스트림 종료
+			out.close();
 			in.close();
+			sc.close();
 			
 		} catch(IOException e) {
 			e.printStackTrace();
