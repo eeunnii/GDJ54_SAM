@@ -17,6 +17,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Main {
 
@@ -106,7 +108,7 @@ public class Main {
 		// API로부터 전달받은 xml 데이터
 		String response = sb.toString();
 		
-		// File 생성
+		// XML File 생성
 		File file = new File("C:\\storage", "api1.xml");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -123,14 +125,36 @@ public class Main {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(file);
 			
-			Element element = doc.getDocumentElement();
-			System.out.println(element.getNodeName());
+			Element root = doc.getDocumentElement();   // <response> (최상위 태그)
+			System.out.println(root.getNodeName());
+			
+			NodeList nodeList = root.getChildNodes();  // <response>의 자식 태그(<header>, <body>)
+			for(int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);          // <header>와 <body>
+				System.out.println("  " + node.getNodeName());
+				NodeList nodeList2 = node.getChildNodes();        // <header>의 자식 태그(<resultCode>, <resultMsg>), <body>의 자식 태그(<items>, <numOfRows>, <pageNo>, <totalCount>)
+				for(int j = 0; j < nodeList2.getLength(); j++) {
+					Node node2 = nodeList2.item(j);
+					System.out.println("    " + node2.getNodeName());
+					if(node2.getNodeName().equals("items")) {     // <items> 태그 대상
+						NodeList items = node2.getChildNodes();   // <items>의 자식 태그(<item>)
+						for(int k = 0; k < items.getLength(); k++) {
+							Node item = items.item(k);
+							System.out.println("      " + item.getNodeName());
+							NodeList itemChildren = item.getChildNodes();        // <item>의 자식 태그
+							for(int l = 0; l < itemChildren.getLength(); l++) {
+								Node itemChild = itemChildren.item(l);
+								System.out.println("        " + itemChild.getNodeName() + ":" + itemChild.getTextContent());
+							}
+						}
+					}
+				}
+				
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 		// 접속 종료
 		con.disconnect();
