@@ -32,7 +32,7 @@ public class Client extends Thread {
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
-		} /* finally {
+		} finally {
 			try {
 				if(in != null) {
 					in.close();
@@ -43,7 +43,7 @@ public class Client extends Thread {
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 		
 	}
 	

@@ -44,7 +44,7 @@ public class ServerMain {
 			
 		} catch(IOException e) {
 			e.printStackTrace();
-		}/* finally {
+		} finally {
 			try {
 				if(server.isClosed() == false) {
 					server.close();
@@ -52,7 +52,7 @@ public class ServerMain {
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 
 	}
 
