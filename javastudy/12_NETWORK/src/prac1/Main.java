@@ -30,7 +30,8 @@ public class Main {
 			// 바이트 입력 스트림 -> 문자 입력 스트림 -> 버퍼 추가
 			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			
-			File file = new File("C:\\storage", "sfc_web_map.xml");
+			File file = new File("C:\\storage"
+					, "sfc_web_map.xml");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 			
 			// readLine() 메소드를 이용한 복사
