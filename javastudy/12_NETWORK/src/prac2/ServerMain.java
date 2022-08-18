@@ -30,6 +30,8 @@ public class ServerMain {
 			
 			while(true) {
 				
+				// 서버 중지 조건은 없는 상태임
+				
 				client = server.accept();
 				System.out.println("클라이언트 접속(" + client.getInetAddress() + ")");
 				

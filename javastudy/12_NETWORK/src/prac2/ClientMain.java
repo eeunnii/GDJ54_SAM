@@ -3,7 +3,6 @@ package prac2;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
@@ -14,27 +13,22 @@ public class ClientMain {
 		
 		Socket socket = null;
 		Scanner sc = null;
-		PrintWriter out = null;
+		BufferedWriter out = null;
 		
 		try {
 			
-			socket = new Socket("localhost", 9090);
-			// socket.connect(new InetSocketAddress("localhost", 9090));
-			
-			sc = new Scanner(System.in);
-			
-			out = new PrintWriter(socket.getOutputStream());
+			socket = new Socket();
+			socket.connect(new InetSocketAddress("localhost", 9090));
 			
 			Client client = new Client(socket);
 			client.start();
+
+			sc = new Scanner(System.in);
+			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
 			while(true) {
-				System.out.print(">>> ");
-				String message = sc.nextLine();
-				if(message.equalsIgnoreCase("exit")) {
-					break;
-				}
-				out.print(message);
+				String message = sc.nextLine();  // 채팅내용입력
+				out.write(message + "\n");  // Client.java의 BufferedReader in으로 전달
 				out.flush();
 			}
 			
@@ -44,9 +38,6 @@ public class ClientMain {
 			try {
 				if(out != null) {
 					out.close();
-				}
-				if(socket.isClosed() == false) {
-					socket.close();
 				}
 			} catch(IOException e) {
 				e.printStackTrace();
