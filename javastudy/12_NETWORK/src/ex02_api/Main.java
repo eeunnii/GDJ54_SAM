@@ -234,12 +234,39 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void m3() {
 		
+		// xml 파싱
+		
+		File file = new File("C:\\storage", "api2.xml");
+		
+		try {
+			
+			// api2.xml 문서 -> doc 객체
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			// api2.xml 문서의 최상위 태그 -> root
+			Element root = doc.getDocumentElement();
+			
+			// <item>...</item> 태그 하나 == 특정 날짜의 데이터
+			NodeList items = root.getElementsByTagName("item");  // 태그 이름으로 찾기
+			for(int i = 0; i < items.getLength(); i++) {
+				Node item = items.item(i);
+				System.out.println(item.getNodeName());
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
 	public static void main(String[] args) {
-		m2();
+		m3();
 	}
 
 }
