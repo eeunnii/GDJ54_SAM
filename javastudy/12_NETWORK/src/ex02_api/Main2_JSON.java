@@ -12,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -308,9 +310,19 @@ public class Main2_JSON {
 		JSONObject obj = new JSONObject(m5());
 		JSONObject header = obj.getJSONObject("header");
 		JSONArray columns = header.getJSONArray("columns");
+		
+		JSONObject body = obj.getJSONObject("body");
+		JSONArray items = body.getJSONArray("items");
+		JSONObject item = items.getJSONObject(0);
+		
+		String[] p = {"trarNo", "mainTrarNm", "ctprvnCd", "ctprvnNm", "signguCd", "signguNm", "trarArea", "coordNum", "coords", "stdrDt"};
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i = 0; i < columns.length(); i++) {
-			System.out.println(columns.getString(i));
+			map.put(columns.getString(i), item.get(p[i]));
 		}
+		
+		System.out.println(map);
 		
 	}
 	
