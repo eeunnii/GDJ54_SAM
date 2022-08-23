@@ -5,7 +5,7 @@
         "author":"기상청",  // String author = item.getString("author");
         "link":"http://www.kma.go.kr/wea&dongCode=1154551000",  // String link = item.getString("link")
         "guid":"http://www.kma.go.kr/wST&dongCode=1154551000",
-        "description":{  // JSONObject description = item.getJSONObject("item")
+        "description":{  // JSONObject description = item.getJSONObject("description")
           "header":{
             "x":58,
             "tm":202208231700,
