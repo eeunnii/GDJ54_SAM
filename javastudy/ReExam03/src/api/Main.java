@@ -47,6 +47,13 @@ public class Main {
 			JSONObject obj = XML.toJSONObject(sb.toString());
 			JSONObject rss = obj.getJSONObject("rss");
 			JSONObject channel = rss.getJSONObject("channel");
+			
+			/*
+			JSONObject channel = XML.toJSONObject(sb.toString())
+								.getJSONObject("rss")
+								.getJSONObject("channel");
+			*/
+			
 			String link = channel.getString("link");
 			String description = channel.getString("description");
 			String generator = channel.getString("generator");
