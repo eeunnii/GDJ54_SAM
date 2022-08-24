@@ -56,4 +56,8 @@ ALTER TABLE CUSTOMER
 -- 5. CUSTOMER 테이블의 AGE 칼럼을 삭제하시오.
 
 
--- 6. CUSTOMER 테이블의 NO 칼럼과 NAME 칼럼이름을 CUST_NO와 CUST_NAME으로 변경하시오.
+-- 6. CUSTOMER 테이블의 NO 칼럼과 NAME 칼럼이름을 CUST_NO와 CUST_NAME으로 수정하시오.
+
+
+-- 7. BANK 테이블의 이름을 BANK_TBL로 수정하시오.
+
