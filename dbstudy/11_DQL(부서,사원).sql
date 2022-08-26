@@ -23,6 +23,7 @@
 */
 
 
+
 -- 1. 사원 테이블에서 사원명 조회하기
 SELECT NAME
   FROM EMPLOYEE;
@@ -44,6 +45,7 @@ SELECT NAME AS 사원명  -- 별명 사원명 지정
   FROM EMPLOYEE;
 
 
+
 -- 2. 사원 테이블의 모든 칼럼 조회하기
 --    모든 칼럼 : *
 --    중요 : 실무에서 * 사용 금지(성능문제있음)
@@ -60,6 +62,7 @@ SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
 --    중복 제거 : DISTINCT
 SELECT DISTINCT LOCATION
   FROM DEPARTMENT;
+
 
 
 /* WHERE절 활용하기 */
@@ -116,3 +119,63 @@ SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
 SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
   FROM EMPLOYEE
  WHERE EMP_NO LIKE '1%';
+
+
+
+/* ORDER BY절 */
+-- ASC  : 오름차순 정렬, 생략 가능
+-- DESC : 내림차순 정렬
+
+-- 10. 사원 테이블에서 사원명의 가나다순으로 조회하기
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ ORDER BY NAME ASC;
+
+-- 11. 사원 테이블에서 급여가 높은순으로 조회하기
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ ORDER BY SALARY DESC;
+
+-- 12. 사원 테이블에서 성별의 가나다순으로 조회하기
+--     오름차순 정렬할 때 NULL값은 마지막에 배치
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ ORDER BY GENDER;
+
+-- 13. 사원 테이블에서 먼저 고용된순으로 조회하기
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ ORDER BY HIRE_DATE;
+
+-- 14. 사원 테이블에서 소속부서의 오름차순 정렬로 조회하되,
+--     같은 소속부서 내에서는 먼저 고용된순으로 조회하기
+--     1차 정렬기준 : 소속부서
+--     2차 정렬기준 : 고용일자
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ ORDER BY DEPART ASC, HIRE_DATE ASC;
+
+
+
+/* WHERE절과 ORDER BY절 함께 사용 */
+-- WHERE절 먼저, ORDER BY절 나중
+
+-- 15. 사원 테이블에서 급여가 5000000 이상인 사원들을 고용된순으로 조회하기
+SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY >= 5000000
+ ORDER BY HIRE_DATE;
+
+
+
+/* SELECT문 처리순서 */
+
+/* 3 */SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE AS HD, SALARY
+/* 1 */  FROM EMPLOYEE
+/* 2 */ WHERE SALARY >= 5000000
+/* 4 */ ORDER BY HD;
+
+/* 3 */SELECT EMP_NO, NAME, DEPART, POSITION, GENDER, HIRE_DATE, SALARY AS S
+/* 1 */  FROM EMPLOYEE
+/* 2 */ WHERE S >= 5000000
+/* 4 */ ORDER BY HIRE_DATE;
