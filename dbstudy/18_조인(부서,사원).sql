@@ -128,6 +128,7 @@ SELECT E.EMP_NO, E.NAME, E.SALARY, D.DEPT_NO, D.DEPT_NAME
   FROM DEPARTMENT D CROSS JOIN EMPLOYEE E;
 
 
+
 -- 2. 내부 조인 확인
 --    사원번호, 사원명, 부서명을 조회하기
 SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
@@ -138,6 +139,7 @@ SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
 
 -- 3. 외부 조인 확인
 --    사원번호, 사원명, 부서명을 조회하기
+
 --    모든 사원을 반드시 조회하기
 --    사원     -  부서
 --    모두포함 -  일치하는부서만포함
