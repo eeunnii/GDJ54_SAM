@@ -114,26 +114,19 @@ HAVING COUNT(*) >= 2;
 
 -- 3. 동일한 지역(LOCATION_ID)으로 그룹화하여 각 지역별 존재하는 부서수 조회하기
 --    MANAGER_ID가 없는 지역은 제외하고 조회하기
+SELECT LOCATION_ID, COUNT(*)
+  FROM DEPARTMENTS
+ WHERE MANAGER_ID IS NOT NULL
+ GROUP BY LOCATION_ID;
 
 -- 4. 부서명(DEPARTMENT_NAME)의 첫 2글자로 그룹화하여 해당 그룹의 개수 조회하기
+SELECT SUBSTR(DEPARTMENT_NAME, 1, 2), COUNT(*)
+  FROM DEPARTMENTS
+ GROUP BY SUBSTR(DEPARTMENT_NAME, 1, 2);
 
 -- 5. 부서명(DEPARTMENT_NAME)의 첫 2글자로 그룹화하여 해당 그룹의 개수 조회하기
---    부서명의 첫 2글자가 'It', 'Co'인 부서만 조회하기
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-       
+--    부서명의 첫 2글자가 'IT', 'Co'인 부서만 조회하기
+SELECT SUBSTR(DEPARTMENT_NAME, 1, 2), COUNT(*)
+  FROM DEPARTMENTS
+ WHERE SUBSTR(DEPARTMENT_NAME, 1, 2) IN('IT', 'Co')
+ GROUP BY SUBSTR(DEPARTMENT_NAME, 1, 2);
