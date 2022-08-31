@@ -134,6 +134,31 @@ SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME, COUNT(E.DEPARTMENT_ID) AS 사원수
 -- 9. MANAGER보다 먼저 입사한 사원들의 EMPLOYEE_ID, LAST_NAME, HIRE_DATE과 MANAGER의 HIRE_DATE를 조회하시오.
 --    사원의 HIRE_DATE가 MANAGER의 HIRE_DATE보다 작은 사원을 조회하시오. (MANAGER보다 먼저 입사한 사원)
 
+-- 비교 대상
+-- 1) 모든 사원 정보 : EMPLOYEES E
+-- 2) MANAGER의 정보 : EMPLOYEES M
+
+-- 관계
+-- PK            FK
+-- EMPLOYEE_ID   MANAGER_ID
+
+-- 조인조건
+-- 사원들의 매니저번호 = 매니저의 사원번호
+-- E.MANAGER_ID = M.EMPLOYEE_ID
+
+SELECT
+       E.EMPLOYEE_ID  -- 사원번호
+     , E.LAST_NAME    -- 사원이름
+     , E.HIRE_DATE    -- 사원입사일
+     , M.LAST_NAME    -- 상사이름
+     , M.HIRE_DATE    -- 상사입사일
+  FROM
+       EMPLOYEES E INNER JOIN EMPLOYEES M
+    ON
+       E.MANAGER_ID = M.EMPLOYEE_ID
+ WHERE
+       TO_DATE(E.HIRE_DATE) < TO_DATE(M.HIRE_DATE);
+
 
 -- 10. 같은 부서의 사원들 중에서 나보다 늦게 입사하였으나 연봉을 더 많이 받는 사원이 있는 사원들의
 --     DEPARTMENT_ID, LAST_NAME, SALARY, HIRE_DATE와 높은 연봉을 받는 사원의 LAST_NAME, SALARY, HIRE_DATE를 조회하시오.
