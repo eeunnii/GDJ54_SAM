@@ -96,12 +96,20 @@ SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
                     WHERE EMP_NO = 1001);  -- EMP_NO는 PK이므로 단일 행 서브쿼리
 
 
+-- 2. 급여(SALARY)가 가장 높은 사원 조회하기
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY = (SELECT MAX(SALARY)
+                   FROM EMPLOYEE);  -- 서브쿼리가 함수이므로 단일 행 서브쿼리
 
 
+-- 3. 부서번호가 1인 부서와 같은 지역에 있는 부서 정보를 조회하기
 
+-- 4. 평균급여 이상을 받는 사원 조회하기
 
+-- 5. 평균근속기간 이상을 근무한 사원 조회하기
 
-
+-- 6. 부서번호가 2인 부서에 근무하는 사원들의 직급과 일치하는 직급을 가진 사원 조회하기
 
 
 
