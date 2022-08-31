@@ -145,6 +145,12 @@ SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
 -- TIP) 단일 행/다중 행 상관 없이 동등 비교는 IN 연산으로 수행 가능
 
 
+-- 7. 부서명이 '영업부'인 부서에 근무하는 사원 조회하기
+
+
+-- 8. 직급이 '과장'인 사원들이 근무하는 부서 조회하기
+
+
 
 
 
