@@ -98,6 +98,22 @@ SELECT E.EMPLOYEE_ID, E.LAST_NAME, D.DEPARTMENT_NAME, L.CITY, C.COUNTRY_NAME
 --    부서번호(DEPARTMENT_ID)가 없는 사원도 조회하고, EMPLOYEE_ID순으로 오름차순 정렬하시오.
 --    부서번호(DEPARTMENT_ID)가 없는 사원의 부서명(DEPARTMENT_NAME)은 'None'으로 조회하시오.
 
+-- 부서                -  사원
+-- 일치하는정보포함(+)    모든정보포함
+
+-- 오른쪽에 있는 사원 테이블의 모든 정보 포함을 위하여 오른쪽 외부 조인
+
+SELECT E.EMPLOYEE_ID, E.LAST_NAME, NVL(D.DEPARTMENT_NAME, 'None')
+  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
+    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+ ORDER BY E.EMPLOYEE_ID;
+
+SELECT E.EMPLOYEE_ID, E.LAST_NAME, NVL(D.DEPARTMENT_NAME, 'None')
+  FROM DEPARTMENTS D, EMPLOYEES E
+ WHERE D.DEPARTMENT_ID(+) = E.DEPARTMENT_ID
+ ORDER BY E.EMPLOYEE_ID;
+
+
 
 -- 8. 부서별 근무하는 사원수를 조회하시오.
 --    단, 근무하는 사원이 없으면 0으로 조회하시오.
