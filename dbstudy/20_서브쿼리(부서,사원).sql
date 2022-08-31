@@ -88,6 +88,8 @@ COMMIT;
             (3) 다중 행 연산자를 사용(IN, ANY, ALL 등)
 */
 
+/* WHERE절의 서브쿼리 */
+
 -- 1. 사원번호가 1001인 사원과 같은 직급(POSITION)을 가진 사원 조회하기
 SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
   FROM EMPLOYEE
@@ -146,13 +148,64 @@ SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
 
 
 -- 7. 부서명이 '영업부'인 부서에 근무하는 사원 조회하기
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE DEPART IN(SELECT DEPT_NO
+                   FROM DEPARTMENT
+                  WHERE DEPT_NAME = '영업부');  -- DEPT_NAME가 PK/UNIQUE가 아니기 때문에 다중 행 서브쿼리
+
+SELECT E.EMP_NO, E.NAME, E.DEPART, E.GENDER, E.POSITION, E.HIRE_DATE, E.SALARY
+  FROM DEPARTMENT D INNER JOIN EMPLOYEE E
+    ON D.DEPT_NO = E.DEPART
+ WHERE D.DEPT_NAME = '영업부';
 
 
 -- 8. 직급이 '과장'인 사원들이 근무하는 부서 조회하기
+SELECT DEPT_NO, DEPT_NAME, LOCATION
+  FROM DEPARTMENT
+ WHERE DEPT_NO IN(SELECT DEPART
+                    FROM EMPLOYEE
+                   WHERE POSITION = '과장');  -- POSITION이 PK/UNIQUE가 아니기 때문에 다중 행 서브쿼리
+
+SELECT D.DEPT_NO, D.DEPT_NAME, D.LOCATION
+  FROM DEPARTMENT D INNER JOIN EMPLOYEE E
+    ON D.DEPT_NO = E.DEPART
+ WHERE E.POSITION = '과장';
 
 
+-- 9. 부서번호가 1인 부서에 근무하는 사원들의 급여보다 더 많은 받는 급여를 받는 사원 조회하기
+-- 어떤 급여(2000000, 5000000)이든 하나의 급여보다 많이 받으면 조회하기
 
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY > ANY(SELECT SALARY
+                      FROM EMPLOYEE
+                     WHERE DEPART = 1);  -- DEPART가 PK/UNIQUE가 아니기 때문에 다중 행 서브쿼리
 
+-- WHERE SALARY > ANY(2000000, 5000000)
+-- SALARY가 2000000보다 크거나, 5000000보다 크면 됨(OR 개념)
+-- 따라서 최소급여 2000000보다 크면 만족하는 상황임
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY > (SELECT MIN(SALARY)
+                   FROM EMPLOYEE
+                  WHERE DEPART = 1);  -- 서브쿼리가 함수이므로 단일 행 서브쿼리
 
+-- 10. 부서번호가 1인 부서에 근무하는 사원들의 급여보다 더 많은 받는 급여를 받는 사원 조회하기
+-- 모든 급여(2000000, 5000000)와 비교해서 많이 받으면 조회하기
 
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY > ALL(SELECT SALARY
+                      FROM EMPLOYEE
+                     WHERE DEPART = 1);  -- DEPART가 PK/UNIQUE가 아니기 때문에 다중 행 서브쿼리
+
+-- WHERE SALARY > ALL(2000000, 5000000)
+-- SALARY가 2000000보다 크고, 5000000보다 크면 됨(AND 개념)
+-- 따라서 최대급여 5000000보다 크면 만족하는 상황임
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY > (SELECT MAX(SALARY)
+                   FROM EMPLOYEE
+                  WHERE DEPART = 1);  -- 서브쿼리가 함수이므로 단일 행 서브쿼리
 
