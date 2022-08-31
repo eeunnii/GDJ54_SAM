@@ -104,12 +104,49 @@ SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
 
 
 -- 3. 부서번호가 1인 부서와 같은 지역에 있는 부서 정보를 조회하기
+SELECT DEPT_NO, DEPT_NAME, LOCATION
+  FROM DEPARTMENT
+ WHERE LOCATION = (SELECT LOCATION
+                     FROM DEPARTMENT
+                    WHERE DEPT_NO = 1);  -- DEPT_NO는 PK이므로 단일 행 서브쿼리
+                    
 
 -- 4. 평균급여 이상을 받는 사원 조회하기
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY >= (SELECT AVG(SALARY)
+                    FROM EMPLOYEE);  -- 서브쿼리가 함수이므로 단일 행 서브쿼리
+
 
 -- 5. 평균근속기간 이상을 근무한 사원 조회하기
 
+-- 근속기간 구하기
+-- 1) 일수 계산 : SYSDATE - HIRE_DATE
+-- 2) 개월 계산 : MONTHS_BETWEEN(SYSDATE, HIRE_DATE)
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE (SYSDATE - HIRE_DATE) >= (SELECT AVG(SYSDATE - HIRE_DATE)
+                                   FROM EMPLOYEE);
+
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE MONTHS_BETWEEN(SYSDATE, HIRE_DATE) >= (SELECT AVG(MONTHS_BETWEEN(SYSDATE, HIRE_DATE))
+                                                FROM EMPLOYEE);
+
+
 -- 6. 부서번호가 2인 부서에 근무하는 사원들의 직급과 일치하는 직급을 가진 사원 조회하기
+SELECT EMP_NO, NAME, DEPART, GENDER, POSITION, HIRE_DATE, SALARY
+  FROM EMPLOYEE
+ WHERE POSITION IN(SELECT POSITION      -- 다중 행 서브쿼리의 동등 비교는 IN 연산으로 수행해야 함
+                     FROM EMPLOYEE
+                    WHERE DEPART = 2);  -- DEPART가 PK/UNIQUE가 아니기 때문에 다중 행 서브쿼리
+
+
+-- TIP) 단일 행/다중 행 상관 없이 동등 비교는 IN 연산으로 수행 가능
+
+
+
+
 
 
 
