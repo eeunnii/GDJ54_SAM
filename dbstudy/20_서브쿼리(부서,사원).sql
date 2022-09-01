@@ -320,7 +320,7 @@ SELECT A.EMP_NO, A.NAME
  WHERE A.ROW_NUM = 2;
 
 
--- 1. 연봉 기준으로 가장 높은 연봉을 받는 사원 조회하기
+-- 1. 가장 높은 연봉을 받는 사원 조회하기
 
 -- 1) WHERE절의 서브쿼리 이용
 SELECT EMP_NO, NAME, SALARY
@@ -334,7 +334,48 @@ SELECT EMP_NO, NAME, SALARY
 SELECT ROWNUM, A.EMP_NO, A.NAME, A.SALARY
   FROM (SELECT EMP_NO, NAME, SALARY
           FROM EMPLOYEE
-         ORDER BY SALARY DESC) A;
+         ORDER BY SALARY DESC) A
+ WHERE ROWNUM = 1;
+
+
+-- 2. 2번째로 높은 연봉을 받는 사원 조회하기
+
+-- 1) ROWNUM 칼럼
+-- 인라인뷰 A : 연봉으로 정렬한 테이블
+-- 인라인뷰 B : 정렬이 끝난 테이블에 행 번호를 추가한 테이블
+SELECT B.ROW_NUM, B.EMP_NO, B.NAME, B.SALARY
+  FROM (SELECT ROWNUM AS ROW_NUM, A.EMP_NO, A.NAME, A.SALARY
+          FROM (SELECT EMP_NO, NAME, SALARY
+                  FROM EMPLOYEE
+                 ORDER BY SALARY DESC) A) B
+ WHERE B.ROW_NUM BETWEEN 2 AND 2;
+
+
+-- 2) ROW_NUMBER() 함수
+--    정렬과 행 번호 추가를 동시에 진행하는 함수
+SELECT A.EMP_NO, A.NAME, A.SALARY
+  FROM (SELECT ROW_NUMBER() OVER(ORDER BY SALARY DESC) AS ROW_NUM, EMP_NO, NAME, SALARY
+          FROM EMPLOYEE) A
+ WHERE A.ROW_NUM BETWEEN 2 AND 2;
+
+
+-- 3) RANK() 함수
+--    정렬 후 순위 매기는 함수
+--    목록 가져오기에서는 부적절(동점자 처리 때문에 가져오는 목록의 수가 매번 달라질 수 있음)
+SELECT A.EMP_NO, A.NAME, A.SALARY
+  FROM (SELECT RANK() OVER(ORDER BY SALARY DESC) AS 순위, EMP_NO, NAME, SALARY
+          FROM EMPLOYEE) A
+ WHERE A.순위 BETWEEN 2 AND 2;
+
+
+-- 3. 3 ~ 4번째로 입사한 사원 조회하기
+
+
+
+
+
+
+
 
 
 
