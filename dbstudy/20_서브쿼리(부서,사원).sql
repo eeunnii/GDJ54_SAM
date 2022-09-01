@@ -271,9 +271,70 @@ SELECT A.EMP_NO, A.NAME, A.POSITION  -- 인라인뷰가 조회한 칼럼만 작�
          WHERE DEPART = 1) A;        -- 인라인뷰의 별명은 A임
 
 
+/*
+    가상 칼럼
+    
+    1. PSEUDO COLUMN
+    2. 존재하지만 저장되어 있지 않은 칼럼
+    3. 사용할 수 있으나 일부 제약이 있음
+    4. 종류
+        1) ROWID  : 행(ROW)의 ID, 어떤 행의 물리적 저장 위치
+        2) ROWNUM : 행(ROW)의 NUMBER, 어떤 행의 번호
+*/
 
 
+-- ROWID
+SELECT ROWID, EMP_NO, NAME
+  FROM EMPLOYEE;
 
+-- 현존하는 가장 빠른 조회 방식
+-- ROWID를 직접 사용하는 것은 어렵기 때문에 대신 인덱스(INDEX)를 사용
+SELECT EMP_NO, NAME
+  FROM EMPLOYEE
+ WHERE ROWID = 'AAAE6DAABAAALCxAAC';
+
+
+-- ROWNUM
+SELECT ROWNUM, EMP_NO, NAME
+  FROM EMPLOYEE;
+
+-- ROWNUM 사용 방법
+-- 1. ROWNUM은 1을 포함하는 범위는 조건으로 사용할 수 있음
+-- 2. ROWNUM은 1을 포함하지 않는 범위는 조건으로 사용할 수 없음
+SELECT EMP_NO, NAME
+  FROM EMPLOYEE
+ WHERE ROWNUM = 1;  -- 조회가능
+
+SELECT EMP_NO, NAME
+  FROM EMPLOYEE
+ WHERE ROWNUM = 2;  -- 조회불가능
+
+-- ROWNUM을 1 이외의 범위를 조건으로 사용하는 방법
+-- ROWNUM에 별명을 지정하고 해당 별명을 사용하면 됨
+-- 3 : SELECT 
+-- 1 :   FROM (ROWNUM의 별명 지정하기)
+-- 2 :  WHERE (ROWNUM의 별명 사용하기)
+SELECT A.EMP_NO, A.NAME
+  FROM (SELECT ROWNUM AS ROW_NUM, EMP_NO, NAME
+          FROM EMPLOYEE) A
+ WHERE A.ROW_NUM = 2;
+
+
+-- 1. 연봉 기준으로 가장 높은 연봉을 받는 사원 조회하기
+
+-- 1) WHERE절의 서브쿼리 이용
+SELECT EMP_NO, NAME, SALARY
+  FROM EMPLOYEE
+ WHERE SALARY = (SELECT MAX(SALARY)
+                   FROM EMPLOYEE);
+
+-- 2) 정렬과 ROWNUM 이용
+--     (1) 연봉의 내림차순 정렬을 수행(가장 높은 연봉이 1번째 행이 됨)
+--     (2) 정렬 결과에서 ROWNUM = 1인 행을 조회
+SELECT ROWNUM, A.EMP_NO, A.NAME, A.SALARY
+  FROM (SELECT EMP_NO, NAME, SALARY
+          FROM EMPLOYEE
+         ORDER BY SALARY DESC) A;
 
 
 
