@@ -433,3 +433,30 @@ BEGIN
     END LOOP;
 
 END;
+
+
+-- 12. 예외처리
+/*
+    EXCEPTION
+        WHEN 예외 THEN
+            예외처리
+        WHEN 예외 THEN
+            예외처리
+        WHEN OTHERS THEN
+            예외처리
+*/
+DECLARE
+    FNAME EMPLOYEES.FIRST_NAME%TYPE;
+BEGIN
+    SELECT FIRST_NAME
+      INTO FNAME
+      FROM EMPLOYEES
+     -- WHERE EMPLOYEE_ID = 0;  -- 존재하지 않는 사원 조회
+     WHERE DEPARTMENT_ID = 50;  -- 변수에 저장할 데이터가 너무 많음
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('조회된 데이터가 없음');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('예외코드 ' || SQLCODE);
+        DBMS_OUTPUT.PUT_LINE('예외메시지 ' || SQLERRM);
+END;
