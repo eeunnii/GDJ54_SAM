@@ -28,3 +28,28 @@ END PROC1;
     
 -- 프로시저 PROC1 호출(실행)
 EXECUTE PROC1();
+
+
+
+-- 프로시저 PROC2 정의
+-- 사원번호=100인 사원의 FIRST_NAME 서버메시지로 출력하기
+CREATE OR REPLACE PROCEDURE PROC2
+IS
+    FNAME EMPLOYEES.FIRST_NAME%TYPE;  -- 변수
+BEGIN
+    SELECT FIRST_NAME  -- FIRST_NAME 칼럼 값을
+      INTO FNAME       -- FNAME 변수에 저장
+      FROM EMPLOYEES
+     WHERE EMPLOYEE_ID = 100;
+    DBMS_OUTPUT.PUT_LINE(FNAME);
+END PROC2;
+
+-- 프로시저 PROC2 호출
+EXECUTE PROC2();
+
+
+
+
+
+
+
