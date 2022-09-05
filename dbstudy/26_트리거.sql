@@ -7,7 +7,7 @@
     4. 기본적으로 작업이 수행되는 행(ROW) 단위로 트리거가 적용됨
     5. 형식
         CREATE [OR REPLACE] TRIGGER 트리거_이름
-        [ALTER | BEFORE]
+        [AFTER | BEFORE]
         [INSERT OR UPDATE OR DELETE]
         [ON 테이블_이름]
         [FOR EACH ROW]
@@ -83,6 +83,33 @@ UPDATE EMPLOYEE SET NAME = '팔창민' WHERE EMP_NO = 1001;
 DELETE FROM EMPLOYEE WHERE EMP_NO = 1001;
 
 ROLLBACK;
+
+
+
+-- 트리거 최종 실습
+
+-- 목표 : 사원(EMPLOYEES) 테이블에서 삭제된 사원정보를 퇴사자(RETIRES) 테이블에 삽입하기
+
+-- 1) 퇴사자 테이블 만들기(EMPLOYEES 테이블과 동일한 구조, 데이터 없이 복사)
+DROP TABLE RETIRES;
+CREATE TABLE RETIRES
+    AS (SELECT * FROM EMPLOYEES WHERE 1 = 2);
+
+-- 2) RETIRE_ID, RETIRE_DATE 칼럼 추가하기
+ALTER TABLE RETIRES ADD RETIRE_ID NUMBER NOT NULL;
+ALTER TABLE RETIRES ADD RETIRE_DATE DATE;
+
+-- 3) RETIRE_ID 기본키 설정하기
+ALTER TABLE RETIRES ADD CONSTRAINT PK_RETIRES PRIMARY KEY(RETIRE_ID);
+
+-- 4) RETIRE_SEQ 시퀀스 생성하기
+DROP SEQUENCE RETIRE_SEQ;
+CREATE SEQUENCE RETIRE_SEQ NOCACHE;
+
+-- 5) RETIRE_TRIG 트리거 생성하기
+
+-- 6) EMPLOYEES 테이블의 데이터 DELETE 수행하기(RETIRE_TRIG 동작 확인)
+
 
 
 
