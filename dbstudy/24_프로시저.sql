@@ -151,7 +151,70 @@ END;
 
 
 
+-- 최종 실습 환경
 
+DROP TABLE BUY;
+DROP TABLE CUSTOMER;
+DROP TABLE PRODUCT;
+
+-- 제품 테이블
+CREATE TABLE PRODUCT(
+    PROD_CODE  NUMBER             NOT NULL,  -- 제품코드
+    PROD_NAME  VARCHAR2(10 BYTE),            -- 제품명
+    PROD_PRICE NUMBER,                       -- 제품가격
+    PROD_STOCK NUMBER                        -- 재고
+);
+-- 제품 기본키
+ALTER TABLE PRODUCT
+    ADD CONSTRAINT PK_PRODUCT PRIMARY KEY(PROD_CODE);
+-- 제품 입력
+INSERT INTO PRODUCT VALUES(1000, '진라면', 500, 100);
+INSERT INTO PRODUCT VALUES(1001, '신라면', 600, 100);
+COMMIT;
+
+
+-- 고객 테이블
+CREATE TABLE CUSTOMER(
+    CUST_NO    NUMBER             NOT NULL,   -- 고객번호
+    CUST_NAME  VARCHAR2(10 BYTE),             -- 고객명
+    CUST_POINT NUMBER                         -- 고객포인트
+);
+-- 고객 기본키
+ALTER TABLE CUSTOMER
+    ADD CONSTRAINT PK_CUSTOMER PRIMARY KEY(CUST_NO);
+-- 고객 입력
+INSERT INTO CUSTOMER VALUES(1, '철수', 0);
+INSERT INTO CUSTOMER VALUES(2, '영희', 0);
+COMMIT;
+
+-- 구매 테이블
+CREATE TABLE BUY(
+    BUY_NO     NUMBER NOT NULL,  -- 구매번호
+    CUST_NO    NUMBER NOT NULL,  -- 고객번호(FK)
+    PROD_CODE  NUMBER NOT NULL,  -- 제품코드(FK)
+    BUY_AMOUNT NUMBER            -- 구매수량
+);
+ALTER TABLE BUY
+    ADD CONSTRAINT PK_BUY PRIMARY KEY(BUY_NO);
+ALTER TABLE BUY
+    ADD CONSTRAINT FK_BUY_CUSTOMER FOREIGN KEY(CUST_NO)
+        REFERENCES CUSTOMER(CUST_NO);
+ALTER TABLE BUY
+    ADD CONSTRAINT FK_BUY_PRODUCT FOREIGN KEY(PROD_CODE)
+        REFERENCES PRODUCT(PROD_CODE);
+
+-- 구매 테이블 시퀀스
+DROP SEQUENCE BUY_SEQ;
+CREATE SEQUENCE BUY_SEQ NOCACHE;
+
+
+
+-- 구매 프로시저
+-- 1. BUY_PROC(고객번호, 제품코드, 구매수량)
+-- 2. 진행해야 할 쿼리
+--    1) 구매 테이블에 구매 내역을 INSERT 한다.
+--    2) 고객 테이블의 고객포인트를 UPDATE 한다. (총 구매액의 10% 적립)
+--    3) 제품 테이블의 재고를 UPDATE 한다.
 
 
 
