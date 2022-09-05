@@ -100,7 +100,32 @@ END;
 
 
 
--- 연습1. 입력 파라미터에 사원번호 전달, 출력 파라미터에 FIRST_NAME 반환받기
+-- 프로시저 PROC5 정의
+-- 사원번호가 있으면 FIRST_NAME을 출력 파라미터로 전달, 없으면 'NoName'을 출력 파라미터로 전달
+CREATE OR REPLACE PROCEDURE PROC5(FNAME OUT EMPLOYEES.FIRST_NAME%TYPE)
+IS
+BEGIN
+    SELECT FIRST_NAME
+      INTO FNAME
+      FROM EMPLOYEES
+     WHERE EMPLOYEE_ID = 500;
+EXCEPTION
+    WHEN OTHERS THEN  -- 모든 예외를 처리함( WHEN NO_DATA_FOUND THEN 가능 )
+        FNAME := 'NoName';
+END PROC5;
+
+-- 프로시저 PROC5 호출
+DECLARE
+    FNAME EMPLOYEES.FIRST_NAME%TYPE;
+BEGIN
+    PROC5(FNAME);
+    DBMS_OUTPUT.PUT_LINE(FNAME);
+END;
+
+
+
+-- 연습1. 입력 파라미터에 사원번호 전달, 출력 파라미터에 FIRST_NAME 반환하기
+-- 존재하지 않는 사원번호는 출력 파라미터에 'NoName' 반환하기
 -- 프로시저 PROC6 정의
 CREATE OR REPLACE PROCEDURE PROC6(EMP_ID IN EMPLOYEES.EMPLOYEE_ID%TYPE, FNAME OUT EMPLOYEES.FIRST_NAME%TYPE)
 IS
