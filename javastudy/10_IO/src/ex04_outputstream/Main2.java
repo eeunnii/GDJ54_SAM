@@ -18,32 +18,18 @@ public class Main2 {
 		FileOutputStream fos = null;
 		
 		try {
-			
-			// C:\\storage\\b1.bin 파일과 연결되는 바이트 출력 스트림 생성
-			fos = new FileOutputStream(file);
-			
-			// 출력할 데이터 단위
-			// 1. 1개 : int
-			// 2. 여러 개 : byte[]
-			
-			// 출력할 데이터
-			int c = 'A';
-			String str = "pple Mango";
-			byte[] b = str.getBytes(StandardCharsets.UTF_8);  // str.getBytes("UTF-8")
-			
-			// 출력
-			fos.write(c);
-			fos.write(b);
-			
+		    fos = new FileOutputStream("C:\\storage\\sample.bin");
+		    BufferedOutputStream bos = new BufferedOutputStream(fos);
+		    int a = '안';  // int 단위로 출력 가능
+		    String str = "녕하세요";
+		    byte[] b = str.getBytes();  // 바이트 배열 단위로 출력 가능
+		    bos.write(a);
+		    bos.write(b);
+		    bos.close();
 		} catch(IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(fos != null) fos.close();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
+		    e.printStackTrace();
 		}
+
 		
 	}
 	
