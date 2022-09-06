@@ -1,0 +1,6 @@
+JDBC
+
+1. Java DataBase Connection
+2. 사용할 클래스
+    1) OracleDriver : 오라클(DB벤더)에서 제공 - ojdbc6.jar
+        C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
