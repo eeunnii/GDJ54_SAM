@@ -18,7 +18,7 @@
 --    (1) ORDER_ID : 주문 아이디, 숫자 (최대 11자리), 필수
 --    (2) CUSTOMER_ID : 고객 아이디, 숫자 (최대 11자리)
 --    (3) BOOK_ID : 책 아이디, 숫자 (최대 11자리)
---    (4) SALES_PRICE : 판매 가격, 숫자 (최대 6자리)
+--    (4) AMOUNT : 판매수량, 숫자 (최대 2자리)
 --    (5) ORDER_DATE : 주문일, 날짜
 
 
@@ -45,16 +45,16 @@ INSERT ALL
 SELECT * FROM DUAL;
 
 INSERT ALL 
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (1, 1, 1, 6000, '2014-07-01')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (2, 1, 3, 21000, '2014-07-03')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (3, 2, 5, 8000, '2014-07-03')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (4, 3, 6, 6000, '2014-07-04')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (5, 4, 7, 20000, '2014-07-05')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (6, 1, 2, 12000, '2014-07-07')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (7, 4, 8, 13000, '2014-07-07')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (8, 3, 10, 12000, '2014-07-08')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (9, 2, 10, 7000, '2014-07-09')
-    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, SALES_PRICE, ORDER_DATE) VALUES (10, 3, 8, 13000, '2014-07-10')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (1, 1, 1, 1, '2014-07-01')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (2, 1, 3, 2, '2014-07-03')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (3, 2, 5, 1, '2014-07-03')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (4, 3, 6, 2, '2014-07-04')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (5, 4, 7, 3, '2014-07-05')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (6, 1, 2, 5, '2014-07-07')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (7, 4, 8, 2, '2014-07-07')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (8, 3, 10, 2, '2014-07-08')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (9, 2, 10, 1, '2014-07-09')
+    INTO ORDERS(ORDER_ID, CUSTOMER_ID, BOOK_ID, AMOUNT, ORDER_DATE) VALUES (10, 3, 6, 4, '2014-07-10')
 SELECT * FROM DUAL;
 
 COMMIT;
@@ -70,30 +70,37 @@ COMMIT;
 
 -- 4. 2014년 7월 4일부터 7월 7일 사이에 주문 받은 도서를 제외하고 나머지 모든 주문 정보를 조회하시오.
 --    조회할 데이터 : 주문번호, 주문자명, 책이름, 판매가격, 주문일자
+-- 구매번호 구매자  책이름           판매가격 주문일자
+-- 1        박지성  축구의 역사      7000     14/07/01
+-- 2        박지성  축구의 이해      44000    14/07/03
+-- 3        김연아  피겨 교본        6000     14/07/03
+-- 10       장미란  역도 단계별 기술 24000    14/07/10
+-- 9        김연아  올림픽 챔피언    13000    14/07/09
+-- 8        장미란  올림픽 챔피언    26000    14/07/08
 
 
--- 5. 모든 구매 고객의 이름과 총구매액(SALES_PRICE)을 조회하시오.
+-- 5. 모든 구매 고객의 이름과 총구매액(PRICE * AMOUNT)을 조회하시오.
 -- 구매 이력이 있는 고객만 조회하시오.
 -- 고객명  총구매액
--- 박지성  39000
--- 김연아  15000
--- 장미란  31000
--- 추신수  33000
+-- 박지성  116000
+-- 추신수  86000
+-- 장미란  62000
+-- 김연아  19000
 
  
--- 6. 모든 구매 고객의 이름과 총구매액(SALES_PRICE)과 구매횟수를 조회하시오.
+-- 6. 모든 구매 고객의 이름과 총구매액(PRICE * AMOUNT)과 구매횟수를 조회하시오.
 -- 구매 이력이 없는 고객은 총구매액과 구매횟수를 0으로 조회하시오.
 -- 고객번호순으로 오름차순 정렬하여 조회하시오.
 -- 고객명  총구매액  구매횟수
--- 박지성  39000     3
--- 김연아  15000     2
--- 장미란  31000     3
--- 추신수  33000     2
--- 박세리  0         0
+-- 박지성  116000     3
+-- 김연아  19000      2
+-- 장미란  62000      3
+-- 추신수  86000      2
+-- 박세리  0          0
 
 
 -- 7. '김연아'가 구매한 도서개수를 조회하시오.
--- 고객명  구매한도서수
+-- 고객명  구매도서수
 -- 김연아  2
 
 
@@ -105,3 +112,22 @@ COMMIT;
 -- 9. 주문한 이력이 없는 고객의 이름을 조회하시오.
 -- 고객명
 -- 박세리
+
+
+-- 10. 가장 최근에 구매한 고객의 이름과 구매내역(책이름, 주문일자)을 조회하시오.
+-- 고객명  책이름            주문일자
+-- 장미란  역도 단계별 기술  14/07/10
+
+
+-- 11. 현존하는 모든 서적 중에서 가장 비싼 서적을 구매한 고객의 이름과 구매내역(책이름, 가격)을 조회하시오.
+-- 구매한 고객이 없다면 고객 이름은 NULL로 처리하시오.
+-- 고객명  책이름       책가격
+-- NULL    골프 바이블  35000
+
+
+-- 12. 총구매액이 2~3위인 고객의 이름와 총구매액을 조회하시오.
+-- ROWNUM PSEUDO-COLUMN을 이용하시오.
+-- 고객명  총구매액
+-- 추신수  86000
+-- 장미란  62000
+
