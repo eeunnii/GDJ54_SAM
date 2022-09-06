@@ -5,9 +5,9 @@ JDBC
 
     - 오라클(DB벤더)에서 제공 - ojdbc6.jar
     1) OracleDriver
-        ojdbc6.jar 경로 - C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
-        클래스 - oracle.jdbc.OracleDriver
-        프로젝트의 Build Path - class path에 ojdbc6.jar 라이브러리를 등록해야 함
+        (1) ojdbc6.jar 경로 - C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+        (2) 클래스명 - oracle.jdbc.OracleDriver
+        (3) 프로젝트의 Build Path - Classpath에 ojdbc6.jar 라이브러리를 등록해야 함
 
     - 이후 클래스는 모두 자바에서 제공
     - 공통 패키지 : java.sql 패키지
