@@ -19,7 +19,7 @@ public class DeleteMain {
 			// 삭제할 게시글 번호 입력 받기
 			System.out.print("삭제할 게시글 번호 >>> ");
 			int board_no = sc.nextInt();
-			sc.nextLine();
+			sc.nextLine();  // 엔터 먹기
 			
 			// Connection 생성
 			Class.forName("oracle.jdbc.OracleDriver");

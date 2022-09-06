@@ -21,7 +21,7 @@ public class UpdateMain {
 			// UPDATE할 게시글의 번호 입력 받기
 			System.out.print("수정할 게시글 번호 >>> ");
 			int board_no = sc.nextInt();
-			sc.nextLine();
+			sc.nextLine();  // 엔터 먹기
 			
 			// UPDATE할 게시글의 내용(CONTENT) 입력 받기
 			System.out.print("수정할 게시글 내용 >>> ");
