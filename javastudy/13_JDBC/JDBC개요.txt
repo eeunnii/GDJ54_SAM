@@ -40,16 +40,3 @@ PreparedStatement의 로그인 상황
 - INSERT, UPDATE, DELETE
   1. JDBC 코드가 동일하다. (실행이 executeUpdate() 메소드)
   2. JDBC는 동작 기본값이 Auto Commit이기 때문에 코드로 commit을 할 필요가 없다.
-
-
-
-
-
-
-
-
-
-
-
-
-
