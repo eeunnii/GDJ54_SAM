@@ -3,7 +3,8 @@ JDBC
 1. Java DataBase Connection
 2. 사용할 클래스/인터페이스
 
-    1) OracleDriver : 오라클(DB벤더)에서 제공 - ojdbc6.jar
+    - 오라클(DB벤더)에서 제공 - ojdbc6.jar
+    1) OracleDriver
         ojdbc6.jar 경로 - C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
         클래스 - oracle.jdbc.OracleDriver
         프로젝트의 Build Path - class path에 ojdbc6.jar 라이브러리를 등록해야 함
