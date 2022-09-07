@@ -122,7 +122,7 @@ SELECT O.ORDER_ID AS 구매번호
     ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
     ON B.BOOK_ID = O.BOOK_ID
  WHERE O.ORDER_DATE NOT BETWEEN '14/07/04' AND '14/07/07';
- 
+
 -- WHERE TO_DATE(O.ORDER_DATE) NOT BETWEEN TO_DATE('14/07/04', 'YY/MM/DD') AND TO_DATE('14/07/07', 'YY/MM/DD')
 
 -- ORACLE
@@ -152,7 +152,7 @@ SELECT C.CUSTOMER_NAME AS 고객명
     ON B.BOOK_ID = O.BOOK_ID
  GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME;
 
- 
+
 -- 6. 모든 구매 고객의 이름과 총구매액(PRICE * AMOUNT)과 구매횟수를 조회하시오.
 -- 구매 이력이 없는 고객은 총구매액과 구매횟수를 0으로 조회하시오. (고객은 모두 조회, 주문내역은 있는 자료만 조회 = 왼쪽 외부 조인)
 -- 고객번호순으로 오름차순 정렬하여 조회하시오.
@@ -176,27 +176,68 @@ SELECT C.CUSTOMER_NAME AS 고객명
 -- 7. '김연아'가 구매한 도서개수를 조회하시오.
 -- 고객명  구매도서수
 -- 김연아  2
+SELECT C.CUSTOMER_NAME AS 고객명
+     , COUNT(*) AS 구매도서수
+  FROM CUSTOMER C INNER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID
+ WHERE C.CUSTOMER_NAME = '김연아'
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME;
 
 
 -- 8. '박지성'이 구매한 도서를 발간한 출판사(PUBLISHER) 개수를 조회하시오.
 -- 고객명  출판사수
 -- 박지성  3
 
+SELECT C.CUSTOMER_NAME AS 고객명
+     , COUNT(DISTINCT B.PUBLISHER) AS 출판사수
+  FROM CUSTOMER C INNER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+    ON B.BOOK_ID = O.BOOK_ID
+ WHERE C.CUSTOMER_NAME = '박지성'
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME;
+ 
 
 -- 9. 주문한 이력이 없는 고객의 이름을 조회하시오.
 -- 고객명
 -- 박세리
+SELECT C.CUSTOMER_NAME AS 고객명
+  FROM CUSTOMER C LEFT OUTER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME
+HAVING COUNT(O.ORDER_ID) = 0;
+
+SELECT C.CUSTOMER_NAME AS 고객명
+  FROM CUSTOMER C LEFT OUTER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID
+ WHERE O.ORDER_ID IS NULL
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME;
 
 
 -- 10. 가장 최근에 구매한 고객의 이름과 구매내역(책이름, 주문일자)을 조회하시오.
 -- 고객명  책이름            주문일자
 -- 장미란  역도 단계별 기술  14/07/10
+SELECT C.CUSTOMER_NAME AS 고객명
+     , B.BOOK_NAME AS 책이름
+     , O.ORDER_DATE AS 주문일자
+  FROM CUSTOMER C INNER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+    ON B.BOOK_ID = O.BOOK_ID
+ WHERE O.ORDER_DATE = (SELECT MAX(ORDER_DATE)
+                         FROM ORDERS);
 
 
 -- 11. 현존하는 모든 서적 중에서 가장 비싼 서적을 구매한 고객의 이름과 구매내역(책이름, 가격)을 조회하시오.
--- 구매한 고객이 없다면 고객 이름은 NULL로 처리하시오.
+-- 구매한 고객이 없다면 고객 이름은 NULL로 처리하시오.(책 LEFT OUTER JOIN 주문 ...)
 -- 고객명  책이름       책가격
 -- NULL    골프 바이블  35000
+SELECT C.CUSTOMER_NAME AS 고객명
+     , B.BOOK_NAME AS 책이름
+     , B.PRICE AS 책가격
+  FROM BOOK B LEFT OUTER JOIN ORDERS O
+    ON B.BOOK_ID = O.BOOK_ID LEFT OUTER JOIN CUSTOMER C
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID
+ WHERE B.PRICE = (SELECT MAX(PRICE)
+                    FROM BOOK);
 
 
 -- 12. 총구매액이 2~3위인 고객의 이름와 총구매액을 조회하시오.
@@ -204,4 +245,15 @@ SELECT C.CUSTOMER_NAME AS 고객명
 -- 고객명  총구매액
 -- 추신수  86000
 -- 장미란  62000
-
+SELECT B.고객명
+     , B.총구매액
+  FROM (SELECT ROWNUM AS ROW_NUM
+             , A.고객명
+             , A.총구매액
+          FROM (SELECT C.CUSTOMER_NAME AS 고객명
+                     , SUM(B.PRICE * O.AMOUNT) AS 총구매액
+                  FROM CUSTOMER C INNER JOIN ORDERS O
+                    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+                    ON B.BOOK_ID = O.BOOK_ID
+                 GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME) A) B
+ WHERE B.ROW_NUM BETWEEN 2 AND 3;
