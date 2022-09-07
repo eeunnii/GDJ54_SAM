@@ -98,10 +98,37 @@ SET SERVEROUTPUT ON;
 --    1) 학생의 아이디(USERID)를 전달하면 해당 아이디를 가진 학생의 학번(STUDNO)을 반환하는 GET_STUDENT() 사용자 함수를 작성하시오. (8점)
 --    2) 아이디가 'jun123'인 학생의 학번을 조회하는 쿼리문을 작성하시오. (2점)
 -- 결과 이미지는 웹 화면을 참고하시오.
+-- 학번
+-- 10101
+
+-- 1)
+CREATE OR REPLACE FUNCTION GET_STUDENT(UID STUDENT.USERID%TYPE)
+RETURN NUMBER
+IS
+    SNO STUDENT.STUDNO%TYPE;
+BEGIN
+    SELECT STUDNO
+      INTO SNO
+      FROM STUDENT
+     WHERE USERID = UID;
+    RETURN SNO;
+END GET_STUDENT;
+
+-- 2)
+SELECT DISTINCT GET_STUDENT('jun123') AS 학번
+  FROM STUDENT;
 
 
 -- 12.
 -- STUDENT 테이블의 행(Row) 단위로 삭제와 갱신이 발생한 이후 'STUD_TRIG 동작'이라는 서버메시지가 나타나도록 STUD_TRIG 트리거를 작성하시오. (10점)
+CREATE OR REPLACE TRIGGER STUD_TRIG
+    AFTER
+    DELETE OR UPDATE
+    ON STUDENT
+    FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('STUD_TRIG 동작');
+END STUD_TRIG;
 
 
 -- 13. 
@@ -111,3 +138,35 @@ SET SERVEROUTPUT ON;
 --    1) 프로시저를 작성하시오. (8점)
 --    2) 학과번호가 101인 학과를 대상으로 프로시저 실행 방법을 작성하시오. (2점)
 
+-- PROFESSOR - DEPARTMENT - STUDENT
+-- PROFNO(P) - PROFNO(F)              : 조인조건1
+--             DEPTNO(P)  - DEPTNO(F) : 조인조건2
+--                          STUDNO(P)
+
+-- 생성순서 : PROFESSOR -> DEPARTMENT -> STUDENT
+-- 삭제순서 : STUDENT -> DEPARTMENT -> PROFESSOR
+
+-- DEPTNO에 연관된 모든 테이블의 데이터 지우기
+-- 1. STUDENT 테이블에서 DEPTNO=101인 정보 지우기
+-- 2. DEPARTMENT 테이블에서 DEPTNO=101인 PROFNO 저장하기
+-- 3. DEPARTMENT 테이블에서 DEPTNO=101인 정보 지우기
+-- 4. PROFESSOR 테이블에서 2단계에서 저장한 PROFNO와 동일한 정보 지우기
+
+-- 1) 정의
+CREATE OR REPLACE PROCEDURE MY_PROC(DNO IN DEPARTMENT.DEPTNO%TYPE)
+IS
+    PNO PROFESSOR.PROFNO%TYPE;
+BEGIN
+    DELETE FROM STUDENT WHERE DEPTNO = DNO;
+    SELECT PROFNO INTO PNO FROM DEPARTMENT WHERE DEPTNO = DNO;
+    DELETE FROM DEPARTMENT WHERE DEPTNO = DNO;
+    DELETE FROM PROFESSOR WHERE PROFNO = PNO;
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(SQLCODE);
+        DBMS_OUTPUT.PUT_LINE(SQLERRM);
+END MY_PROC;
+
+-- 2) 호출
+EXECUTE MY_PROC(101);
