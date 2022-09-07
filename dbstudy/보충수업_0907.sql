@@ -112,18 +112,49 @@ ALTER TABLE ORDERS
 -- 9        김연아  올림픽 챔피언    13000    14/07/09
 -- 8        장미란  올림픽 챔피언    26000    14/07/08
 
+-- ANSI
+SELECT O.ORDER_ID AS 구매번호
+     , C.CUSTOMER_NAME AS 구매자
+     , B.BOOK_NAME AS 책이름
+     , B.PRICE * O.AMOUNT AS 판매가격
+     , O.ORDER_DATE AS 주문일자
+  FROM CUSTOMER C INNER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+    ON B.BOOK_ID = O.BOOK_ID
+ WHERE O.ORDER_DATE NOT BETWEEN '14/07/04' AND '14/07/07';
+ 
+-- WHERE TO_DATE(O.ORDER_DATE) NOT BETWEEN TO_DATE('14/07/04', 'YY/MM/DD') AND TO_DATE('14/07/07', 'YY/MM/DD')
+
+-- ORACLE
+SELECT O.ORDER_ID AS 구매번호
+     , C.CUSTOMER_NAME AS 구매자
+     , B.BOOK_NAME AS 책이름
+     , B.PRICE * O.AMOUNT AS 판매가격
+     , O.ORDER_DATE AS 주문일자
+  FROM CUSTOMER C, ORDERS O, BOOK B
+ WHERE C.CUSTOMER_ID = O.CUSTOMER_ID 
+   AND B.BOOK_ID = O.BOOK_ID
+   AND O.ORDER_DATE NOT BETWEEN '14/07/04' AND '14/07/07';
+
 
 -- 5. 모든 구매 고객의 이름과 총구매액(PRICE * AMOUNT)을 조회하시오.
--- 구매 이력이 있는 고객만 조회하시오.
+-- 구매 이력이 있는 고객만 조회하시오.(주문내역에 있고, 고객에 있는 데이터 = 내부 조인)
 -- 고객명  총구매액
 -- 박지성  116000
 -- 추신수  86000
 -- 장미란  62000
 -- 김연아  19000
 
+SELECT C.CUSTOMER_NAME AS 고객명
+     , SUM(B.PRICE * O.AMOUNT) AS 총구매액
+  FROM CUSTOMER C INNER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+    ON B.BOOK_ID = O.BOOK_ID
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME;
+
  
 -- 6. 모든 구매 고객의 이름과 총구매액(PRICE * AMOUNT)과 구매횟수를 조회하시오.
--- 구매 이력이 없는 고객은 총구매액과 구매횟수를 0으로 조회하시오.
+-- 구매 이력이 없는 고객은 총구매액과 구매횟수를 0으로 조회하시오. (고객은 모두 조회, 주문내역은 있는 자료만 조회 = 왼쪽 외부 조인)
 -- 고객번호순으로 오름차순 정렬하여 조회하시오.
 -- 고객명  총구매액  구매횟수
 -- 박지성  116000     3
@@ -131,6 +162,15 @@ ALTER TABLE ORDERS
 -- 장미란  62000      3
 -- 추신수  86000      2
 -- 박세리  0          0
+
+SELECT C.CUSTOMER_NAME AS 고객명
+     , NVL(SUM(B.PRICE * O.AMOUNT), 0) AS 총구매액
+     , COUNT(O.ORDER_ID) AS 구매횟수  -- COUNT에는 고객정보가 포함되면 안 됨
+  FROM CUSTOMER C LEFT OUTER JOIN ORDERS O
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID LEFT OUTER JOIN BOOK B
+    ON B.BOOK_ID = O.BOOK_ID
+ GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME
+ ORDER BY C.CUSTOMER_ID ASC;
 
 
 -- 7. '김연아'가 구매한 도서개수를 조회하시오.
