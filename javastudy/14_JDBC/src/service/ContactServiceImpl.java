@@ -1,13 +1,26 @@
 package service;
 
 import domain.ContactDTO;
+import repository.ContactDAO;
 
 public class ContactServiceImpl implements ContactService {
 
+	/***************** Field *****************/
+	
+	// DAO에 데이터를 전달하고, DAO로부터 결과를 반환 받기 위해서 DAO를 선언
+	private ContactDAO dao = ContactDAO.getInstance();
+	
+	
+	/***************** Method *****************/
+	
 	@Override
 	public void addContact(ContactDTO contact) {
-		// TODO Auto-generated method stub
-
+		int result = dao.insertContact(contact);
+		if(result > 0) {
+			System.out.println("연락처가 등록되었습니다.");
+		} else {
+			System.out.println("연락처 등록이 실패했습니다.");
+		}
 	}
 
 	@Override
