@@ -32,6 +32,7 @@ public class ContactController {
 		System.out.println("3.연락처삭제");
 		System.out.println("4.연락처조회");
 		System.out.println("5.전체연락처");
+		System.out.println("6.연락처.csv만들기");
 		System.out.println("0.종료");
 	}
 	
@@ -43,7 +44,7 @@ public class ContactController {
 		ContactDTO contact;
 		while(true) {
 			menu();
-			System.out.print("선택(1~5,0) >>> ");
+			System.out.print("선택(1~6,0) >>> ");
 			int choice = sc.nextInt();  // 숫자는 choice에 저장
 			sc.nextLine();              // 숫자 입력하고 누른 엔터 처리
 			switch(choice) {
@@ -88,6 +89,9 @@ public class ContactController {
 				break;
 			case 5: 
 				contactService.findAllContacts();
+				break;
+			case 6:
+				contactService.createContactFile();
 				break;
 			case 0: 
 				System.out.println("연락처 프로그램을 종료합니다!");
