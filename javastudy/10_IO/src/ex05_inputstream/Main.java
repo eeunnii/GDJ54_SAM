@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -13,6 +14,34 @@ import ex04_outputstream.User;
 
 public class Main {
 
+	public static void m() {
+		/* sample.bin 생성하기 */
+
+		try {
+		    FileOutputStream out = new FileOutputStream("C:\\storage\\sample.bin");
+		    int a = 'A';
+		    String str = "pple Mango";
+		    byte[] b = str.getBytes();  // getBytes() : String을 byte 배열로 변환
+		    out.write(a);               // int 단위 출력
+		    out.write(b);               // byte 배열 단위 출력
+		    out.close();
+		} catch(IOException e) {
+		    e.printStackTrace();
+		}
+
+		try {
+		    FileInputStream in = new FileInputStream("C:\\storage\\sample.bin");
+		    int c;
+		    while((c = in.read()) != -1) {
+		        System.out.print((char)c);
+		    }
+		    in.close();
+		} catch(IOException e) {
+		    e.printStackTrace();
+		}
+
+	}
+	
 	public static void m1() {
 		
 		File file = new File("C:\\storage", "b1.bin");
@@ -180,7 +209,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		m4();
+		m();
 	}
 	
 }
