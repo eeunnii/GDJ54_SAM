@@ -1,5 +1,7 @@
 package ex05_inputstream;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -15,27 +17,29 @@ import ex04_outputstream.User;
 public class Main {
 
 	public static void m() {
-		/* sample.bin 생성하기 */
-
 		try {
-		    FileOutputStream out = new FileOutputStream("C:\\storage\\sample.bin");
-		    int a = 'A';
-		    String str = "pple Mango";
+		    FileOutputStream out = new FileOutputStream("C:\\storage\\hangul.bin");
+		    BufferedOutputStream bout = new BufferedOutputStream(out);
+		    int a = '안';
+		    String str = "안녕하세요";
 		    byte[] b = str.getBytes();  // getBytes() : String을 byte 배열로 변환
-		    out.write(a);               // int 단위 출력
-		    out.write(b);               // byte 배열 단위 출력
-		    out.close();
+		    //bout.write(a);              // int 단위 출력
+		    bout.write(b);              // byte 배열 단위 출력
+		    bout.close();
 		} catch(IOException e) {
 		    e.printStackTrace();
 		}
 
+
 		try {
-		    FileInputStream in = new FileInputStream("C:\\storage\\sample.bin");
-		    int c;
-		    while((c = in.read()) != -1) {
-		        System.out.print((char)c);
+		    FileInputStream in = new FileInputStream("C:\\storage\\hangul.bin");
+		    BufferedInputStream bin = new BufferedInputStream(in);
+		    byte[] bytes = new byte[3];
+		    int readByte;
+		    while((readByte = bin.read(bytes)) != -1) {
+		        System.out.print(new String(bytes, 0, readByte));
 		    }
-		    in.close();
+		    bin.close();
 		} catch(IOException e) {
 		    e.printStackTrace();
 		}
