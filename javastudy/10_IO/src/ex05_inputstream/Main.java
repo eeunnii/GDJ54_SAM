@@ -17,29 +17,16 @@ import ex04_outputstream.User;
 public class Main {
 
 	public static void m() {
+		
 		try {
 		    FileOutputStream out = new FileOutputStream("C:\\storage\\hangul.bin");
 		    BufferedOutputStream bout = new BufferedOutputStream(out);
 		    int a = '안';
-		    String str = "안녕하세요";
+		    String str = "녕하세요";
 		    byte[] b = str.getBytes();  // getBytes() : String을 byte 배열로 변환
-		    //bout.write(a);              // int 단위 출력
+		    bout.write(a);              // int 단위 출력
 		    bout.write(b);              // byte 배열 단위 출력
 		    bout.close();
-		} catch(IOException e) {
-		    e.printStackTrace();
-		}
-
-
-		try {
-		    FileInputStream in = new FileInputStream("C:\\storage\\hangul.bin");
-		    BufferedInputStream bin = new BufferedInputStream(in);
-		    byte[] bytes = new byte[3];
-		    int readByte;
-		    while((readByte = bin.read(bytes)) != -1) {
-		        System.out.print(new String(bytes, 0, readByte));
-		    }
-		    bin.close();
 		} catch(IOException e) {
 		    e.printStackTrace();
 		}
