@@ -210,5 +210,18 @@
         </fieldset>
     </form>
 
+    <!-- 네이버 검색창 -->
+    <form action="https://search.naver.com/search.naver"
+          method="get">
+        <!-- hidden -->
+        <input type="hidden" name="where" value="nexearch">
+        <input type="hidden" name="sm" value="top_hty">
+        <input type="hidden" name="fbm" value="0">
+        <input type="hidden" name="ie" value="utf8">
+        <!-- 검색창 -->
+        <input type="text" name="query">
+        <button>검색</button>
+    </form>
+
 </body>
 </html>
