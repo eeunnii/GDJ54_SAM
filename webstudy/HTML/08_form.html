@@ -237,7 +237,7 @@
 
     <h3>연습문제-1</h3>
     <form action="01_overview.html" method="post">
-        <input type="text" name="id" placeholder="example@naver.com">
+        <input type="text"     name="id" placeholder="example@naver.com">
         <input type="password" name="pw" placeholder="비밀번호">
         <button>로그인</button>
     </form>
@@ -272,15 +272,15 @@
                 </tr>
                 <tr>
                     <td>메일 주소</td>
-                    <td><input type="text" name="email"></td>
+                    <td><input type="email" name="email"></td>
                 </tr>
                 <tr>
                     <td>연락처</td>
-                    <td><input type="text" name="contact"></td>
+                    <td><input type="tel" name="contact"></td>
                 </tr>
                 <tr>
                     <td>블로그/홈페이지</td>
-                    <td><input type="text" name="blog"></td>
+                    <td><input type="url" name="blog"></td>
                 </tr>
             </tbody>
             <tfoot>
@@ -296,7 +296,9 @@
 
     <h3>연습문제-4</h3>
     <form action="01_overview.html" method="post">
-        <img alt="네이버로고" src="../../images/naver.png" width="150px">
+        <a href="https://www.naver.com">
+            <img alt="네이버로고" src="../../images/naver.png" width="150px">
+        </a>
         <br><br>
         <label for="user_id"><strong>아이디</strong></label><br>
         <input type="text" name="id" id="user_id">@naver.com
