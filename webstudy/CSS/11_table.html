@@ -12,6 +12,7 @@
         .box1 > table {
             /* table의 width, height 지정 가능함 */
             width: 500px;
+            height: 300px;
             /* table의 border는 테이블의 바깥쪽 테두리를 의미함 */
             border: 1px solid gray;
             /* table의 border-collapse(테두리 붕괴)를 이용해 table과 td의 border를 합칠 수 있음 */
@@ -20,6 +21,10 @@
         .box1 > table td {
             /* td의 border는 각 셀(cell)의 테두리를 의미함 */
             border: 1px solid gray;
+            /* text-align     : 가로 정렬(left, center, right) */
+            /* vertical-align : 세로 정렬(top, middle, bottom) - 테이블 전용 속성 */
+            text-align: center;
+            vertical-align: top;
         }
     </style>
     <div class="box1">
