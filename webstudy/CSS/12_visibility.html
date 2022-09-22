@@ -63,7 +63,16 @@
     <hr>
 
     <style>
-        
+        .answer {
+            visibility: hidden;
+        }
+        .show_answer {
+            border: 1px solid black;
+            background-color: lightgray;
+        }
+        .show_answer:hover + span {
+            visibility: visible;
+        }
     </style>
     <h1>다음 중 블록레벨이 아닌 태그는 무엇인가?</h1>
     <ol>
@@ -74,7 +83,7 @@
     </ol>
     <span class="show_answer">정답보기</span>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="answer">2</span>
+    <span class="answer">3</span>
 
 </body>
 </html>
