@@ -84,7 +84,8 @@
     <script>
         var a = document.getElementById('box2');
         console.log(a.innerHTML);
-        a.innerHTML = '<h3>안녕 세계</h3>';
+        // a.innerHTML = '<h3>안녕 세계</h3>';   <div id="box2"><h3>안녕 세계</h3></div>
+        a.innerHTML += '<h3>안녕 세계</h3>';  // <div id="box2"><h1>Hello World</h1><h3>안녕 세계</h3></div>
     </script>
 
 </body>
