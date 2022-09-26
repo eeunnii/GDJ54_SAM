@@ -32,5 +32,39 @@
                         ② 속성 변경하기 : setAttribute('속성', '값')
         */
     </script>
+
+
+    <h1 id="hello">Hello World</h1>
+    <script>
+        // 1. 아이디로 인식하면 변수로 가지고 옴
+        var a = document.getElementById('hello');
+        console.log(a);
+        // 2. 태그로 인식하면 배열로 가지고 옴
+        var b = document.getElementsByTagName('h1');
+        console.log(b);
+    </script>
+
+    <h1 id="hi">Hi World</h1>
+    <script>
+        // 문서 객체
+        var a = document.getElementById('hi');
+        // 문서 객체 속성 알아내기
+        console.log(a.id);                  // 속성의 직접 호출
+        console.log(a.getAttribute('id'));  // getter를 이용한 호출
+        // 문서 객체 속성 변경하기(조작)
+        a.id = 'heeheehee';                 // 속성의 직접 조작
+        a.setAttribute('id', 'hihihi');     // setter를 이용한 조작
+    </script>
+
+    <!-- 연습 : 네이버로 바꿔서 연결하기 -->
+    <div>
+        <a id="naver" href="https://www.google.com">네이버</a>
+    </div>
+    <script>
+        var a = document.getElementById('naver');
+        a.href = 'https://www.naver.com';
+    </script>
+
+
 </body>
 </html>
