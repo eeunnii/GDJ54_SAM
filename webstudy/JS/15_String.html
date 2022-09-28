@@ -63,31 +63,25 @@
 
         // replaceAll() 함수 커스터마이징 하기
         // String에 prototype으로 추가
+
+        // 1. indexOf + replace
         String.prototype.replaceAll = function(before, after) {
             var str = this;  // this : replaceAll() 메소드를 호출하는 문자열
-            while(true) {
-                if(str.indexOf(before) == -1) {
-                    break;
-                }
+            while(str.indexOf(before) != -1) {
                 str = str.replace(before, after);
             }
             return str;
+        }
+
+        // 2. split + join
+        String.prototype.replaceAll = function(before, after) {
+            return this.split(before).join(after);
         }
 
         var target = 'Java,Java,Java';
         console.log(target.replaceAll('Java', '자바'));
 
     </script>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
