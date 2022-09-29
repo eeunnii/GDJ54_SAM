@@ -177,5 +177,20 @@
         }
     </script>
 
+    <hr>
+
+    <!-- 5. load 이벤트 -->
+    <script>
+        // window 객체
+        // JS의 최상위 객체
+        // 생략 가능(대부분 생략함)
+        window.onload = function(){
+            document.getElementById('btn5').onclick = function(event) {
+                alert(event.target.textContent);
+            }
+        }
+    </script>
+    <button id="btn5">클릭</button>
+
 </body>
 </html>
