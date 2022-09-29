@@ -77,15 +77,28 @@
             background-image: url("//img1a.coupangcdn.com/image/static/login/sprite-join.20160902.svg");
             background-repeat: no-repeat;
             background-size: 86px 86px;
-        }
-        .join-sprite-email {
             position: absolute;
             top: 50%;
             left: 50%;
-            height: 16px;
+            height: 20px;
+            width: 1px;
             margin: -8px 0 0 -10px;
             padding-left: 19px;
+        }
+        .join-sprite-email {
             background-position: -1px -1px;
+        }
+        .join-sprite-password {
+            background-position: -22px -1px;
+        }
+        .join-sprite-password-confirm {
+            background-position: -43px -1px;
+        }
+        .join-sprite-name {
+            background-position: -1px -22px;
+        }
+        .join-sprite-phone {
+            background-position: -22px -22px;
         }
         .member-input-group {
             display: block;
@@ -130,6 +143,54 @@
                                     </span>
                                     <span class="member-input-group">
                                         <input type="email" id="join-email-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="member-field-wrap">
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-password-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-password"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="password" id="join-password-input" class="member-input" maxlength="20" placeholder="비밀번호">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="member-field-wrap">
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-password-again-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-password-confirm"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="password" id="join-password-again-input" class="member-input" maxlength="20" placeholder="비밀번호 확인">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="member-field-wrap">
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-name-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-name"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="text" id="join-name-input" class="member-input" maxlength="40" placeholder="이름">
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="member-field-wrap">
+                            <div class="member-input-field">
+                                <label class="member-input-wrap" for="join-phone-input">
+                                    <span class="member-input-group-icon-label">
+                                        <i class="join-sprite join-sprite-phone"></i>
+                                    </span>
+                                    <span class="member-input-group">
+                                        <input type="text" id="join-phone-input" class="member-input" maxlength="80" placeholder="아이디(이메일)">
                                     </span>
                                 </label>
                             </div>
