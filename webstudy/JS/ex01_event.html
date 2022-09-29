@@ -111,5 +111,71 @@
 
     </script>
 
+    <hr>
+
+    <!-- 3. 썸네일 선택하면 큰 이미지 보여주기 -->
+    <div id="box3">
+        <div id="origin"></div>
+        <ul id="thumbnails"></ul>
+    </div>
+    <style>
+        #box3 {
+            width: 960px;
+        }
+        #origin {
+            width: 100%;
+            height: 640px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        #thumbnails {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        #thumbnails > li {
+            width: 96px;
+            height: 64px;
+            margin: 10px 10px 0 10px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+    <script>
+
+        // 문서객체
+        var origin = document.getElementById('origin');
+        var thumbnails = document.getElementById('thumbnails');
+
+        // 배열과 인덱스
+        var idx = 0;
+        var images = [
+            'fruit1.jpg',
+            'fruit2.jpg',
+            'fruit3.jpg',
+            'fruit4.jpg',
+            'fruit5.jpg'
+        ];
+
+        // 초기 origin
+        origin.style['background-image'] = 'url(../../images/' + images[0] + ')';
+
+        // 썸네일 이미지를 나타낸 <li> 추가
+        var li = '';
+        for(let i = 0; i < images.length; i++) {
+            li += '<li></li>';
+        }
+        thumbnails.innerHTML = li;
+
+        // <li> 태그마다 썸네일 이미지 넣기
+        var list = document.querySelectorAll('#thumbnails > li');
+        for(let i = 0; i < list.length; i++) {
+            list[i].style['background-image'] = 'url(../../images/' + images[i] + ')';
+        }
+
+    </script>
+
 </body>
 </html>
