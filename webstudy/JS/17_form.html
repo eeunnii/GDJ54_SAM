@@ -66,11 +66,10 @@
     <script>
         // 문서객체
         var frm3 = document.getElementById('frm3');
-        var name = document.getElementById('name');
-        
+        var n = document.getElementById('name');
         // 서브밋 이벤트
         frm3.onsubmit = function(event){
-            if(name.value == '' || name.value.length < 2 || name.value.length > 6) {
+            if(n.value == '' || n.value.length < 2 || n.value.length > 6) {
                 alert('이름을 확인하세요.');
                 event.preventDefault();
                 return;
