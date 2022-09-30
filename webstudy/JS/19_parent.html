@@ -13,7 +13,6 @@
     <script>
         
         // 문서객체
-        var msgParent = document.getElementById('msg_parent');
         var parentIpt = document.getElementById('parent_ipt');
         var btn = document.getElementById('btn');
         
@@ -32,9 +31,18 @@
             }
         }
 
+        // 데이터 보내기 함수
+        function sendData() {
+            // onload : 자식창이 모두 열린 뒤 처리
+            childWindow.onload = function(event) {
+                childWindow.document.getElementById('msg_child').textContent = parentIpt.value;
+            }
+        }
+
         // 버튼 클릭 이벤트
         btn.onclick = function(event){
             openChildWindow('19_child.html', '자식창');
+            sendData();
         }
 
     </script>
