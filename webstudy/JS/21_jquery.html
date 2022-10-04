@@ -39,9 +39,27 @@
         */
     </script>
 
+    <script>
+        /*
+            jquery 주요 메소드
+
+                jquery                  JS
+                ---------------------------------------------------------
+            1.  text()                  DOM.textContent
+                text('안녕')            DOM.textContent = '안녕'
+            2.  html()                  DOM.innerHTML
+                html('<a href=""></a>') DOM.innerHTML = "<a href=""></a>"
+            3.  attr('src')             DOM.getAttribute('src')
+                attr('src', '#')        DOM.setAttribute('src', '#')
+            4.  prop('src')             DOM.src
+                prop('src', '#')        DOM.src = '#'
+        */
+    </script>
+
     <div id="box1">Hello World</div>
     <script>
         console.log($('#box1').text());
+        $('#box1').text('안녕 제이쿼리');
     </script>
 
 </body>
