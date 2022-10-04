@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jquery 사용을 위해서 아래 2개 작업 중 반드시 1개 작업을 수행해야 함 -->
+
+    <!-- 1. 다운로드 받은 jquery 라이브러리 포함하기 -->
+    <script src="jquery-3.6.1.min.js"></script>
+
+    <!-- 2. jquery CDN(Content Delivery Network) 포함하기 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <script>
+        /*
+            jquery wrapper
+
+            1. jquery wrapper로 감싼 대상이 jquery 기능을 사용할 수 있음
+            2. $() - 이게 jquery wrapper임
+            3. $() == jQuery()임. 즉 $는 jQuery와 동일함
+        */       
+    </script>
+
+    <script>
+        /*
+            jquery의 DOM 처리
+
+            1. jquery wrapper와 selector를 사용
+            2. 예시
+                1) document.getElementById('box')         : $('#box')
+                2) document.getElementsByClassName('box') : $('.box')
+                3) document.getElementsByTagName('div')   : $('div')
+        */
+    </script>
+
+    <div id="box1">Hello World</div>
+    <script>
+        console.log($('#box1').text());
+    </script>
+
+</body>
+</html>
