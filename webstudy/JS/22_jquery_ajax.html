@@ -156,16 +156,62 @@
         });
     </script>
 
-
-    <!-- <form id="frm" action="https://search.naver.com/search.naver" >
-        <input type="text" name="query" id="query">
-        <button id="btn">네이버검색</button>
-    </form>
+    <!-- 4. XML 읽기 연습 - sfc_web_map.xml -->
+    <div><button id="btn5">클릭</button></div>
+    <div id="box5">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>온도</td>
+                </tr>
+            </thead>
+            <tbody id="weather"></tbody>
+        </table>
+    </div>
     <script>
-        document.getElementById('btn').onclick = function(event){
-            alert('검색어는 ' + document.getElementById('query').value + '입니다.');
-        }
-    </script> -->
+
+    </script>
+
+    <!-- 5. JSON 읽기 -->
+    <div><button id="btn6">클릭</button></div>
+    <div id="box6">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn6').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books.json',
+                'dataType': 'json',
+                'success': function(data){
+                    $.each(data, function(i, book){
+                        var tr = $('<tr>');
+                        /*
+                        tr.append($('<td>').text(book.title));
+                        tr.append($('<td>').text(book.author));
+                        tr.append($('<td>').text(book.price));
+                        */
+                        for(let prop in book){
+                            tr.append($('<td>').text(book[prop]));
+                        }
+                        tr.appendTo('#box6 .book_list');
+                    });
+                }
+            });
+        });
+    </script>
+
 
 
 </body>
