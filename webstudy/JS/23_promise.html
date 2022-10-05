@@ -90,5 +90,37 @@
 
     </script>
 
+    <!-- 여기서부터 promise 설명 -->
+
+    <script>
+        /*
+            Promise
+
+            1. 비동기 처리의 완료(대표적으로 ajax)를 기다리는 객체
+            2. new Promise() 방식으로 생성
+            3. 비동기 처리의 성공(success)과 실패(error)를 각각 처리할 수 있음
+        */
+    </script>
+
+    <script>
+
+        // Promise 사용해보기
+        new Promise(function(resolve, reject){
+            
+            // resolve는 비동기 처리가 성공했을 때 호출할 함수          
+            // resolve('성공');  // resolve는 then 구문에 선언된 익명 함수를 호출
+            
+            // reject는 비동기 처리가 실패했을 때 호출할 함수
+            reject('실패');  // reject는 catch 구문에 선언된 익명 함수를 호출
+
+        }).then(function(msg){
+            console.log('then', msg);
+        }).catch(function(errorMsg){
+            console.log('catch', errorMsg);
+        });
+
+    </script>
+
+
 </body>
 </html>
