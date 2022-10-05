@@ -61,7 +61,7 @@
                         tr += '<td>' + $(book).find('title').text() + '</td>';
                         tr += '<td>' + $(book).find('author').text() + '</td>';
                         tr += '<td>' + $(book).find('price').text() + '</td>';
-                        tr += '<tr>';
+                        tr += '</tr>';
                         $('#box2 .book_list').append(tr);
                         */
                         
@@ -76,6 +76,96 @@
             });
         });
     </script>
+
+    <!-- 2. XML 읽기 -->
+    <div><button id="btn3">클릭</button></div>
+    <div id="box3">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn3').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books2.xml',
+                'dataType': 'xml',
+                'success': function(data){
+                    $.each($(data).find('book'), function(i, book){
+                        var tr = $('<tr>');
+                        tr.append('<td>' + $(book).attr('title') + '</td>');
+                        tr.append('<td>' + $(book).attr('author') + '</td>');
+                        tr.append('<td>' + $(book).attr('price') + '</td>');
+                        $('#box3 .book_list').append(tr);
+                        // tr.appendTo('#box3 .book_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 3. XML 읽기 연습 - naver_search.xml -->
+    <div><button id="btn4">클릭</button></div>
+    <div id="box4">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목(title)</td>
+                    <td>썸네일(image+link)</td>
+                    <td>저자(author)</td>
+                    <td>정상가(price)</td>
+                    <td>할인가(discount)</td>
+                    <td>출판사(publisher)</td>
+                    <td>출판일(pubdate)</td>
+                    <td>ISBN(isbn)</td>
+                    <td>개요(description)</td>
+                </tr>
+            </thead>
+            <tbody id="search_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn4').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'naver_search.xml',
+                'dataType': 'xml',
+                'success': function(data){
+                    $.each($(data).find('item'), function(i, item){
+                        var tr = $('<tr>');
+                        tr.append($('<td>').html($(item).find('title').text()));
+                        tr.append($('<td>').html($('<a>').attr('href', $(item).find('link').text()).append($('<img>').attr('src', $(item).find('image').text()).attr('width', '80px').attr('height', '120px'))));
+                        tr.append($('<td>').html($(item).find('author').text()));
+                        tr.append($('<td>').html($(item).find('price').text()));
+                        tr.append($('<td>').html($(item).find('discount').text()));
+                        tr.append($('<td>').html($(item).find('publisher').text()));
+                        tr.append($('<td>').html($(item).find('pubdate').text()));
+                        tr.append($('<td>').html($(item).find('isbn').text()));
+                        tr.append($('<td>').html($(item).find('description').text()));
+                        tr.appendTo('#search_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+
+    <!-- <form id="frm" action="https://search.naver.com/search.naver" >
+        <input type="text" name="query" id="query">
+        <button id="btn">네이버검색</button>
+    </form>
+    <script>
+        document.getElementById('btn').onclick = function(event){
+            alert('검색어는 ' + document.getElementById('query').value + '입니다.');
+        }
+    </script> -->
 
 
 </body>
