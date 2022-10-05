@@ -47,6 +47,33 @@
             <tbody class="book_list"></tbody>
         </table>
     </div>
+    <script>
+        $('#btn2').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'books1.xml',
+                'dataType': 'xml',
+                'success': function(data){  // data <- xhr.responseXML (JS : var data = xhr.responseXML)
+                    $.each($(data).find('book'), function(i, book){  // $.each(배열, function(인덱스, 요소){})
+                        /*
+                        var tr = '<tr>';
+                        tr += '<td>' + $(book).find('title').text() + '</td>';
+                        tr += '<td>' + $(book).find('author').text() + '</td>';
+                        tr += '<td>' + $(book).find('price').text() + '</td>';
+                        tr += '<tr>';
+                        $('#box2 .book_list').append(tr);
+                        */
+                        var tr = $('<tr>');
+                        tr.append($('<td>').text($(book).find('title').text()));
+                        tr.append($('<td>').text($(book).find('author').text()));
+                        tr.append($('<td>').text($(book).find('price').text()));
+                        $('#box2 .book_list').append(tr);
+
+                    });
+                }
+            });
+        });
+    </script>
 
 
 </body>
