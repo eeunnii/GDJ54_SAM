@@ -30,7 +30,7 @@ public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 �
     	1. 생성자
     		1) 가장 먼저 호출
     		2) 생성자 호출 뒤 init() 메소드가 호출
-    */
+	 */
     public HelloServlet() {
         super();
         System.out.println("생성자");
