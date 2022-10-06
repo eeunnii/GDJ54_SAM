@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/AnchorServlet")
+@WebServlet("/LocationServlet")
 
 
-public class AnchorServlet extends HttpServlet {
+public class LocationServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
        
@@ -21,26 +21,15 @@ public class AnchorServlet extends HttpServlet {
 
 		// 요청
 		request.setCharacterEncoding("UTF-8");
-		
-		// 요청 파라미터 a, b
-		int a = 0, b = 0;
-		String strA = request.getParameter("a");
-		if(strA != null) {
-			a = Integer.parseInt(strA);
-		}
-		String strB = request.getParameter("b");
-		if(strB != null) {
-			b = Integer.parseInt(strB);
-		}
+		String param = request.getParameter("param");
 		
 		// 응답
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<h1>Hello World</h1>");
-		out.println("<h1>" + a + "+" + b + "=" + (a + b) + "</h1>");
-		out.flush();
+		out.println("<h1>안녕하세요 " + param + "님</h1>");
 		out.close();
-		
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
