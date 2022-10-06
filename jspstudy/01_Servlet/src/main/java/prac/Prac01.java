@@ -47,7 +47,7 @@ public class Prac01 extends HttpServlet {
     	out.println("<h1>현재 시간은 " + year + "년 " + month + "월 " + day + "일 " + hour + "시 " + minute + "분 " + second + "초입니다.</h1>");
     	
     	out.flush();
-    	out.close();    	
+    	out.close();
     	
     }
 
