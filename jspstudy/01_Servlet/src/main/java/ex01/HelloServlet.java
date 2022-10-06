@@ -30,7 +30,7 @@ public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 �
     	1. 생성자
     		1) 가장 먼저 호출
     		2) 생성자 호출 뒤 init() 메소드가 호출
-	 */
+	*/
     public HelloServlet() {
         super();
         System.out.println("생성자");
@@ -55,9 +55,23 @@ public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 �
 			2) GET 방식의 요청은 doGet() 메소드 호출, POST 방식의 요청은 doPost() 메소드 호출
 	*/
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		System.out.println("service");
+		
+		// service 메소드가 존재하는 경우 doGET()/doPost()가 자동으로 호출되지 않기 때문에
+		// 코드를 직접 작성
+		
+		// 요청 메소드(GET/POST) 확인 : request.getMethod()
+		switch(request.getMethod()) {
+		case "GET":
+			doGet(request, response);  // doGet() 메소드 호출
+			break;
+		case "POST":
+			doPost(request, response);  // doPost() 메소드 호출
+			break;
+		}
+		
 	}
-
 	
 	/*
 		4. doGet
@@ -68,21 +82,33 @@ public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 �
 						'url': 'http://localhost:9090/01_Servlet/HelloServlet'
 					});
 				(2) <a href="http://localhost:9090/01_Servlet/HelloServlet">링크</a>
-				(3) <form method="GET">  또는  <form>
+				(3) <form method="GET" action="http://localhost:9090/01_Servlet/HelloServlet">  또는  <form>
 				(4) location.href='http://localhost:9090/01_Servlet/HelloServlet'
 				    open('http://localhost:9090/01_Servlet/HelloServlet')
 	*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		// response : 사용자에게 전달할 때 사용
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	/*
+		5. doPost
+			1) POST 방식의 요청을 처리
+			2) 요청 메소드가 POST인 경우
+				(1) $.ajax({
+						'type': 'POST',
+						'url': 'http://localhost:9090/01_Servlet/HelloServlet'
+					});
+				(2) <form method="POST" action="http://localhost:9090/01_Servlet/HelloServlet">
+	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		// 요청과 응답 정보를 doGet() 메소드로 넘겨 버림
+		
+		doGet(request, response);  // doGet() 메소드 호출
+		
 	}
 
 }
