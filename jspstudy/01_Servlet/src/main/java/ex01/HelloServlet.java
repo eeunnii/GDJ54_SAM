@@ -65,7 +65,7 @@ public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 �
 			2) 요청 메소드가 GET인 경우
 				(1) $.ajax({
 						'type': 'GET',
-						'url': '/01_Servlet/HelloServlet'
+						'url': 'http://localhost:9090/01_Servlet/HelloServlet'
 					});
 				(2) <a href="http://localhost:9090/01_Servlet/HelloServlet">링크</a>
 				(3) <form method="GET">  또는  <form>
