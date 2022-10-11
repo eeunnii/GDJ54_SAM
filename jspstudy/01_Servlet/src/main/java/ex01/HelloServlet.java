@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class HelloServlet extends HttpServlet {  // Servlet은 HttpServlet을 상속 받으면 된다.
 
+	private static final long serialVersionUID = 1L;
 	
 	/*
     	1. 생성자
