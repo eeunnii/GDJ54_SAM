@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/MovieServlet")
+@WebServlet("/MovieXMLServlet")
 
 
-public class MovieServlet extends HttpServlet {
+public class MovieXMLServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,9 +30,10 @@ public class MovieServlet extends HttpServlet {
 		String clientId = "ZuA2Hxw8DnfFAdWjRSk4";
 		String clientSecret = "oaR8PF5cnk";
 		
-		// 요청 파라미터(검색어)
+		// 요청 파라미터(검색어, 검색결과수)
 		request.setCharacterEncoding("UTF-8");
 		String query = request.getParameter("query");
+		String display = request.getParameter("display");
 		
 		// 검색어 UTF-8 인코딩
 		try {
@@ -45,7 +46,7 @@ public class MovieServlet extends HttpServlet {
 		}
 		
 		// API 접속
-		String apiURL = "https://openapi.naver.com/v1/search/movie.xml?query=" + query;
+		String apiURL = "https://openapi.naver.com/v1/search/movie.xml?query=" + query + "&display=" + display;
 		URL url = null;
 		HttpURLConnection con = null;
 		try {
