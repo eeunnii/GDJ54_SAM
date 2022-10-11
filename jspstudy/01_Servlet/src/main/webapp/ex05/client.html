@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+
+	<div><button id="btn1">클릭</button></div>
+	<div id="box1"></div>
+	<script>
+		$('#btn1').on('click', function(event){
+			$.ajax({
+				/* 요청 */
+				type: 'GET',                     // 요청 메소드
+				url: '/01_Servlet/TextServlet',  // 요청 URL
+				data: 'name=민경태&age=45',      // 요청 파라미터 (url: '/01_Servlet/TextServlet?name=민경태&age=45')
+				/* 응답 */
+				dataType: 'text',                // 응답 데이터 타입(text, xml, json)
+				success: function(resData){      // 응답 데이터는 resData에 전달됨
+					$('#box1').text(resData);
+				},
+				error: function(jqXHR){          // 예외 발생 시 예외 정보가 jqXHR 객체에 전달됨
+					$('#box1').append('status : ' + jqXHR.status + '<br>');
+					$('#box1').append('statusText : ' + jqXHR.statusText + '<br>');
+					$('#box1').append(jqXHR.responseText);
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>
