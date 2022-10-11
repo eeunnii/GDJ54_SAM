@@ -30,5 +30,40 @@
 		});
 	</script>
 
+	<hr>
+	
+	<div><button id="btn2">클릭</button></div>
+	<div id="box2"></div>
+	<script>
+		$('#btn2').on('click', function(event){
+			var box2 = $('#box2');
+			box2.empty();
+			$.ajax({
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/XMLServlet',
+				data: 'name=민경태&age=45',
+				/* 응답 */
+				dataType: 'xml',
+				success: function(resData){
+					
+				},
+				error: function(jqXHR){
+					box2.append('status : ' + jqXHR.status + '<br>');
+					box2.append(responseText);
+				}
+			});
+		});
+	</script>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
