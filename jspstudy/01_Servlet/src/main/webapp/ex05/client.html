@@ -11,6 +11,7 @@
 	<div id="box1"></div>
 	<script>
 		$('#btn1').on('click', function(event){
+			$('#box1').empty();
 			$.ajax({
 				/* 요청 */
 				type: 'GET',                     // 요청 메소드
