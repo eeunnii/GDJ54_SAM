@@ -81,7 +81,6 @@
 				/* 응답 */
 				dataType: 'json',  // xml, json 가능
 				success: function(resData){
-					console.log(resData);
 					$('#movies').empty();
 					$.each(resData.items, function(i, item){
 						var tr = $('<tr>');
