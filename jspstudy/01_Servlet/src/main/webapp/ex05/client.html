@@ -56,14 +56,34 @@
 		});
 	</script>
 
-
-
-
-
-
-
-
-
+	<hr>
+	
+	<div><button id="btn3">클릭</button></div>
+	<div id="box3"></div>
+	<script>
+		$('#btn3').on('click', function(event){
+			var box3 = $('#box3');			
+			box3.empty();
+			$.ajax({
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/XMLServlet',
+				data: 'name=민경태&age=45',
+				/* 응답 */
+				dataType: 'xml',
+				success: function(resData){  // XML 처리는 이곳이 중요함
+					var ul = $('<ul>');
+					ul.append($('<li>').text($(resData).find('name').text()));
+					ul.append($('<li>').text($(resData).find('age').text()));
+					ul.appendTo(box3);
+				},
+				error: function(jqXHR){
+					box3.append('status : ' + jqXHR.status + '<br>');
+					box3.append(responseText);
+				}
+			});
+		});
+	</script>
 
 </body>
 </html>

@@ -85,6 +85,7 @@ public class XMLWriter {
 			transformer.setOutputProperty("indent", "yes");  // 들여쓰기
 			transformer.setOutputProperty("doctype-public", "yes");  // document.setXmlStandalone(true); 하면 개행이 안 되기 때문에 추가
 			
+			
 			Source source = new DOMSource(document);
 			File file = new File("C:\\storage", "product.xml");
 			StreamResult result = new StreamResult(file);
