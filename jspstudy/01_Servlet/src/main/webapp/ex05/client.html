@@ -41,12 +41,12 @@
 			$.ajax({
 				/* 요청 */
 				type: 'GET',
-				url: '/01_Servlet/XMLServlet',
+				url: '/01_Servlet/JSONServlet',
 				data: 'name=민경태&age=45',
 				/* 응답 */
-				dataType: 'xml',
-				success: function(resData){
-					
+				dataType: 'json',
+				success: function(resData){  // resData는 JSON 데이터가 응답되므로 자바스크립트 객체로 처리하면 됨
+					 box2.html('<h1>이름 : ' + resData.name + ', 나이 : ' + resData.age + '살</h1>');
 				},
 				error: function(jqXHR){
 					box2.append('status : ' + jqXHR.status + '<br>');
