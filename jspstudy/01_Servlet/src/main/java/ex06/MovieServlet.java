@@ -107,12 +107,12 @@ public class MovieServlet extends HttpServlet {
 			out.close();
 		}
 		
-		System.out.println(sb.toString());
+		// client.html로 API 응답 결과 보내기
+		response.setContentType("application/xml; charset=UTF-8");
 		
-		
-		
-		
-		
+		PrintWriter out = response.getWriter();
+		out.println(sb.toString());
+		out.close();
 		
 	}
 
