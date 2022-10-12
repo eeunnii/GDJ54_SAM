@@ -28,8 +28,8 @@ public class PapagoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 클라이언트 아이디, 시크릿
-		String clientId = "XvHSzjB4Bj49XBbfspdN";
-		String clientSecret = "ARhr4OmF6r";
+		String clientId = "ZuA2Hxw8DnfFAdWjRSk4";
+		String clientSecret = "oaR8PF5cnk";
 		
 		// 요청 파라미터(원본언어, 목적언어, 번역할텍스트)
 		String source = request.getParameter("source");
@@ -67,6 +67,9 @@ public class PapagoServlet extends HttpServlet {
 		
 		// API 요청
 		try {
+			// 요청 헤더
+			con.setRequestProperty("X-Naver-Client-Id", clientId);
+			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			// 요청 메소드
 			con.setRequestMethod("POST");
 			con.setDoOutput(true);
@@ -75,9 +78,6 @@ public class PapagoServlet extends HttpServlet {
 			OutputStream outputStream = con.getOutputStream();
 			outputStream.write(params.getBytes());
 			outputStream.close();
-			// 요청 헤더
-			con.setRequestProperty("X-Naver-Client-Id", clientId);
-			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 		} catch(IOException e) {
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -114,8 +114,6 @@ public class PapagoServlet extends HttpServlet {
 			out.println("API 응답이 실패했습니다.");
 			out.close();
 		}
-		
-		System.out.println(sb.toString());
 		
 		// client.html로 API 응답 결과(StringBuilder) 보내기
 		response.setContentType("application/json; charset=UTF-8");
