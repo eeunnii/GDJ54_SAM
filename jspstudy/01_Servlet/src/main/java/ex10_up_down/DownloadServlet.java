@@ -1,5 +1,9 @@
 package ex10_up_down;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +25,32 @@ public class DownloadServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String filename = request.getParameter("filename");
 		
-		System.out.println(filename);
+		// 다운로드할 파일 경로
+		String realPath = getServletContext().getRealPath("upload");
+		
+		// 다운로드할 파일 객체
+		File file = new File(realPath, filename);
+		
+		// 다운로드할 파일을 읽어 들일 바이트 기반 입력 스트림
+		BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+		
+		// 다운로드 응답 헤더
+		response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+		response.setHeader("Content-Length", file.length() + "");
+		
+		// 응답으로 내 보낼 바이트 기반 출력 스트림
+		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
 	
+		// 파일 복사
+		byte[] b = new byte[1024];
+		int readByte = 0;
+		while((readByte = in.read(b)) != -1) {
+			out.write(b, 0, readByte);
+		}
+		
+		out.close();
+		in.close();
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
