@@ -1,3 +1,5 @@
+<%@page import="java.io.FileWriter"%>
+<%@page import="java.io.BufferedWriter"%>
 <%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -32,18 +34,23 @@
 		dir.mkdirs();
 	}
 	
+	// 생성할 파일 객체
+	File file = new File(dir, filename);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 문자 출력 스트림 생성
+	BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+	bw.write("작성일자 : " + createdDate + "\n");
+	bw.write("작성자 : " + writer + "\n");
+	bw.write("제목 : " + title + "\n");
+	bw.write("내용\n" + content + "\n");
+	bw.close();
 %>
+<script>
+	var isCreated = <%=file.exists()%>;
+	if(isCreated){
+		alert('<%=filename%> 파일이 생성되었습니다.');
+	} else {
+		alert('파일이 생성되지 않았습니다.');
+	}
+	history.back();  // 뒤로 이동(작성 페이지로 돌아가기)
+</script>
