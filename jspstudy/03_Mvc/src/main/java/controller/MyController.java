@@ -64,8 +64,15 @@ public class MyController extends HttpServlet {
 			actionForward = myService.execute(request, response);
 		}
 		
+		// 이동(리다이렉트, 포워드)
+		// 1. actionForward != null : 리다이렉트 또는 포워드
+		// 2. actionForward == null : response로 응답한 경우 또는 ajax 처리
 		if(actionForward != null) {
-			request.getRequestDispatcher(actionForward.getView()).forward(request, response);
+			if(actionForward.isRedirect()) {
+				response.sendRedirect(actionForward.getView());
+			} else {
+				request.getRequestDispatcher(actionForward.getView()).forward(request, response);
+			}
 		}
 		
 	}
