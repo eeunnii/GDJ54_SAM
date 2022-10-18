@@ -9,7 +9,7 @@ public class BoardListService implements BoardService {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("BoardListService");
+		
 		return null;
 	}
 
