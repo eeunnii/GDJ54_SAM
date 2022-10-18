@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.ActionForward;
 import service.BoardAddService;
 import service.BoardDetailService;
+import service.BoardEditService;
 import service.BoardListService;
 import service.BoardService;
 
@@ -47,6 +48,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "board/add.do":
 			service = new BoardAddService();
+			break;
+		case "board/edit.do":
+			service = new BoardEditService();
 			break;
 		// 비즈니스 로직이 없는 경우(단순이동)
 		case "board/write.do":
