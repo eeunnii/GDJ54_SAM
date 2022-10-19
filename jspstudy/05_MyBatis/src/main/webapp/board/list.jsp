@@ -20,7 +20,6 @@
 	ul {
 		list-style: none;
 		display: flex;
-		/* justify-content: space-between; */
 		flex-wrap: wrap;
 		width: 630px;
 		margin: 30px auto;
