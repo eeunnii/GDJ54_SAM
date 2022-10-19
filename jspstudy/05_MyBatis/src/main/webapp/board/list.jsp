@@ -8,19 +8,29 @@
 <meta charset="UTF-8">
 <title>게시판</title>
 <style>
+	* {
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+		color: #333;
+	}
 	h1 {
 		text-align: center;
 	}
 	ul {
 		list-style: none;
 		display: flex;
-		justify-content: space-between;
+		/* justify-content: space-between; */
+		flex-wrap: wrap;
 		width: 630px;
 		margin: 30px auto;
 	}
 	ul > li {
 		width: 200px;
 		height: 200px;
+		padding-top: 10px;
+		margin-top: 10px;
+		margin-right: 10px;
 		text-align: center;
 		border: 1px solid gray;
 		border-radius: 5px;
