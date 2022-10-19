@@ -37,11 +37,18 @@ public class BoardController extends HttpServlet {
 		
 		// 요청에 따른 Service 선택
 		switch(urlMapping) {
+		// 비즈니스 로직
 		case "/board/list.do":
 			service = new BoardListService();
 			break;
 		case "/board/detail.do":
 			service = new BoardDetailService();
+			break;
+		// 단순이동(포워딩)
+		case "/board/write.do":
+			af = new ActionForward();
+			af.setView("/board/write.jsp");
+			af.setRedirect(false);
 			break;
 		}
 		
