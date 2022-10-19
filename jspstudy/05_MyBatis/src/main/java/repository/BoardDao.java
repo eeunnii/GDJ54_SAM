@@ -53,7 +53,16 @@ public class BoardDao {
 		return board;
 	}
 	
-	
+	// 3. 게시글 삽입
+	public int insertBoard(Board board) {
+		SqlSession ss = factory.openSession(false);  // INSERT(커밋이 필요한 경우)
+		int result = ss.insert("mybatis.mapper.board.insertBoard", board);  // board를 파라미터로 전달
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

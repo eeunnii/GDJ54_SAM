@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.BoardAddService;
 import service.BoardDetailService;
 import service.BoardListService;
 import service.BoardService;
@@ -43,6 +44,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "/board/detail.do":
 			service = new BoardDetailService();
+			break;
+		case "/board/add.do":
+			service = new BoardAddService();
 			break;
 		// 단순이동(포워딩)
 		case "/board/write.do":
