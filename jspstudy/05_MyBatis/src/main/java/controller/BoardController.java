@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.BoardListService;
 import service.BoardService;
 
 @WebServlet("*.do")
@@ -35,7 +36,9 @@ public class BoardController extends HttpServlet {
 		
 		// 요청에 따른 Service 선택
 		switch(urlMapping) {
-		
+		case "/board/list.do":
+			service = new BoardListService();
+			break;
 		}
 		
 		// 선택된 Service 실행
