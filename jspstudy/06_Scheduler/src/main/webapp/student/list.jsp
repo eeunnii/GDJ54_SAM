@@ -20,13 +20,14 @@
 	});
 
 </script>
+<link rel="stylesheet" href="../assets/css/student.css">
 </head>
 <body>
 
 	<div class="wrap">
 		<h1 class="title">학생관리</h1>
 		<div class="btn_area">
-			<input type="button" value="신규학생등록" class="btn_primary" id="btn_add">
+			<input type="button" value="신규학생등록" class="btn_primary btn_add" id="btn_add">
 		</div>
 		<div class="find_area">
 			<input type="text" name="begin" id="begin" size="4" placeholder="begin">
