@@ -25,6 +25,13 @@
 		  FROM STUDENT
 	</select>
 	
+	<!-- 4. 학생등록 -->
+	<insert id="insertStudent" parameterType="Student">
+		INSERT INTO STUDENT
+			(STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE)
+		VALUES
+			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade})
+	</insert>
 	
 	
 	

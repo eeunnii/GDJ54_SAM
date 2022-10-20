@@ -63,7 +63,7 @@
 								<td>${s.name}</td>
 								<td>${s.kor}</td>
 								<td>${s.eng}</td>
-								<td>${s.mat}</td>
+								<td>${s.math}</td>
 								<td><fmt:formatNumber value="${s.ave}" pattern="0.00" /></td>
 								<td>${s.grade}</td>
 								<td>

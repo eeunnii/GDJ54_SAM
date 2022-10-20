@@ -59,7 +59,16 @@ public class StudentDao {
 		return average;
 	}
 	
-	
+	// 4. 학생등록
+	public int insertStudent(Student student) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert(mapper + "insertStudent", student);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

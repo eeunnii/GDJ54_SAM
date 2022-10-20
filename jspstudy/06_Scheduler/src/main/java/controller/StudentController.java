@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.StudentAddService;
 import service.StudentListService;
 import service.StudentService;
 
@@ -40,7 +41,10 @@ public class StudentController extends HttpServlet {
 		case "/student/list.do":
 			service = new StudentListService();
 			break;
-		
+		case "/student/add.do":
+			service = new StudentAddService();
+			break;
+			
 		case "/student/write.do":
 			af = new ActionForward("/student/write.jsp", false);
 			break;
