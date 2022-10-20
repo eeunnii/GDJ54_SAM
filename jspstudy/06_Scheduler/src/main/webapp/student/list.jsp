@@ -17,6 +17,20 @@
 			location.href = '${contextPath}/student/write.do';
 		});
 		
+		$('#btn_find').click(function(event){
+			var begin = $('#begin').val();
+			var end = $('#end').val();
+			if(begin == '' || isNaN(begin) || begin < 0 || begin > 100){
+				alert('begin값을 확인하세요.');
+				return;
+			}
+			else if(end == '' || isNaN(end) || end < 0 || end > 100){
+				alert('end값을 확인하세요.');
+				return;
+			}
+			location.href = '${contextPath}/student/find.do?begin=' + begin + '&end=' + end;
+		});
+		
 	});
 
 </script>
@@ -30,6 +44,7 @@
 			<input type="button" value="신규학생등록" class="btn_primary btn_add" id="btn_add">
 		</div>
 		<div class="find_area">
+			<span>평균</span>
 			<input type="text" name="begin" id="begin" size="4" placeholder="begin">
 			~
 			<input type="text" name="end" id="end" size="4" placeholder="end">
@@ -68,7 +83,7 @@
 								<td>${s.grade}</td>
 								<td>
 									<input type="button" value="상세" class="btn_primary" id="btn_detail">
-									<input type="button" value="삭제" class="btn_primary" id="btn_remove">
+									<input type="button" value="삭제" class="btn_primary btn_remove" id="btn_remove">
 								</td>
 							</tr>
 						</c:forEach>
@@ -78,8 +93,7 @@
 					<tr>
 						<td colspan="5">전체평균</td>
 						<td><fmt:formatNumber value="${average}" pattern="0.00" /></td>
-						<td></td>
-						<td></td>
+						<td colspan="2"></td>
 					</tr>
 				</tfoot>
 			</table>
