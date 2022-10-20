@@ -40,6 +40,10 @@ public class StudentController extends HttpServlet {
 		case "/student/list.do":
 			service = new StudentListService();
 			break;
+		
+		case "/student/write.do":
+			af = new ActionForward("/student/write.jsp", false);
+			break;
 		}
 		
 		// 선택된 Service 실행

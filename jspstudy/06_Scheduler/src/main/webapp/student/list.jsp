@@ -13,6 +13,10 @@
 
 	$(document).ready(function(){
 		
+		$('#btn_add').click(function(event){
+			location.href = '${contextPath}/student/write.do';
+		});
+		
 	});
 
 </script>
