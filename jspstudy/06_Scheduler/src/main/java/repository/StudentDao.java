@@ -1,10 +1,14 @@
 package repository;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import domain.Student;
 
 public class StudentDao {
 
@@ -28,6 +32,46 @@ public class StudentDao {
 	}
 	
 	// method
+	
+	String mapper = "mybatis.mapper.student.";
+	
+	// 1. 학생목록
+	public List<Student> selectAllStudents() {
+		SqlSession ss = factory.openSession();
+		List<Student> students = ss.selectList(mapper + "selectAllStudents");
+		ss.close();
+		return students;
+	}
+	
+	// 2. 전체학생수
+	public int selectAllStudentsCount() {
+		SqlSession ss = factory.openSession();
+		int count = ss.selectOne(mapper + "selectAllStudentsCount");
+		ss.close();
+		return count;
+	}
+	
+	// 3. 전체평균
+	public double selectAllStudentsAverage() {
+		SqlSession ss = factory.openSession();
+		double average = ss.selectOne(mapper + "selectAllStudentsAverage");
+		ss.close();
+		return average;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

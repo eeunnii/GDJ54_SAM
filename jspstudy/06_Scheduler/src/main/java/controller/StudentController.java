@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.StudentListService;
 import service.StudentService;
 
 @WebServlet("*.do")
@@ -36,7 +37,9 @@ public class StudentController extends HttpServlet {
 		
 		// 요청에 따른 Service 선택
 		switch(urlMapping) {
-				
+		case "/student/list.do":
+			service = new StudentListService();
+			break;
 		}
 		
 		// 선택된 Service 실행
