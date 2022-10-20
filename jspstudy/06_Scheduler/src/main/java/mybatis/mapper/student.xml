@@ -54,6 +54,16 @@
 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
 	</select>
 	
+	<!-- 8. 학생삭제 -->
+	<delete id="deleteStudent" parameterType="int">
+		DELETE
+		  FROM STUDENT
+		 WHERE STU_NO = #{stuNo}
+	</delete>
+	
+	
+	
+	
 	
 
 </mapper>

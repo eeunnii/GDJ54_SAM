@@ -12,6 +12,7 @@ import common.ActionForward;
 import service.StudentAddService;
 import service.StudentFindService;
 import service.StudentListService;
+import service.StudentRemoveService;
 import service.StudentService;
 
 @WebServlet("*.do")
@@ -47,6 +48,9 @@ public class StudentController extends HttpServlet {
 			break;
 		case "/student/find.do":
 			service = new StudentFindService();
+			break;
+		case "/student/remove.do":
+			service = new StudentRemoveService();
 			break;
 			
 		case "/student/write.do":
