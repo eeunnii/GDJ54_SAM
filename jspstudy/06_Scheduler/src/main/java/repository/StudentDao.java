@@ -114,6 +114,28 @@ public class StudentDao {
 		return student;
 	}
 	
+	// 10. 학생수정
+	public int updateStudent(Student student) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update(mapper + "updateStudent", student);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

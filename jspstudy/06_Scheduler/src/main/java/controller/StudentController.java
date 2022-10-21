@@ -13,6 +13,7 @@ import service.StudentAddService;
 import service.StudentDetailService;
 import service.StudentFindService;
 import service.StudentListService;
+import service.StudentModifyService;
 import service.StudentRemoveService;
 import service.StudentService;
 
@@ -55,6 +56,9 @@ public class StudentController extends HttpServlet {
 			break;
 		case "/student/detail.do":
 			service = new StudentDetailService();
+			break;
+		case "/student/modify.do":
+			service = new StudentModifyService();
 			break;
 			
 		case "/student/write.do":
