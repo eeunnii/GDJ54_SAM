@@ -12,13 +12,10 @@ public class BoardListService implements BoardService {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		// 상세보기할 때 session에 올려 둔 board, open 속성을 제거
+		// 상세보기에서 session에 올려 둔 updateHit 속성을 제거
 		HttpSession session = request.getSession();
-		if(session.getAttribute("board") != null) {
-			session.removeAttribute("board");
-		}
-		if(session.getAttribute("open") != null) {
-			session.removeAttribute("open");
+		if(session.getAttribute("updateHit") != null) {
+			session.removeAttribute("updateHit");
 		}
 		
 		// board/list.jsp로 전달할 데이터를 request에 저장한 뒤 포워딩

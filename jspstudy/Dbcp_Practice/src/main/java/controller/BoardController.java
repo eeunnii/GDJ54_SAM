@@ -12,6 +12,7 @@ import common.ActionForward;
 import service.BoardAddService;
 import service.BoardService;
 import service.BoardDetailService;
+import service.BoardEditService;
 import service.BoardListService;
 import service.BoardModifyService;
 import service.BoardRemoveService;
@@ -44,9 +45,6 @@ public class BoardController extends HttpServlet {
 		case "write.do":
 			af = new ActionForward("/board/write.jsp", false);
 			break;
-		case "edit.do":
-			af = new ActionForward("/board/edit.jsp", false);
-			break;
 		
 		case "list.do":
 			service = new BoardListService();
@@ -56,6 +54,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "detail.do":
 			service = new BoardDetailService();
+			break;
+		case "edit.do":
+			service = new BoardEditService();
 			break;
 		case "modify.do":
 			service = new BoardModifyService();

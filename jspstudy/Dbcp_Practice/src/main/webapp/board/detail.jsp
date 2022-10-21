@@ -22,7 +22,7 @@
 	<div><pre>${board.content}</pre></div>
 	
 	<div>
-		<input type="button" value="수정" onclick="location.href='${contextPath}/edit.do'">
+		<input type="button" value="편집" onclick="location.href='${contextPath}/edit.do?no=${board.no}'">
 		<input type="button" value="목록" onclick="location.href='${contextPath}/list.do'">
 	</div>
 	

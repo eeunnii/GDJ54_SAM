@@ -81,8 +81,8 @@ public class BoardDAO {
 	}
 	
 	// 3. 전체게시글갯수가져오기
-	public Long selectAllBoardsCount() {
-		Long count = 0L;
+	public long selectAllBoardsCount() {
+		long count = 0L;
 		try {
 			con = dataSource.getConnection();
 			sql = "SELECT COUNT(*) AS 개수 FROM BOARD";
@@ -148,7 +148,7 @@ public class BoardDAO {
 	}
 	
 	// 6. 조회수늘리기
-	public int updateHit(Long no) {
+	public int updateHit(long no) {
 		int res = 0;
 		try {
 			con = dataSource.getConnection();
@@ -184,7 +184,7 @@ public class BoardDAO {
 	}
 	
 	// 8. 게시글삭제하기
-	public int deleteBoard(Long no) {
+	public int deleteBoard(long no) {
 		int res = 0;
 		try {
 			con = dataSource.getConnection();

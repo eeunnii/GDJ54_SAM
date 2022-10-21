@@ -14,7 +14,7 @@ public class BoardRemoveService implements BoardService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		Optional<String> optNo = Optional.ofNullable(request.getParameter("no"));
-		Long no = Long.parseLong(optNo.orElse("0"));
+		long no = Long.parseLong(optNo.orElse("0"));
 		
 		int res = BoardDAO.getInstance().deleteBoard(no);
 		
