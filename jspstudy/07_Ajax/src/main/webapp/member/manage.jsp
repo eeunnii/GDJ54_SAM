@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../assets/css/member.css">
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
 
@@ -92,6 +93,7 @@
 				data: $('#frm_member').serialize(),  // serialize() : 폼의 모든 입력 요소를 파라미터로 변환
 				/* 응답 */
 				dataType: 'json',
+				// 정상 응답
 				success: function(resData){  // resData : {"isSuccess": true}
 					if(resData.isSuccess){
 						alert('신규 회원이 등록되었습니다.');
@@ -99,6 +101,10 @@
 					} else {
 						alert('신규 회원 등록이 실패했습니다.');
 					}
+				},
+				// 예외 응답
+				error: function(jqXHR){  // 예외 처리 응답 데이터(일반 텍스트)는 jqXHR 객체의 responseText 속성에 저장됨
+					alert(jqXHR.responseText);
 				}
 			});  // ajax
 			
@@ -114,38 +120,43 @@
 	<div class="wrap">
 		<h1 class="title">회원관리</h1>
 		<form id="frm_member">
-			<div>
-				<label for="id">아이디</label>
-				<input type="text" id="id" name="id">
+			<label for="id">아이디</label>
+			<div class="ipt_area">
+				<input type="text" id="id" name="id" class="frm_member_ipt">
 			</div>
-			<div>
-				<label for="name">이름</label>
-				<input type="text" id="name" name="name">
+			<label for="name">이름</label>
+			<div class="ipt_area">
+				<input type="text" id="name" name="name" class="frm_member_ipt">
 			</div>
-			<div>
-				<label for="male">남자</label>
-				<input type="radio" id="male" name="gender" value="M">
-				<label for="female">여자</label>
-				<input type="radio" id="female" name="gender" value="F">
+			<label>성별</label>
+			<div class="gender_area">
+				<label for="male">
+					남자
+					<input type="radio" id="male" name="gender" value="M">
+				</label>
+				<label for="female">
+					여자
+					<input type="radio" id="female" name="gender" value="F">
+				</label>
 			</div>
-			<div>
-				<label for="grade">회원등급</label>
-				<select id="grade" name="grade">
+			<label for="grade">회원등급</label>
+			<div class="ipt_area">
+				<select id="grade" name="grade"  class="frm_member_ipt">
 					<option value="">등급선택</option>
 					<option value="gold">골드</option>
 					<option value="silver">실버</option>
 					<option value="bronze">브론즈</option>
 				</select>
 			</div>
-			<div>
-				<label for="address">주소</label>
-				<input type="text" id="address" name="address">
+			<label for="address">주소</label>
+			<div class="ipt_area">
+				<input type="text" id="address" name="address"  class="frm_member_ipt">
 			</div>
-			<div>
-				<input type="button" value="초기화" id="btn_init">
-				<input type="button" value="신규등록" id="btn_add">
-				<input type="button" value="변경내용저장" id="btn_modify">
-				<input type="button" value="회원삭제" id="btn_remove">
+			<div class="btn_area">
+				<input type="button" value="초기화" id="btn_init" class="btn_primary">
+				<input type="button" value="신규등록" id="btn_add" class="btn_primary">
+				<input type="button" value="변경내용저장" id="btn_modify" class="btn_primary">
+				<input type="button" value="회원삭제" id="btn_remove" class="btn_primary">
 			</div>
 		</form>
 		<hr>
