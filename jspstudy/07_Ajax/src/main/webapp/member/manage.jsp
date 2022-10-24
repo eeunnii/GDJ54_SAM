@@ -17,8 +17,25 @@
 			url: '<%=request.getContextPath()%>/member/list.do',
 			/* 응답 */
 			dataType: 'json',
-			success: function(resData){
-				console.log(resData);
+			success: function(resData){  // resData : {"count": 3, "members": [{}, {}, {}]}
+				// 1. resData.count, resData['count']
+				$('#count').text(resData.count);
+				// 2. member_list 영역 초기화
+				$('#member_list').empty();
+				// 3. resData.members : [{}, {}, {}]
+				//    $.each(배열, function(인덱스, 배열요소){})
+				$.each(resData.members, function(i, member){
+					var tr = '<tr>';
+					tr += '<td>' + member.memberNo + '</td>';
+					tr += '<td>' + member.id + '</td>';
+					tr += '<td>' + member.name + '</td>';
+					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
+					tr += '<td>' + member.grade + '</td>';
+					tr += '<td>' + member.address + '</td>';
+					tr += '<td><input type="button" value="조회" class="btn_detail"></td>';
+					tr += '</tr>';
+					$('#member_list').append(tr);
+				});
 			}
 		});
 	}

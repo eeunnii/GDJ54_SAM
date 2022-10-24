@@ -23,12 +23,12 @@ public class MemberListService implements MemberService {
 				"count": 3,
 				"members": [
 					{
-						"memberNo": 1,
-						"id": "user1",
-						"name": "회원1",
+						"memberNo": 3,
+						"id": "user3",
+						"name": "회원3",
 						"gender": "F",
-						"grade": "gold",
-						"address": "jeju"
+						"grade": "bronze",
+						"address": "yeosu"
 					},
 					{
 						"memberNo": 2,
@@ -39,12 +39,12 @@ public class MemberListService implements MemberService {
 						"address": "seoul"
 					},
 					{
-						"memberNo": 3,
-						"id": "user3",
-						"name": "회원3",
+						"memberNo": 1,
+						"id": "user1",
+						"name": "회원1",
 						"gender": "F",
-						"grade": "bronze",
-						"address": "yeosu"
+						"grade": "gold",
+						"address": "jeju"
 					}
 				]
 			}
