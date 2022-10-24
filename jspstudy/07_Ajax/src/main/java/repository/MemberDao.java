@@ -51,7 +51,13 @@ public class MemberDao {
 		return count;
 	}
 	
-	
+	// 3. 회원상세
+	public Member selectMemberByNo(int memberNo) {
+		SqlSession ss = factory.openSession();
+		Member member = ss.selectOne(mapper + "selectMemberByNo", memberNo);
+		ss.close();
+		return member;
+	}
 	
 	
 	

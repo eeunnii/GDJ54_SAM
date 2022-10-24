@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+	pageContext.setAttribute("contextPath", contextPath);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +18,7 @@
 		$.ajax({
 			/* 요청 */
 			type: 'get',
-			url: '<%=request.getContextPath()%>/member/list.do',
+			url: '${contextPath}/member/list.do',
 			/* 응답 */
 			dataType: 'json',
 			success: function(resData){  // resData : {"count": 3, "members": [{}, {}, {}]}
