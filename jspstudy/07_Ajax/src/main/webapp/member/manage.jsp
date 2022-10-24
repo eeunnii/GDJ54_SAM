@@ -11,10 +11,15 @@
 <title>Insert title here</title>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
+
+
 	$(document).ready(function(){
 		fn_getAllMembers();
 		fn_getMember();
+		fn_registration();
 	})
+	
+	
 	function fn_getAllMembers(){
 		$.ajax({
 			/* 요청 */
@@ -44,6 +49,8 @@
 			}
 		});
 	}
+	
+	
 	function fn_getMember(){
 		
 		// "조회" 버튼은 동적 요소이기 때문에 다음 이벤트 방식을 사용해야 한다.
@@ -71,8 +78,35 @@
 				}
 			});
 		});
-		
 	}
+	
+	
+	function fn_registration(){
+		
+		$('#btn_add').click(function(){
+			
+			$.ajax({
+				/* 요청 */
+				type: 'post',
+				url: '${contextPath}/member/add.do',
+				data: $('#frm_member').serialize(),  // serialize() : 폼의 모든 입력 요소를 파라미터로 변환
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){  // resData : {"isSuccess": true}
+					if(resData.isSuccess){
+						alert('신규 회원이 등록되었습니다.');
+						fn_getAllMembers();  // 목록을 새로 가져와서 갱신함
+					} else {
+						alert('신규 회원 등록이 실패했습니다.');
+					}
+				}
+			});  // ajax
+			
+		}); // click
+		
+	}  // function
+	
+	
 </script>
 </head>
 <body>
