@@ -55,7 +55,7 @@
 					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
 					tr += '<td>' + member.grade + '</td>';
 					tr += '<td>' + member.address + '</td>';
-					tr += '<td><input type="hidden" value="' + member.memberNo + '"><input type="button" value="조회" class="btn_detail"></td>';
+					tr += '<td><input type="hidden" value="' + member.memberNo + '"><input type="button" value="조회" class="btn_detail"> <input type="button" value="삭제" class="btn_primary btn_remove"><input type="hidden" value="' + member.memberNo + '"></td>';
 					tr += '</tr>';
 					$('#member_list').append(tr);
 				});
@@ -158,7 +158,7 @@
 	
 	function fn_remove(){
 		
-		$('#btn_remove').click(function(){
+		$('body').on('click', '.btn_remove', function(){
 			
 			if(confirm('삭제할까요?') == false){
 				return;
@@ -233,7 +233,7 @@
 				<input type="button" value="초기화" class="btn_primary" onclick="fn_init();">
 				<input type="button" value="신규등록" id="btn_add" class="btn_primary">
 				<input type="button" value="변경내용저장" id="btn_modify" class="btn_primary">
-				<input type="button" value="회원삭제" id="btn_remove" class="btn_primary">
+				<input type="button" value="회원삭제" class="btn_primary btn_remove">
 				<input type="hidden" id="memberNo">
 			</div>
 		</form>
