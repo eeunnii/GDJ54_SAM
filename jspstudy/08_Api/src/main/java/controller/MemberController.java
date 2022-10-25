@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,11 +40,16 @@ public class MemberController extends HttpServlet {
 		switch(urlMapping) {
 		case "/member/loginPage.do":
 			// 캡차키 발급 요청
-			String key = service.getCaptchaKey(request, response);
+			String key = service.getCaptchaKey();
 			// 캡차이미지 발급 요청
-			service.getCaptchaImage(request, key);
+			Map<String, String> map = service.getCaptchaImage(request, key);
+			request.setAttribute("dirname", map.get("dirname"));
+			request.setAttribute("filename", map.get("filename"));
 			// ActionForward 생성
 			af = new ActionForward("/member/login.jsp", false);
+			break;
+		case "/member/refreshCaptcha.do":
+			service.refreshCaptcha(request, response);
 			break;
 		}
 		

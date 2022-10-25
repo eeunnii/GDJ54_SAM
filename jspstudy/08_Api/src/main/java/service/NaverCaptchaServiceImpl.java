@@ -6,8 +6,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +24,7 @@ public class NaverCaptchaServiceImpl implements NaverCaptchaService {
 	private final String CLIENT_SECRET = "aSF2zE3ZRQ";
 	
 	@Override
-	public String getCaptchaKey(HttpServletRequest request, HttpServletResponse response) {
+	public String getCaptchaKey() {
 		
 		// code=0 : "키 발급", code=1 : "사용자 입력값 검증"
 		String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=0";
@@ -74,8 +77,10 @@ public class NaverCaptchaServiceImpl implements NaverCaptchaService {
 	}
 
 	@Override
-	public void getCaptchaImage(HttpServletRequest request, String key) {
+	public Map<String, String> getCaptchaImage(HttpServletRequest request, String key) {
 
+		Map<String, String> map = new HashMap<String, String>();
+		
 		String apiURL = "https://openapi.naver.com/v1/captcha/ncaptcha.bin?key=" + key;
 
 		try {
@@ -96,7 +101,8 @@ public class NaverCaptchaServiceImpl implements NaverCaptchaService {
 			// 응답이 성공하면 이미지(JPG)가 응답
 			if(con.getResponseCode() == 200) {  // 200 : HttpURLConnection.HTTP_OK
 				// 저장할 캡차이미지 경로
-				String realPath = request.getServletContext().getRealPath("ncaptcha");
+				String dirname = "ncaptcha";
+				String realPath = request.getServletContext().getRealPath(dirname);
 				File dir = new File(realPath);
 				if(dir.exists() == false) {
 					dir.mkdirs();
@@ -114,6 +120,9 @@ public class NaverCaptchaServiceImpl implements NaverCaptchaService {
 				while((readByte = in.read(b)) != -1) {
 					out.write(b, 0, readByte);
 				}
+				// login.jsp로 전달할 데이터(캡차이미지 경로 + 파일명)
+				map.put("dirname", dirname);
+				map.put("filename", filename);
 				// 자원 반납
 				out.close();
 				in.close();
@@ -138,8 +147,39 @@ public class NaverCaptchaServiceImpl implements NaverCaptchaService {
 			e.printStackTrace();
 		}
 		
+		return map;
+		
 	}
 
+	@Override
+	public void refreshCaptcha(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 응답 데이터 형식 : JSON
+		response.setContentType("application/json");
+		
+		// 응답 데이터
+		// 캡차키 + 캡차이미지 새로 요청해서 JSON 생성
+		/*
+			{
+				"dirname": "ncaptcha",
+				"filename": "11111111111.jpg"
+			}
+		*/
+		String key = getCaptchaKey();
+		Map<String, String> map = getCaptchaImage(request, key);
+		JSONObject obj = new JSONObject(map);
+		
+		// 응답
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(obj.toString());
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	@Override
 	public boolean validateUserInput(HttpServletRequest request) {
 		// TODO Auto-generated method stub
