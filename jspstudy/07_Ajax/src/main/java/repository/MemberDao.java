@@ -70,7 +70,16 @@ public class MemberDao {
 		return result;
 	}
 	
-	
+	// 5. 회원수정
+	public int updateMember(Member member) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update(mapper + "updateMember", member);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

@@ -15,10 +15,21 @@
 
 
 	$(document).ready(function(){
+		fn_init();
 		fn_getAllMembers();
 		fn_getMember();
 		fn_registration();
-	})
+		fn_modify();
+	});
+	
+	
+	function fn_init(){
+		$('#id').val('').prop('readonly', false);
+		$('#name').val('');
+		$(':radio[name=gender]').prop('checked', false);
+		$('#grade').val('');
+		$('#address').val('');
+	}
 	
 	
 	function fn_getAllMembers(){
@@ -98,6 +109,7 @@
 					if(resData.isSuccess){
 						alert('신규 회원이 등록되었습니다.');
 						fn_getAllMembers();  // 목록을 새로 가져와서 갱신함
+						fn_init();  // 입력된 데이터를 초기화
 					} else {
 						alert('신규 회원 등록이 실패했습니다.');
 					}
@@ -111,6 +123,36 @@
 		}); // click
 		
 	}  // function
+	
+	
+	function fn_modify(){
+		
+		$('#btn_modify').click(function(){
+			
+			$.ajax({
+				/* 요청 */
+				type: 'post',
+				url: '${contextPath}/member/modify.do',
+				data: $('#frm_member').serialize(),
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){  // resData : {"isSuccess": true}
+					if(resData.isSuccess){
+						alert('회원 정보가 수정되었습니다.');
+						fn_getAllMembers();  // 수정된 내용이 반영되도록 회원목록을 새로 고침
+					} else {
+						alert('회원 정보 수정이 실패했습니다.');
+					}
+				},
+				error: function(jqXHR){
+					alert(jqXHR.responseText);
+				}
+			});  // ajax
+			
+		});  // click
+		
+	}  // function
+	
 	
 	
 </script>
@@ -153,7 +195,7 @@
 				<input type="text" id="address" name="address"  class="frm_member_ipt">
 			</div>
 			<div class="btn_area">
-				<input type="button" value="초기화" id="btn_init" class="btn_primary">
+				<input type="button" value="초기화" class="btn_primary" onclick="fn_init();">
 				<input type="button" value="신규등록" id="btn_add" class="btn_primary">
 				<input type="button" value="변경내용저장" id="btn_modify" class="btn_primary">
 				<input type="button" value="회원삭제" id="btn_remove" class="btn_primary">
