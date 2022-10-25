@@ -40,7 +40,11 @@ public class MemberController extends HttpServlet {
 		case "/member/loginPage.do":
 			// 캡차키 발급 요청
 			String key = service.getCaptchaKey(request, response);
-			System.out.println(key);
+			// 캡차이미지 발급 요청
+			service.getCaptchaImage(request, key);
+			// ActionForward 생성
+			af = new ActionForward("/member/login.jsp", false);
+			break;
 		}
 		
 		// 어디로 어떻게 이동하는가?
