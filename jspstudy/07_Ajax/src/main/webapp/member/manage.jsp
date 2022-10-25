@@ -20,6 +20,7 @@
 		fn_getMember();
 		fn_registration();
 		fn_modify();
+		fn_remove();
 	});
 	
 	
@@ -84,6 +85,7 @@
 						$(':radio[name=gender][value=' + resData.member.gender + ']').prop('checked', true);
 						$('#grade').val(resData.member.grade);
 						$('#address').val(resData.member.address);
+						$('#memberNo').val(resData.member.memberNo);
 					} else {
 						alert('조회된 회원 정보가 없습니다.');
 					}
@@ -154,6 +156,39 @@
 	}  // function
 	
 	
+	function fn_remove(){
+		
+		$('#btn_remove').click(function(){
+			
+			if(confirm('삭제할까요?') == false){
+				return;
+			}
+			
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/member/remove.do',
+				data: 'memberNo=' + $(this).next().val(),
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){  // resData : {"isSuccess": true}
+					if(resData.isSuccess){
+						alert('회원 정보가 삭제되었습니다.');
+						fn_getAllMembers();
+						fn_init();
+					} else {
+						alert('회원 정보 삭제가 실패했습니다.');
+					}
+				},
+				error: function(jqXHR){
+					alert(jqXHR.responseText);
+				}
+			});  // ajax
+			
+		});  // click
+		
+	}  // function
+	
 	
 </script>
 </head>
@@ -199,6 +234,7 @@
 				<input type="button" value="신규등록" id="btn_add" class="btn_primary">
 				<input type="button" value="변경내용저장" id="btn_modify" class="btn_primary">
 				<input type="button" value="회원삭제" id="btn_remove" class="btn_primary">
+				<input type="hidden" id="memberNo">
 			</div>
 		</form>
 		<hr>
