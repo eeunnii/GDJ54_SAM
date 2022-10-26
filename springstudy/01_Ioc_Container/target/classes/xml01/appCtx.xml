@@ -10,9 +10,20 @@
 	-->
 	
 	<!--
-		1. 디폴트 생성자 + setter
+		1. 디폴트 생성자 + setter(property 태그)
 	-->
-	<bean class="com.gdu.app01.xml01.Calculator" id="calculator"></bean>
+	<bean id="calc" class="com.gdu.app01.xml01.Calculator"></bean>
+	<bean id="haksang" class="com.gdu.app01.xml01.Student">
+		<property name="name">
+			<value>홍길동</value>
+		</property>
+		<property name="school">
+			<value>가산대학교</value>
+		</property>
+		<property name="calculator">
+			<ref bean="calc" />
+		</property>
+	</bean>
 	
 	
 	<!--

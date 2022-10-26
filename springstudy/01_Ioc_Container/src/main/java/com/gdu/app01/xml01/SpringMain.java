@@ -13,12 +13,24 @@ public class SpringMain {
 
 		// 새로운 프레임워크
 		// 프레임워크가 만든 Bean을 가져다 쓴다.
-		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:xml01/appCtx.xml");
-		Calculator calculator = ctx.getBean("calculator", Calculator.class);
+		
+		// XML에 저장된 Bean 가져오는 클래스
+		// GenericXmlApplicationContext
+		// ClassPathXmlApplicationContext
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("xml01/appCtx.xml");
+		Calculator calculator = ctx.getBean("calc", Calculator.class);
 		calculator.add(5, 2);
 		calculator.sub(5, 2);
 		calculator.mul(5, 2);
 		calculator.div(5, 2);
+		
+		Student student = ctx.getBean("haksang", Student.class);  // Student student = (Student)ctx.getBean("haksang");
+		System.out.println(student.getName());
+		System.out.println(student.getSchool());
+		student.getCalculator().add(7, 3);
+		student.getCalculator().sub(7, 3);
+		student.getCalculator().mul(7, 3);
+		student.getCalculator().div(7, 3);
 		
 		ctx.close();  // 생략 가능
 		
