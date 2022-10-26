@@ -9,9 +9,7 @@
 		내가 만든 Bean은 컨테이너(Container)에 보관되지.
 	-->
 	
-	<!--
-		1. 디폴트 생성자 + setter(property 태그)
-	-->
+	<!-- 디폴트 생성자 + setter(property 태그) -->
 	<bean id="calc" class="com.gdu.app01.xml01.Calculator"></bean>
 	<bean id="haksang" class="com.gdu.app01.xml01.Student">
 		<property name="name">
@@ -24,13 +22,5 @@
 			<ref bean="calc" />
 		</property>
 	</bean>
-	
-	
-	<!--
-		2. 생성자(Generate Constructor using Fields)
-	-->
-	
-	
-
 
 </beans>
