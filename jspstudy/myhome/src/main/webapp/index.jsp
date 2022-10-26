@@ -10,7 +10,19 @@
 </head>
 <body>
 
-	
+	<div>
+		<form method="post" action="${contextPath}/member/login.me">
+			<div>
+				<input type="text" name="id" placeholder="아이디">
+			</div>
+			<div>
+				<input type="password" name="pw" placeholder="패스워드">
+			</div>
+			<div>
+				<button>로그인</button>
+			</div>
+		</form>
+	</div>
 
 </body>
 </html>
