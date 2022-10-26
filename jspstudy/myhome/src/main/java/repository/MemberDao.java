@@ -3,8 +3,11 @@ package repository;
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import domain.Member;
 
 public class MemberDao {
 
@@ -26,6 +29,24 @@ public class MemberDao {
 	public static MemberDao getInstance() {
 		return dao;
 	}
+	
+	String mapper = "mybatis.mapper.member.";
+	
+	public Member login(Member member) {
+		SqlSession ss = factory.openSession();
+		Member login = ss.selectOne(mapper + "login", member);
+		ss.close();
+		return login;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

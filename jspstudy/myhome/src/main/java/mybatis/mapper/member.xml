@@ -6,6 +6,10 @@
 
 <mapper namespace="mybatis.mapper.member">
 
-	
+	<select id="login" parameterType="Member" resultType="Member">
+		SELECT MEMBER_NO, ID, PW, NAME, EMAIL, REGISTED_DATE
+		  FROM MEMBER
+		 WHERE ID = #{id} AND PW = #{pw}
+	</select>
 
 </mapper>

@@ -38,7 +38,10 @@ public class MemberController extends HttpServlet {
 		// 요청에 따른 메소드 선택 및 실행
 		switch(urlMapping) {
 		case "/member/login.me":
-			service.login(request, response);
+			af = service.login(request, response);
+			break;
+		case "/member/logout.me":
+			af = service.logout(request, response);
 			break;
 		}
 		
