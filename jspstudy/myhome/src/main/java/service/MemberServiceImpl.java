@@ -56,8 +56,39 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void register(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-
+		
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		Member member = Member.builder()
+				.id(id)
+				.pw(pw)
+				.name(name)
+				.email(email)
+				.build();
+		
+		int result = MemberDao.getInstance().insertMember(member);
+		
+		try {
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('환영합니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+			} else {
+				out.println("alert('회원 가입에 실패했습니다.');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override

@@ -43,6 +43,12 @@ public class MemberController extends HttpServlet {
 		case "/member/logout.me":
 			af = service.logout(request, response);
 			break;
+		case "/member/join.me":
+			af = new ActionForward("/member/join.jsp", false);
+			break;
+		case "/member/register.me":
+			service.register(request, response);  // af 없이 register() 메소드 내부에서 직접 이동
+			break;
 		}
 		
 		// 어디로 어떻게 이동하는가?

@@ -22,11 +22,14 @@
 				<div>
 					<button>로그인</button>
 				</div>
+				<div>
+					<a href="${contextPath}/member/join.me">회원가입</a>
+				</div>
 			</form>
 		</div>
 	</c:if>
 	
-	<c:if test="${login != null }">
+	<c:if test="${login != null}">
 		<div>
 			${login.name}님 어세오세요
 			<input type="button" value="로그아웃" onclick="location.href='${contextPath}/member/logout.me';">
