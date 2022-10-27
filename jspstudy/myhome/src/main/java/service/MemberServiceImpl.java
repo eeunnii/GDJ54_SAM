@@ -76,6 +76,10 @@ public class MemberServiceImpl implements MemberService {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			if(result > 0) {
+				// 회원가입하면 로그인 처리
+				// 회원가입한 회원의 정보를 DB에서 가져온 뒤 session에 login이라는 이름으로 올리기
+				HttpSession session = request.getSession();
+				session.setAttribute("login", MemberDao.getInstance().login(member));
 				out.println("alert('환영합니다.');");
 				out.println("location.href='" + request.getContextPath() + "';");
 			} else {
