@@ -18,5 +18,11 @@
 		VALUES
 			(MEMBER_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{email}, TO_CHAR(SYSDATE, 'yyyy-mm-dd'))
 	</insert>
-
+	
+	<delete id="deleteMember" parameterType="int">
+		DELETE
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+	</delete>
+	
 </mapper>
