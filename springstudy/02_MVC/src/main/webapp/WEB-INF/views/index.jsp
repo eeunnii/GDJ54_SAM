@@ -24,14 +24,9 @@
 	
 	<a href="${contextPath}/want/animal?filename=animal5.jpg">animal5 보러가기</a>
 	
+	<hr>
 	
+	<a href="${contextPath}/response">응답 만들어 받기</a>
 	
-	
-	
-	
-	
-	
-	
-
 </body>
 </html>

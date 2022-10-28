@@ -1,6 +1,9 @@
 package com.gdu.app02.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,8 +104,6 @@ public class MvcController {
 	
 	
 	// <a href="${contextPath}/want/animal?filename=animal5.jpg">
-	
-	
 	@RequestMapping("want/animal")
 	public String 동물5보기(HttpServletRequest request) {
 		
@@ -114,17 +115,24 @@ public class MvcController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// <a href="${contextPath}/response">
+	@RequestMapping("response")
+	public void 응답만들기(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 응답을 만들 때는 return을 하지 않는다.
+		
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('동물 보러 가자.');");
+			out.println("location.href='" + request.getContextPath() + "/animal';");
+			out.println("</script>");
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
