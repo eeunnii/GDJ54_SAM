@@ -10,7 +10,11 @@
 </head>
 <body>
 
-	<a href="${contextPath}/animal">동물보러가기</a>
+	<h1>여기 예쁜 동물 좀 보세요</h1>
+	<img src="resources/images/animal1.jpg" width="200px">
+	
+	<h1>저도 봐 주세요</h1>
+	<img src="assets/images/animal2.jpg" width="200px">
 
 </body>
 </html>
