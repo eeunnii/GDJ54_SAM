@@ -39,6 +39,7 @@
 	</beans:bean>
 	
 	
+	
 	<!--
 		1. component-scan에 등록된 패키지에 있는 @Component를 자동으로 Bean으로 등록한다.
 			@Component의 종류 : @Controller, @Service, @Repository

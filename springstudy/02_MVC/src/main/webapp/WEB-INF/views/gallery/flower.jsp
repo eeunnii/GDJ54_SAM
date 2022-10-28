@@ -10,7 +10,7 @@
 	
 	$(document).ready(function(){
 		$('#title').text('예쁜 꽃 구경하세요');
-		$('#image').attr('src', 'resources/images/flower1.jpg');
+		$('#image').attr('src', '${contextPath}/resources/images/flower1.jpg');
 	});
 	
 </script>
