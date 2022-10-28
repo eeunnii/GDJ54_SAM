@@ -11,6 +11,10 @@
 <body>
 
 	<a href="${contextPath}/animal">동물보러가기</a>
+	
+	<hr>
+	
+	<a href="${contextPath}/flower">꽃보러가기</a>
 
 </body>
 </html>

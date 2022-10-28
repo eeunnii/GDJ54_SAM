@@ -62,17 +62,20 @@ public class MvcController {
 		return "gallery/animal";
 	}
 	
+	// @RequestMapping(value="/animal", method=RequestMethod.GET)
+	// @RequestMapping(value="animal", method=RequestMethod.GET)   슬래시가 없어도 됩니다.
+	// @RequestMapping(value="/animal")                            GET은 없어도 됩니다.	
+	// @RequestMapping("/animal")                                  value로 인식합니다.
+	// @RequestMapping("animal")                                   최종버전입니다.
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("flower")
+	public String 꽃보러가기() {
+		
+		// return "/gallery/flower"   슬래시(/)가 있어도 됩니다.
+		
+		return "gallery/flower";   // 슬래시(/)가 없어도 됩니다.
+		
+	}
 	
 }
