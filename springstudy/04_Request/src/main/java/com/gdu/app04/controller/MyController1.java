@@ -71,6 +71,16 @@ public class MyController1 {
 	}
 	
 	
+	// <form action="${contextPath}/member/detail4" method="get">
+	@GetMapping("detail4")
+	public String getDetail4(Member member  // 파라미터 id, pw를 setId(), setPw() 메소드를 이용해서 member 객체에 저장해 준다.
+			               , Model model) {
+		
+		model.addAttribute("member", member);
+		
+		return "member/detail";
+		
+	}
 	
 	
 	

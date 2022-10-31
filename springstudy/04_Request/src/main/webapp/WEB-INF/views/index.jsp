@@ -36,9 +36,14 @@
 		});
 	</script>
 	
-	<form action="" method="">
-	
-		<button></button>
+	<form action="${contextPath}/member/detail4" method="get">
+		<div>
+			<input type="text" name="id" placeholder="아이디">
+		</div>
+		<div>
+			<input type="text" name="pw" placeholder="패스워드">
+		</div>
+		<button>전송</button>
 	</form>
 
 
