@@ -36,7 +36,7 @@
 		});
 	</script>
 	
-	<form action="${contextPath}/member/detail4" method="get">
+	<form action="${contextPath}/member/detail4" method="post">
 		<div>
 			<input type="text" name="id" placeholder="아이디">
 		</div>
@@ -45,11 +45,6 @@
 		</div>
 		<button>전송</button>
 	</form>
-
-
-
-
-
 
 </body>
 </html>
