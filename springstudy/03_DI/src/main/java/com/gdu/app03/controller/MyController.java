@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gdu.app03.domain.Board;
+import com.gdu.app03.domain.Notice;
 
 @Controller
 public class MyController {
@@ -161,5 +162,27 @@ public class MyController {
 		@Qualifier(value="board2")
 		private Board b2;
 	*/
+	
+	
+	
+	////////////////////////////////////////////////////////////////////
+	
+	
+	@Autowired
+	private Notice notice1;
+	
+	@Autowired
+	private Notice notice2;
+	
+	
+	
+	@GetMapping("notice/detail")
+	public void noticeDetail() {
+		System.out.println(notice1.getNoticeNo());
+		System.out.println(notice1.getTitle());
+		System.out.println(notice2.getNoticeNo());
+		System.out.println(notice2.getTitle());
+	}
+	
 	
 }
