@@ -26,7 +26,13 @@
 	</div>
 	<script>
 		$('#btn').click(function(){
-			location.href='${contextPath}/member/detail2?id=admin&pw=1234';			
+			
+			// location.href='${contextPath}/member/detail2?id=admin&pw=1234';
+			// location.href='${contextPath}/member/detail2';
+			
+			// location.href='${contextPath}/member/detail3?id=admin&pw=1234';
+			location.href='${contextPath}/member/detail3';
+			
 		});
 	</script>
 	

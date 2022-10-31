@@ -34,9 +34,16 @@ public class MyController1 {
 	
 	// location.href='${contextPath}/member/detail2?id=admin&pw=1234';
 	@GetMapping("detail2")
-	public String detail2(@RequestParam(value="id") String id  // 파라미터 id를 String id에 저장하시오.
-			            , @RequestParam(value="pw") String pw  // 파라미터 pw를 String pw에 저장하시오.
+	public String detail2(@RequestParam(value="id", required=false, defaultValue="master") String id  // 파라미터 id를 String id에 저장하시오.
+			            , @RequestParam(value="pw", required=false, defaultValue="1111")   String pw  // 파라미터 pw를 String pw에 저장하시오.
 			            , Model model) {
+		
+		/*
+			@RequestParam
+			1. value        : 파라미터 이름
+			2. required     : 파라미터의 필수 여부(디폴트는 true)
+			3. defaultValue : 파라미터가 없을 때 사용할 값
+		*/
 		
 		Member member = new Member(id, pw);
 		
@@ -48,6 +55,20 @@ public class MyController1 {
 		
 	}
 	
+	
+	// location.href='${contextPath}/member/detail3?id=admin&pw=1234';
+	@GetMapping("detail3")
+	public String detail3(String id  // @RequestParam은 생략할 수 있다. 파라미터 id가 없는 경우 null이 저장된다.
+			            , String pw  // @RequestParam은 생략할 수 있다. 파라미터 pw가 없는 경우 null이 저장된다.
+			            , Model model) {
+		
+		Member member = new Member(id, pw);
+		
+		model.addAttribute("member", member);
+		
+		return "member/detail";
+		
+	}
 	
 	
 	
