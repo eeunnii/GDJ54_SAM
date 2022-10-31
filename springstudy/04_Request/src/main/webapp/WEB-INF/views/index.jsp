@@ -12,5 +12,27 @@
 
 	<img src="${contextPath}/resources/images/hooray.jpg" width="200px">
 
+	<hr>
+	
+	<h3>Member 관련 요청</h3>
+
+	<div>
+		<a href="${contextPath}/member/detail?id=admin&pw=1234">전송</a>
+	</div>
+	
+	<script>
+		//location.href='';
+	</script>
+	
+	<form action="" method="">
+	
+		<button></button>
+	</form>
+
+
+
+
+
+
 </body>
 </html>
