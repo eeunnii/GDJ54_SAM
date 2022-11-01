@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gdu.app05.domain.Member;
 import com.gdu.app05.service.MemberService;
 import com.gdu.app05.service.MemberServiceImpl;
 
@@ -41,6 +43,22 @@ public class MyController1 {
 		String str = memberService.execute1(request);
 		return str;
 	}
+	
+	
+	
+	@ResponseBody
+	@GetMapping(value="member/detail2"
+	          , produces="application/json; charset=UTF-8")
+	public Member detail2(@RequestParam(value="id") String id, @RequestParam(value="pw") String pw) {
+		Member member = memberService.execute2(id, pw);
+		return member;  // jackson이 member 객체를 {"id":아이디, "pw":패스워드} 형식의 JSON으로 바꿔서 전달합니다.
+		/* 
+			추억의 코드
+			JSONObject obj = new JSONObject(member);
+			return obj.toString();
+		*/
+	}
+	
 	
 	
 	

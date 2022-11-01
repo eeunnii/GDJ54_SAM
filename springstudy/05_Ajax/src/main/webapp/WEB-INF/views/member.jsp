@@ -49,6 +49,27 @@
 
 	function fn_ajax2(){
 		
+		$('#result').empty();
+		
+		$.ajax({
+			/* 요청 */
+			type: 'get',
+			url: '${contextPath}/member/detail2',
+			data: $('#frm_member').serialize(),
+			/* 응답 */
+			dataType: 'json',
+			success: function(resData){
+				var ul = '<ul>';
+				ul += '<li>' + resData.id + '</li>';
+				ul += '<li>' + resData.pw + '</li>';
+				ul += '</ul>';
+				$('#result').html(ul);
+			},
+			error: function(jqXHR){
+				$('#result').text(jqXHR.responseText);
+			}
+		});  // ajax
+		
 	}  // function
 	
 	function fn_ajax3(){

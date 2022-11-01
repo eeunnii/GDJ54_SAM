@@ -17,8 +17,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member execute2(String id, String pw) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Member(id, pw);
 	}
 
 	@Override
