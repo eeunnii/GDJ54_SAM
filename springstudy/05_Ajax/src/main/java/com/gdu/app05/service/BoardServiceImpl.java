@@ -2,7 +2,9 @@ package com.gdu.app05.service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import com.gdu.app05.domain.Board;
@@ -27,11 +29,14 @@ public class BoardServiceImpl implements BoardService {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		Board board = new Board(title, content);
+		Board board = null;
 		
 		ResponseEntity<Board> entity = null;
 		if(title.isEmpty()) {
-			entity = new ResponseEntity<Board>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+			entity = new ResponseEntity<Board>(board, HttpStatus.INTERNAL_SERVER_ERROR);  // $.ajax()의 error에서 처리
+		} else {
+			board = new Board(title, content);
+			entity = new ResponseEntity<Board>(board, HttpStatus.OK);  // $.ajax()의 success에서 처리
 		}
 		
 		return entity;
@@ -40,8 +45,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ResponseEntity<Board> execute2(String title, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ResponseEntity<Board> entity = null;
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		
+		if(title.isEmpty()) {
+			entity = new ResponseEntity<Board>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			entity = new ResponseEntity<Board>(new Board(title, content), header, HttpStatus.OK);
+		}
+		
+		return entity;
+		
 	}
 
 	@Override
