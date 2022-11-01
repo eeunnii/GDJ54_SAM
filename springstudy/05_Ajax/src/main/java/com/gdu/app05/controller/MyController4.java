@@ -39,7 +39,7 @@ public class MyController4 {
 	@ResponseBody
 	@PostMapping(value="contact/detail1"
 	           , produces=MediaType.APPLICATION_JSON_VALUE)
-	public Contact detail1(@RequestBody Contact contact) {
+	public Contact detail1(@RequestBody Contact contact) {  // post 방식으로 넘어온 JSON을 bean에 저장할 수 있다.
 		return contactService.execute1(contact);
 	}
 	
@@ -47,7 +47,7 @@ public class MyController4 {
 	@ResponseBody
 	@PostMapping(value="contact/detail2"
 	           , produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> detail2(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> detail2(@RequestBody Map<String, Object> map) {  // post 방식으로 넘어온 JSON을 Map에 저장할 수 있다.
 		return contactService.execute2(map);
 	}
 	
