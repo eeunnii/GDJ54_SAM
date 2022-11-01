@@ -11,4 +11,6 @@ public class MyController3 {
 		return "movie";
 	}
 	
+	// 요청 처리 메소드
+	
 }

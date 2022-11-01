@@ -4,7 +4,7 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public String getBoxOffice(String targetDt) {
-		// TODO Auto-generated method stub
+		// API 요청 및 응답
 		return null;
 	}
 
