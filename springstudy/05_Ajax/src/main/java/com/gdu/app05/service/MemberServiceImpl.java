@@ -1,6 +1,7 @@
 package com.gdu.app05.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,8 +42,15 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Map<String, Object> execute3(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", member.getId());
+		map.put("pw", member.getPw());
+		return map;
+	}
+	
+	@Override
+	public Member execute4(Member member) {
+		return member;
 	}
 
 }
