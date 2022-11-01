@@ -63,8 +63,19 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ResponseEntity<Board> execute3(Board board) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ResponseEntity<Board> entity = null;
+		
+		if(board.getTitle().isEmpty()) {
+			entity = new ResponseEntity<Board>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			HttpHeaders header = new HttpHeaders();
+			header.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+			entity = new ResponseEntity<Board>(board, header, HttpStatus.OK);
+		}
+		
+		return entity;
+		
 	}
 
 }
