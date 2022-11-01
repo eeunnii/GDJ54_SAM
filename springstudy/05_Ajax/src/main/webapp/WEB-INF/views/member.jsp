@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	 #frm_member {
+	 #frm_member, #result {
 	 	width: 480px;
 	 	margin: 0 auto;
 	 }
