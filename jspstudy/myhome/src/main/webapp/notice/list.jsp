@@ -20,11 +20,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="notices" var="notice">
+			<c:forEach items="${notices}" var="notice">
 				<tr>
-					<td>${notice.getNoticeNo()}</td>
-					<td>${notice.getTitle()}</td>
-					<td>${notice.getCreateDate()}</td>
+					<td>${notice.noticeNo}</td>
+					<td>${notice.title}</td>
+					<td>${notice.createDate}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
