@@ -29,7 +29,7 @@
 					.attr('width', '200px'))
 			.appendTo('#galleries');
 		}
-	</script> 
+	</script>
 
 </body>
 </html>
