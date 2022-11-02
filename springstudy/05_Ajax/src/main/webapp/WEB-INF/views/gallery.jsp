@@ -13,19 +13,23 @@
 
 	<h1>예쁜 동물들 보고 가세요</h1>
 	
-	<div>
-		<!--
-			절대 경로의 이미지를 img 태그로 표시하기
-			1. 요청
-				경로 + 이미지를 파라미터로 전송
-			2. 응답
-				이미지의 byte[]
-		-->
-		<img id="image" width="200px">
-		<script>
-			$('#image').attr('src', '${contextPath}/image/display?path=' + encodeURIComponent('D:\\GDJ54\\images') + '&filename=animal1.jpg');
-		</script> 
-	</div>
+	<!--
+		절대 경로의 이미지를 img 태그로 표시하기
+		1. 요청
+			경로 + 이미지를 파라미터로 전송
+		2. 응답
+			이미지의 byte[]
+	-->
+	<div id="galleries"></div>
+	<script>
+		for(let n = 1; n <= 10; n++) {
+			$('<div>')
+			.append($('<img>')
+					.attr('src', '${contextPath}/image/display?path=' + encodeURIComponent('D:\\GDJ54\\images') + '&filename=animal' + n + '.jpg')
+					.attr('width', '200px'))
+			.appendTo('#galleries');
+		}
+	</script> 
 
 </body>
 </html>
