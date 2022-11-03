@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.app06.domain.BoardDTO;
 import com.gdu.app06.service.BoardService;
@@ -41,14 +42,13 @@ public class BoardController {
 	public String add(BoardDTO board) {
 		boardService.saveBoard(board);  // saveBoard()로부터 0/1이 반환되지만 처리하지 않았다.
 		return "redirect:/brd/list";
-	}
+	}	
 	
 	
-	
-	
-	
-	@GetMapping("board/detail")
-	public String detail() {
+	@GetMapping("brd/detail")
+	public String detail(@RequestParam(value="board_no", required=false, defaultValue="0") int board_no
+			           , Model model) {
+		model.addAttribute("board", boardService.findBoardByNo(board_no));
 		return "board/detail";
 	}
 	
