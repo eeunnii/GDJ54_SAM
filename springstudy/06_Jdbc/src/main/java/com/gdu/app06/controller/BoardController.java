@@ -49,8 +49,27 @@ public class BoardController {
 	public String detail(@RequestParam(value="board_no", required=false, defaultValue="0") int board_no
 			           , Model model) {
 		model.addAttribute("board", boardService.findBoardByNo(board_no));
-		return "board/detail";
+		return "board/detail";  // board 폴더의 detail.jsp로 forward 
 	}
+	
+	
+	@PostMapping("brd/edit")
+	public String edit(int board_no
+			         , Model model) {
+		model.addAttribute("board", boardService.findBoardByNo(board_no));
+		return "board/edit";  // board 폴더의 edit.jsp로 forward 
+	}
+	
+	
+	
+	@PostMapping("brd/modify")
+	public String modify(BoardDTO board) {
+		boardService.modifyBoard(board);  // modifyBoard()로부터 0/1이 반환되지만 처리하지 않았다.
+		return "redirect:/brd/detail?board_no=" + board.getBoard_no();
+	}
+	
+	
+	
 	
 	
 }

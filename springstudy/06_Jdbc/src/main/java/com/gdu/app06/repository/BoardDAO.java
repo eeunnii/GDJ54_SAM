@@ -118,7 +118,21 @@ public class BoardDAO {
 	
 	public int updateBoard(BoardDTO board) {
 		int result = 0;
-		
+		try {
+			con = getConnection();
+			sql = "UPDATE BOARD "
+				+ "SET TITLE = ?, CONTENT = ?, MODIFY_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
+				+ "WHERE BOARD_NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, board.getTitle());
+			ps.setString(2, board.getContent());
+			ps.setInt(3, board.getBoard_no());
+			result = ps.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return result;
 	}
 	
