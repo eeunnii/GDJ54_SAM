@@ -31,7 +31,10 @@
 		<tfoot>
 			<tr>
 				<td colspan="3">
-				
+					<!-- 1 2 3 -->
+					<c:forEach begin="${beginPage}" end="${endPage}" step="1" var="p">
+						&nbsp;&nbsp;${p}&nbsp;&nbsp;
+					</c:forEach>
 				</td>
 			</tr>
 		</tfoot>
