@@ -7,16 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<script>
-	
-	$(document).ready(function(){
-		
-		
-		
-	});
-	
-</script>
 </head>
 <body>
 
