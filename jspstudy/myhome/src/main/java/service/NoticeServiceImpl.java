@@ -56,12 +56,12 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		// block 개념 이해하기
 		// 1 block 당 3 page가 표시되는 상황
-		// 전체 7페이지가 있는 상황
+		// 전체 8페이지가 있는 상황
 		
 		//           beginPage endPage       page
 		// 1 block : 1         3             1   2   3
 		// 2 block : 4         6             4   5   6
-		// 3 block : 7         7             7
+		// 3 block : 7         8             7   8
 		
 		// 각 block의 beginPage와 endPage를 알아내기 위한 과정
 		// 1) 전체 page의 개수를 구한다. (totalPageCnt)
@@ -87,6 +87,8 @@ public class NoticeServiceImpl implements NoticeService {
 		request.setAttribute("page", page);
 		request.setAttribute("beginPage", beginPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("totalPageCnt", totalPageCnt);
+		request.setAttribute("pagePerBlock", pagePerBlock);
 		
 		// notice 폴더의 list.jsp로 forward
 		return new ActionForward("/notice/list.jsp", false);
