@@ -21,6 +21,10 @@
 <body>
 
 	<div>
+		<a href="${contextPath}/brd/write">새글작성</a>
+	</div>
+
+	<div>
 		<table border="1">
 			<thead>
 				<tr>
