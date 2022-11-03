@@ -138,7 +138,17 @@ public class BoardDAO {
 	
 	public int deleteBoard(int board_no) {
 		int result = 0;
-		
+		try {
+			con = getConnection();
+			sql = "DELETE FROM BOARD WHERE BOARD_NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, board_no);
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return result;
 	}
 	
