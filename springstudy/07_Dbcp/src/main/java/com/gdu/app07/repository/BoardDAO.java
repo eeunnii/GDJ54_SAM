@@ -1,27 +1,16 @@
 package com.gdu.app07.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import com.gdu.app07.domain.BoardDTO;
-
-
-/*
-	@Repository
-	안녕. 난 DAO에 추가하는 @Component야.
-	servlet-context.xml에 등록된 <context:component-scan> 태그에 의해서 bean으로 검색되지.
-	root-context.xml이나 @Configuration에 @Bean으로 등록하지 않아도 컨테이너에 만들어 져.
-*/
-
-
-//@Repository  // DAO가 사용하는 @Component로 트랜잭션 기능이 추가되어 있어.
-
 
 public class BoardDAO {
 
@@ -30,17 +19,19 @@ public class BoardDAO {
 	private ResultSet rs;
 	private String sql;
 	
-	// private 메소드
-	// 이 메소드는 BoardDAO에서만 사용한다.
-	private Connection getConnection() {
-		Connection con = null;
+	// Connection Pool을 관리하는 DataSource
+	private DataSource dataSource;
+	
+	// BoardDAO가 생성되면
+	// context.xml의 Resource를 읽어서 dataSource 객체를 만든다.
+	public BoardDAO() {
+		// JNDI : Resource의 name을 이용해서 읽어 들이는 방식
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "SCOTT", "TIGER");
-		} catch(Exception e) {
+			Context context = new InitialContext();
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/oracle11g");
+		} catch (Exception e) {  // NamingException
 			e.printStackTrace();
 		}
-		return con;
 	}
 	
 	// private 메소드
@@ -62,7 +53,7 @@ public class BoardDAO {
 	public List<BoardDTO> selectAllBoards() {
 		List<BoardDTO> boards = new ArrayList<BoardDTO>();
 		try {
-			con = getConnection();
+			con = dataSource.getConnection();  // Connection Pool에서 Connection을 하나 얻어 온다.
 			sql = "SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE FROM BOARD ORDER BY BOARD_NO DESC";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -81,7 +72,7 @@ public class BoardDAO {
 	public BoardDTO selectBoardByNo(int board_no) {
 		BoardDTO board = null;
 		try {
-			con = getConnection();
+			con = dataSource.getConnection();
 			sql = "SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE FROM BOARD WHERE BOARD_NO = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, board_no);
@@ -100,7 +91,7 @@ public class BoardDAO {
 	public int insertBoard(BoardDTO board) {
 		int result = 0;
 		try {
-			con = getConnection();
+			con = dataSource.getConnection();
 			sql = "INSERT INTO BOARD(BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE)"
 				+ " VALUES(BOARD_SEQ.NEXTVAL, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(SYSDATE, 'YYYY-MM-DD'))";
 			ps = con.prepareStatement(sql);
@@ -119,7 +110,7 @@ public class BoardDAO {
 	public int updateBoard(BoardDTO board) {
 		int result = 0;
 		try {
-			con = getConnection();
+			con = dataSource.getConnection();
 			sql = "UPDATE BOARD "
 				+ "SET TITLE = ?, CONTENT = ?, MODIFY_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') "
 				+ "WHERE BOARD_NO = ?";
@@ -139,7 +130,7 @@ public class BoardDAO {
 	public int deleteBoard(int board_no) {
 		int result = 0;
 		try {
-			con = getConnection();
+			con = dataSource.getConnection();
 			sql = "DELETE FROM BOARD WHERE BOARD_NO = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, board_no);

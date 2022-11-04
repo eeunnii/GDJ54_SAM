@@ -1,6 +1,5 @@
 package com.gdu.app07.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.app07.domain.BoardDTO;
 import com.gdu.app07.service.BoardService;
 
+import lombok.AllArgsConstructor;
+
+// 필드를 이용한 생성자를 만들어 두면,
+// 생성자의 매개변수로 컨테이너의 Bean이 자동 주입(@Autowired)되므로
+// 필드에 @Autowired 처리할 필요가 없다.
+@AllArgsConstructor
+
 @Controller
 public class BoardController {
-	
-	
-	// Controller는 Service를 사용합니다.
-	@Autowired  // 컨테이너에 생성된 bean 중에서 BoardService 타입의 bean을 가져오시오.
+
+
+	// @Autowired가 없음에 주의!
 	private BoardService boardService;
 	
-	
+
 	@GetMapping("/")
 	public String index() {
 		return "index";
