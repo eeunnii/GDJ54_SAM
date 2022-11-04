@@ -49,13 +49,27 @@ public class BoardDAO {
 	}
 	
 	public int updateBoard(final BoardDTO board) {
-		
-		return 0;
+		String sql = "UPDATE BOARD SET TITLE = ?, CONTENT = ?, MODIFY_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') WHERE BOARD_NO = ?";
+		int result = jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, board.getTitle());
+				ps.setString(2, board.getContent());
+				ps.setInt(3, board.getBoard_no());
+			}
+		});				
+		return result;
 	}
 	
 	public int deleteBoard(final int board_no) {
-		
-		return 0;
+		String sql = "DELETE FROM BOARD WHERE BOARD_NO = ?";
+		int result = jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, board_no);
+			}
+		});
+		return result;
 	}
 	
 }
