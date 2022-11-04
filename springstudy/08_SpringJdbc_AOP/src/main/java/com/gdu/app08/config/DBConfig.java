@@ -7,6 +7,7 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -17,13 +18,17 @@ import org.springframework.transaction.interceptor.RollbackRuleAttribute;
 import org.springframework.transaction.interceptor.RuleBasedTransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-
 /*
 	@EnableTransactionManagement
 	안녕. 난 트랜잭션매니저를 허용하는 애너테이션이야.
 */
 @EnableTransactionManagement
 
+/*
+	@EnableAspectJAutoProxy
+	안녕. 난 Aspect를 자동으로 동작시키는 애너테이션이야.
+*/
+@EnableAspectJAutoProxy
 
 @Configuration
 public class DBConfig {
