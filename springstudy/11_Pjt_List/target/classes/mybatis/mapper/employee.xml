@@ -6,6 +6,24 @@
 
 <mapper namespace="com.gdu.app11.mapper.EmpMapper">
 
+	<select id="selectAllEmployeesCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEES
+	</select>
+	
+	<select id="selectEmployeesByPage" resultType="EmpDTO">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		          FROM (SELECT *
+		                  FROM EMPLOYEES
+		                  ORDER BY HIRE_DATE DESC) A) B
+		 WHERE B.RN BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	
+	
+	
+	
 	
 
 </mapper>
