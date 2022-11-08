@@ -7,10 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	location.href='${contextPath}/ntc/list';
+</script>
 </head>
 <body>
-
-	<a href="${contextPath}/emp/list">사원목록</a>
-
 </body>
 </html>

@@ -17,8 +17,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public void findAllNotices(Model model) {
-		// TODO Auto-generated method stub
-
+		model.addAttribute("notices", mapper.selectAllNotices());
 	}
 
 	@Override

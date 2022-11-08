@@ -6,6 +6,10 @@
 
 <mapper namespace="com.gdu.notice.mapper.NoticeMapper">
 
-		
+	<select id="selectAllNotices" resultType="NoticeDTO">
+		SELECT NOTICE_NO, TITLE, CONTENT, HIT, CREATE_DATE, MODIFY_DATE
+		  FROM NOTICE
+		 ORDER BY NOTICE_NO DESC
+	</select>
 
 </mapper>
