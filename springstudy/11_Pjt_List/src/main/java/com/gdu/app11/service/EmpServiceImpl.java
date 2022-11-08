@@ -39,7 +39,7 @@ public class EmpServiceImpl implements EmpService {
 		
 		List<EmpDTO> employees = empMapper.selectEmployeesByPage(begin, end);
 		
-		System.out.println(employees);
+		model.addAttribute("employees", employees);
 		
 		
 		
