@@ -41,11 +41,11 @@
 <body>
 
 	<ul>
-		<li>글번호 : ${board.board_no}</li>
+		<li>글번호 : ${board.boardNo}</li>
 		<li>제목 : ${board.title}</li>
 		<li>작성자 : ${board.writer}</li>
-		<li>작성일 : ${board.create_date}</li>
-		<li>수정일 : ${board.modify_date}</li>
+		<li>작성일 : ${board.createDate}</li>
+		<li>수정일 : ${board.modifyDate}</li>
 	</ul>
 	<div>
 		${board.content}
@@ -55,7 +55,7 @@
 	
 	<div>
 		<form id="frm_btn" method="post">
-			<input type="hidden" name="board_no" value="${board.board_no}">
+			<input type="hidden" name="boardNo" value="${board.boardNo}">
 			<input type="button" value="편집" id="btn_edit">
 			<input type="button" value="삭제" id="btn_remove">
 			<input type="button" value="목록" id="btn_list">

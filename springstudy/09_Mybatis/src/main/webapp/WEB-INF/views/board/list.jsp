@@ -27,10 +27,10 @@
 			<tbody>
 				<c:forEach items="${boards}" var="board">
 					<tr>
-						<td>${board.board_no}</td>
-						<td><a href="${contextPath}/brd/detail?board_no=${board.board_no}">${board.title}</a></td>
+						<td>${board.boardNo}</td>
+						<td><a href="${contextPath}/brd/detail?boardNo=${board.boardNo}">${board.title}</a></td>
 						<td>${board.writer}</td>
-						<td>${board.create_date}</td>
+						<td>${board.createDate}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
