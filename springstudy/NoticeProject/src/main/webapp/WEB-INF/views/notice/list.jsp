@@ -11,7 +11,7 @@
 <body>
 
 	<div>
-	
+		<a href="${contextPath}/ntc/write">공지작성</a>
 	</div>
 	
 	<hr>
