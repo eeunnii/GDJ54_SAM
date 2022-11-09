@@ -32,14 +32,14 @@
 		  FROM EMPLOYEES
 	</select>
 	
-	<select id="selectEmployeesByPage" resultMap="EmpMap">
+	<select id="selectEmployeesByPage" parameterType="Map" resultMap="EmpMap">
 		SELECT B.*
 		  FROM (SELECT ROWNUM AS RN, A.*
 		          FROM (SELECT E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
 		                  FROM DEPARTMENTS D INNER JOIN EMPLOYEES E
 		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
 		                  ORDER BY HIRE_DATE DESC) A) B
-		 WHERE B.RN BETWEEN #{param1} AND #{param2}
+		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	</select>
 	
 	
