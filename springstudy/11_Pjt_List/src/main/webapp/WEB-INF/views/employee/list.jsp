@@ -65,7 +65,7 @@
 <body>
 
 	<div>
-		<form id="frm_search">
+		<form id="frm_search" action="${contextPath}/emp/search">
 			<select id="column" name="column">
 				<option value="">:::선택:::</option>
 				<option value="EMPLOYEE_ID">사원번호</option>

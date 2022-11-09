@@ -53,4 +53,27 @@ public class EmpServiceImpl implements EmpService {
 
 	}
 
+	@Override
+	public void findEmployees(HttpServletRequest request, Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("column", request.getParameter("column"));
+		map.put("query", request.getParameter("query"));
+		map.put("begin", request.getParameter("begin"));
+		map.put("end", request.getParameter("end"));
+		
+		System.out.println("검색 결과 개수 : " + empMapper.selectFindEmployeesCount(map));
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -42,6 +42,34 @@
 		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<select id="selectFindEmployeesCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEES
+		 <if test="column=='EMPLOYEE_ID'">WHERE EMPLOYEE_ID = #{query}</if>
+		 <if test="column=='DEPARTMENT_ID'">WHERE DEPARTMENT_ID = #{query}</if>
+		 <if test="column=='LAST_NAME'">WHERE LAST_NAME LIKE '%' || #{query} || '%'</if>
+		 <if test="column=='FIRST_NAME'">WHERE FIRST_NAME LIKE '%' || #{query} || '%'</if>
+		 <if test="column=='PHONE_NUMBER'">WHERE PHONE_NUMBER LIKE '%' || #{query} || '%'</if>
+		 <if test="column=='HIRE_DATE'">WHERE HIRE_DATE BETWEEN TO_DATE(#{begin}, 'yyyy-mm-dd') AND TO_DATE(#{end}, 'yyyy-mm-dd')</if>
+		 <if test="column=='SALARY'">WHERE SALARY BETWEEN #{begin} AND #{end}</if>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
