@@ -69,7 +69,7 @@
 			<select id="column" name="column">
 				<option value="">:::선택:::</option>
 				<option value="EMPLOYEE_ID">사원번호</option>
-				<option value="DEPARTMENT_ID">부서번호</option>				
+				<option value="E.DEPARTMENT_ID">부서번호</option>				
 				<option value="LAST_NAME">성</option>
 				<option value="FIRST_NAME">이름</option>
 				<option value="PHONE_NUMBER">연락처</option>
@@ -80,9 +80,9 @@
 				<input type="text" id="query" name="query">
 			</span>
 			<span id="area2">
-				<input type="text" id="begin" name="begin">
+				<input type="text" id="start" name="start">
 				~
-				<input type="text" id="end" name="end">
+				<input type="text" id="stop" name="stop">
 			</span>
 			<span>
 				<input type="submit" value="검색">
