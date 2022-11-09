@@ -75,27 +75,5 @@
 		                 ORDER BY HIRE_DATE DESC) A) B
 		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 </mapper>
