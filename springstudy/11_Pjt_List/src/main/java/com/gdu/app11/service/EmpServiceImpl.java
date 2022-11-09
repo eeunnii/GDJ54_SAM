@@ -47,7 +47,7 @@ public class EmpServiceImpl implements EmpService {
 		List<EmpDTO> employees = empMapper.selectEmployeesByPage(map);
 		
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageUtil", pageUtil);
+		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/list"));
 		
 		
 
