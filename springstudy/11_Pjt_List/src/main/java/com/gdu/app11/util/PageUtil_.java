@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Component
 @Getter
-public class PageUtil {
+public class PageUtil_ {
 
 	private int page;                // 현재 페이지(파라미터로 받아온다)
 	private int totalRecord;         // 전체 레코드 개수(DB에서 구해온다)
@@ -41,6 +41,9 @@ public class PageUtil {
 		// beginPage, endPage 계산
 		beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;
 		endPage = beginPage + pagePerBlock - 1;
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}
 		
 	}
 	
@@ -48,37 +51,24 @@ public class PageUtil {
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<div class=\"paging\">");
-		
 		// 이전블록 : 1block이 아니면 이전블록이 있다
 		if(beginPage != 1) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (beginPage-1) + "\">◀</a>");
-		} else {
-			sb.append("<span class=\"hidden\">◀</span>");
+			sb.append("<a href=\"" + path + "?page=" + (beginPage-1) + "\">◀</a>");
 		}
 		
 		// 페이지번호 : 현재 페이지는 링크가 없다
-		int endPage = beginPage + pagePerBlock - 1;
 		for(int p = beginPage; p <= endPage; p++) {
-			if(p <= totalPage) {
-				if(p == page) {
-					sb.append("<span class=\"now_page\">" + p + "</span>");
-				} else {
-					sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + p + "\">" + p + "</a>");
-				}				
+			if(p == page) {
+				sb.append(p);
 			} else {
-				sb.append("<span class=\"hidden\">" + p + "</span>");
+				sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "</a>");
 			}
 		}
 		
 		// 다음블록 : 마지막 블록이 아니면 다음블록이 있다
-		if(endPage < totalPage) {
-			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (endPage+1) + "\">▶</a>");
-		} else {
-			sb.append("<span class=\"hidden\">▶</span>");
+		if(endPage != totalPage) {
+			sb.append("<a href=\"" + path + "?page=" + (endPage+1) + "\">▶</a>");
 		}
-		
-		sb.append("</div>");
 		
 		return sb.toString();
 		
