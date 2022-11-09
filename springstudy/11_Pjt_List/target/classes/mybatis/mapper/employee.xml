@@ -39,19 +39,41 @@
 		                  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
 		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
 		                  ORDER BY HIRE_DATE DESC) A) B
-		 WHERE B.RN BETWEEN #{begin} AND #{end}
+		 WHERE B.RN BETWEEN #{begin} AND #{end}		 
 	</select>
 	
 	<select id="selectFindEmployeesCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM EMPLOYEES
-		 <if test="column=='EMPLOYEE_ID'">WHERE EMPLOYEE_ID = #{query}</if>
-		 <if test="column=='DEPARTMENT_ID'">WHERE DEPARTMENT_ID = #{query}</if>
-		 <if test="column=='LAST_NAME'">WHERE LAST_NAME LIKE '%' || #{query} || '%'</if>
-		 <if test="column=='FIRST_NAME'">WHERE FIRST_NAME LIKE '%' || #{query} || '%'</if>
-		 <if test="column=='PHONE_NUMBER'">WHERE PHONE_NUMBER LIKE '%' || #{query} || '%'</if>
-		 <if test="column=='HIRE_DATE'">WHERE HIRE_DATE BETWEEN TO_DATE(#{begin}, 'yyyy-mm-dd') AND TO_DATE(#{end}, 'yyyy-mm-dd')</if>
-		 <if test="column=='SALARY'">WHERE SALARY BETWEEN #{begin} AND #{end}</if>
+		<where>
+		  <if test="column=='EMPLOYEE_ID' or column=='DEPARTMENT_ID'">${column} = #{query}</if>
+		  <if test="column=='LAST_NAME' or column=='FIRST_NAME' or column=='PHONE_NUMBER'">${column} LIKE '%' || #{query} || '%'</if>
+		  <if test="column=='HIRE_DATE'">${column} BETWEEN TO_DATE(#{begin}, 'yyyy-mm-dd') AND TO_DATE(#{end}, 'yyyy-mm-dd')</if>
+		  <if test="column=='SALARY'">${column} BETWEEN #{begin} AND #{end}</if>
+		</where>
+		<!--
+			WHERE #{column} = #{query}   #{}는 작은 따옴표(')로 묶어서 값을 치환
+	     	WHERE 'EMPLOYEE_ID' = '150'  잘못된 사용
+	     	
+	     	WHERE ${column} = #{query}   ${}는 그냥 치환
+			WHERE EMPLOYEE_ID = '150'    정상 동작
+		-->
+	</select>
+	
+	<select id="selectFindEmployees" parameterType="Map" resultMap="EmpMap">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		          FROM (SELECT *
+		                  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
+		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
+		               <where>
+		                   <if test="column=='EMPLOYEE_ID' or column=='DEPARTMENT_ID'">${column} = #{query}</if>
+		                   <if test="column=='LAST_NAME' or column=='FIRST_NAME' or column=='PHONE_NUMBER'">${column} LIKE '%' || #{query} || '%'</if>
+		                   <if test="column=='HIRE_DATE'">${column} BETWEEN TO_DATE(#{begin}, 'yyyy-mm-dd') AND TO_DATE(#{end}, 'yyyy-mm-dd')</if>
+		                   <if test="column=='SALARY'">${column} BETWEEN #{begin} AND #{end}</if>
+		               </where>
+		                 ORDER BY HIRE_DATE DESC) A) B
+		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	</select>
 	
 	
