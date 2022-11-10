@@ -42,7 +42,9 @@
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script>
+
 	$(document).ready(function(){
+		
 		// area1, area2 표시
 		// 초기 상태 : area1, area2 둘 다 숨김
 		$('#area1, #area2').css('display', 'none');
@@ -59,7 +61,26 @@
 				$('#area2').css('display', 'none');
 			}
 		});
+	
+		// 자동 완성
+		$('#email').keyup(function(){
+			$('#auto_complete').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/emp/autoComplete',
+				data: 'param=' + $(this).val(),
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){
+					
+				}
+			});
+		});
+		
+		
 	});
+	
 </script>
 </head>
 <body>
@@ -89,6 +110,12 @@
 				<input type="button" value="전체사원조회" id="btn_all">
 			</span>
 		</form>
+	</div>
+	
+	<div>
+		<label for="email">이메일</label>
+		<input type="text" id="email" name="email" list="auto_complete">
+		<datalist id="auto_complete"></datalist>
 	</div>
 	
 	<hr>
