@@ -50,7 +50,7 @@ public class BbsServiceImpl implements BbsService {
 		
 		// 뷰로 보낼 데이터
 		model.addAttribute("bbsList", bbsList);
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/bbs/list"));
+		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/bbs/list?recordPerPage=" + recordPerPage));
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
 		model.addAttribute("recordPerPage", recordPerPage);
 		
@@ -58,8 +58,18 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public int addBbs(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String writer = request.getParameter("writer");
+		String title = request.getParameter("title");
+		String ip = request.getRemoteAddr();
+		
+		BbsDTO bbs = new BbsDTO();
+		bbs.setWriter(writer);
+		bbs.setTitle(title);
+		bbs.setIp(ip);
+		
+		return bbsMapper.insertBbs(bbs);
+		
 	}
 
 	@Override

@@ -27,6 +27,10 @@
 <body>
 
 	<div>
+		<a href="${contextPath}/bbs/write">작성하러가기</a>
+	</div>
+
+	<div>
 		<select id="recordPerPage">
 			<option value="10">10</option>
 			<option value="20">20</option>
