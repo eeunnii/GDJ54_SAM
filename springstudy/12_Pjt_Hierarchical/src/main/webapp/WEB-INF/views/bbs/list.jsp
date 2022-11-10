@@ -23,6 +23,11 @@
 		
 	});
 </script>
+<style>
+	.lnk_remove {
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 
@@ -52,33 +57,34 @@
 			</thead>
 			<tbody>
 				<c:forEach var="bbs" items="${bbsList}" varStatus="vs">
-					<tr>
-						<td>${beginNo - vs.index}</td>
-						<td>${bbs.writer}</td>
-						<td>
-							<c:if test="${bbs.state == 0}">
-								삭제된 게시글입니다
-							</c:if>
-							<c:if test="${bbs.state == 1}">
-								${bbs.title}
-							</c:if>
-						</td>
-						<td>${bbs.ip}</td>
-						<td>${bbs.createDate}</td>
-						<td>
-							<form method="post" action="${contextPath}/bbs/remove">
-								<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
-								<a id="lnk_remove${bbs.bbsNo}">X</a>
-							</form>
-							<script>
-								$('#lnk_remove${bbs.bbsNo}').click(function(){
-									if(confirm('삭제할까요?')){
-										$(this).parent().submit();
-									}
-								});
-							</script>
-						</td>
-					</tr>
+					<c:if test="${bbs.state == 1}">
+						<tr>
+							<td>${beginNo - vs.index}</td>
+							<td>${bbs.writer}</td>
+							<td>${bbs.title}</td>
+							<td>${bbs.ip}</td>
+							<td>${bbs.createDate}</td>
+							<td>
+								<form method="post" action="${contextPath}/bbs/remove">
+									<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
+									<a class="lnk_remove" id="lnk_remove${bbs.bbsNo}">X</a>
+								</form>
+								<script>
+									$('#lnk_remove${bbs.bbsNo}').click(function(){
+										if(confirm('삭제할까요?')){
+											$(this).parent().submit();
+										}
+									});
+								</script>
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${bbs.state == 0}">
+						<tr>
+							<td>${beginNo - vs.index}</td>
+							<td colspan="5">삭제된 게시글입니다</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 			<tfoot>
