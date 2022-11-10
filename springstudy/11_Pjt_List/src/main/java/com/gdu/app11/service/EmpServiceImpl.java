@@ -103,9 +103,14 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public Map<String, Object> findAutoCompleteList(HttpServletRequest request) {
 		
+		String target = request.getParameter("target");
 		String param = request.getParameter("param");
 		
-		List<EmpDTO> list = empMapper.selectAutoCompleteList(param);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("param", param);
+		
+		List<EmpDTO> list = empMapper.selectAutoCompleteList(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(list.size() == 0) {
@@ -114,6 +119,12 @@ public class EmpServiceImpl implements EmpService {
 		} else {
 			result.put("status", 200);
 			result.put("list", list);
+		}
+		
+		switch(target) {
+		case "FIRST_NAME": result.put("target", "firstName"); break;
+		case "LAST_NAME": result.put("target", "lastName"); break;
+		case "EMAIL": result.put("target", "email"); break;
 		}
 		
 		return result;
@@ -134,7 +145,8 @@ public class EmpServiceImpl implements EmpService {
 						...
 					},
 					...
-				]
+				],
+				"target": "email"            => result.target
 			}
 		*/
 	}
