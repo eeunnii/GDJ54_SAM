@@ -37,8 +37,10 @@
 	
 	</insert>
 	
-	<delete id="deleteBbs" parameterType="int">
-	
-	</delete>
+	<update id="deleteBbs" parameterType="int">
+		UPDATE BBS
+		   SET STATE = 0
+		 WHERE BBS_NO = #{bbsNo}
+	</update>
 	
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.app12.service.BbsService;
 
@@ -38,12 +39,11 @@ public class BbsController {
 		return "redirect:/bbs/list";
 	}
 	
-	
-	
-	
-	
-	
-	
+	@PostMapping("/bbs/remove")
+	public String remove(@RequestParam("bbsNo") int bbsNo) {
+		bbsService.removeBbs(bbsNo);
+		return "redirect:/bbs/list";
+	}
 
 	
 }
