@@ -73,11 +73,15 @@
 				/* 응답 */
 				dataType: 'json',
 				success: function(resData){
-					
+					if(resData.status == 200){
+						$.each(resData.list, function(i, emp){
+							$('#auto_complete')
+							.append($('<option>').val(emp["email"]));
+						});
+					}
 				}
 			});
 		});
-		
 		
 	});
 	

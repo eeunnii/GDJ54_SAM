@@ -76,4 +76,10 @@
 		 WHERE B.RN BETWEEN #{begin} AND #{end}
 	</select>
 
+	<select id="selectAutoCompleteList" parameterType="String" resultType="EmpDTO">
+		SELECT DISTINCT EMAIL
+		  FROM EMPLOYEES
+		 WHERE EMAIL LIKE CONCAT(#{param}, '%')
+	</select>
+
 </mapper>
