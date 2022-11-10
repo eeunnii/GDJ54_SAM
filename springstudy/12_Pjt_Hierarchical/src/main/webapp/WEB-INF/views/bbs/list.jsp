@@ -7,8 +7,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		if('${recordPerPage}' != ''){
+			$('#recordPerPage').val(${recordPerPage});			
+		} else {
+			$('#recordPerPage').val(10);
+		}
+		
+		$('#recordPerPage').change(function(){
+			location.href = '${contextPath}/bbs/list?recordPerPage=' + $(this).val();
+		});
+		
+	});
+</script>
 </head>
 <body>
+
+	<div>
+		<select id="recordPerPage">
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+		</select>
+	</div>
 
 	<div>
 		<table border="1">
