@@ -47,7 +47,8 @@ public class BbsServiceImpl implements BbsService {
 		// 뷰로 보낼 데이터
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/bbs/list"));
-
+		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
+		
 	}
 
 	@Override
