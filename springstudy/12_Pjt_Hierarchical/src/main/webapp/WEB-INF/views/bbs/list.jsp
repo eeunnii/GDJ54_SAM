@@ -27,6 +27,9 @@
 	.lnk_remove {
 		cursor: pointer;
 	}
+	.blind {
+		display: none;
+	}
 </style>
 </head>
 <body>
@@ -74,6 +77,12 @@
 								${bbs.title}
 								<!-- 답글달기 버튼 -->
 								<input type="button" value="답글" class="btn_reply_write">
+								<script>
+									$('.btn_reply_write').click(function(){
+										$('.reply_write_tr').addClass('blind');
+										$(this).parent().parent().next().removeClass('blind');
+									});
+								</script>
 							</td>
 							<td>${bbs.ip}</td>
 							<td>${bbs.createDate}</td>
@@ -91,6 +100,18 @@
 								</script>
 							</td>
 						</tr>
+						<tr class="reply_write_tr blind">
+							<td colspan="6">
+								<form method="post" action="${contextPath}/bbs/reply/add">
+									<div><input type="text" name="writer" placeholder="작성자" required></div>
+									<div><input type="text" name="title" placeholder="제목" required></div>
+									<div><button>답글달기</button></div>
+									<input type="hidden" name="depth" value="${bbs.depth}">
+									<input type="hidden" name="groupNo" value="${bbs.groupNo}">
+									<input type="hidden" name="groupOrder" value="${bbs.groupOrder}">
+								</form>
+							</td>
+						<tr>
 					</c:if>
 					<c:if test="${bbs.state == 0}">
 						<tr>
