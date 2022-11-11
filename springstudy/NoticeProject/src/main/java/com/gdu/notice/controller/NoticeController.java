@@ -39,14 +39,29 @@ public class NoticeController {
 		noticeService.addNotice(request, response);
 	}
 	
-	@GetMapping("/ntc/detail")  // /ntc/detail?noticeNo=1
-	public String detail(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo, Model model) {
+	@GetMapping("/ntc/detail")  // 조회수증가
+	public String detail(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo) {
+		int result = noticeService.increseNoticeHit(noticeNo);
+		String path = null;
+		if(result > 0) {
+			
+		}
+	}
+	
+	@GetMapping("/ntc/detail2")  // 상세보기
+	public String detail2(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo, Model model) {
 		noticeService.findNoticeByNo(noticeNo, model);
 		return "notice/detail";
 	}
 	
+	@PostMapping("/ntc/modify")
+	public void modify(HttpServletRequest request, HttpServletResponse response) {
+		noticeService.modifyNotice(request, response);
+	}
 	
-	
-	
+	@PostMapping("/ntc/remove")
+	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		noticeService.removeNotice(request, response);
+	}
 	
 }

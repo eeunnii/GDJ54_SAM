@@ -12,4 +12,6 @@ public interface NoticeMapper {
 	public int insertNotice(NoticeDTO notice);
 	public NoticeDTO selectNoticeByNo(int noticeNo);  // findNoticeByNo
 	public int updateHit(int noticeNo);               // findNoticeByNo
+	public int updateNotice(NoticeDTO notice);
+	public int deleteNotice(int noticeNo);
 }

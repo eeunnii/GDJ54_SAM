@@ -31,18 +31,18 @@
 		 WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
+	<update id="updateNotice" parameterType="NoticeDTO">
+		UPDATE NOTICE
+		   SET CONTENT = #{content}
+		       <if test="title != ''">, TITLE = #{title}</if>
+		 WHERE 1 = 1
+		   <if test="noticeNo != ''">AND NOTICE_NO = #{noticeNo}</if>
+	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<delete id="deleteNotice" parameterType="int">
+		DELETE
+		  FROM NOTICE
+		 WHERE NOTICE_NO = #{noticeNo}
+	</delete>
 
 </mapper>

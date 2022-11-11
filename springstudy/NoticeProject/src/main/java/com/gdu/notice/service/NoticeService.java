@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 public interface NoticeService {
 	public void findAllNotices(Model model);
+	public int  increseNoticeHit(int noticeNo);
 	public void findNoticeByNo(int noticeNo, Model model);
 	public void addNotice(HttpServletRequest request, HttpServletResponse response);
 	public void modifyNotice(HttpServletRequest request, HttpServletResponse response);
