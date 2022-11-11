@@ -61,7 +61,20 @@
 						<tr>
 							<td>${beginNo - vs.index}</td>
 							<td>${bbs.writer}</td>
-							<td>${bbs.title}</td>
+							<td>
+								<!-- DEPTH에 따른 들여쓰기 -->
+								<c:forEach begin="1" end="${bbs.depth}" step="1">
+									&nbsp;&nbsp;
+								</c:forEach>
+								<!-- 답글은 [RE] 표시 -->
+								<c:if test="${bbs.depth > 0}">
+									[RE]
+								</c:if>
+								<!-- 제목 -->
+								${bbs.title}
+								<!-- 답글달기 버튼 -->
+								<input type="button" value="답글" class="btn_reply_write">
+							</td>
 							<td>${bbs.ip}</td>
 							<td>${bbs.createDate}</td>
 							<td>

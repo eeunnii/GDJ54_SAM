@@ -44,6 +44,11 @@ public class BbsController {
 		bbsService.removeBbs(bbsNo);
 		return "redirect:/bbs/list";
 	}
-
+	
+	@PostMapping("/bbs/reply/add")
+	public String replyAdd(HttpServletRequest request) {
+		bbsService.addReply(request);
+		return "redirect:/bbs/list";
+	}
 	
 }

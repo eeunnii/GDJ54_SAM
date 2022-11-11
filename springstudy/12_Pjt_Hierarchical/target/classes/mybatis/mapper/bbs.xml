@@ -42,7 +42,10 @@
 	</update>
 	
 	<insert id="insertReply" parameterType="BbsDTO">
-	
+		INSERT INTO BBS
+			(BBS_NO, WRITER, TITLE, IP, CREATE_DATE, STATE, DEPTH, GROUP_NO, GROUP_ORDER)
+		VALUES
+			(BBS_SEQ.NEXTVAL, #{writer}, #{title}, #{ip}, SYSDATE, 1, #{depth}, #{groupNo}, #{groupOrder})
 	</insert>
 	
 	<update id="deleteBbs" parameterType="int">
