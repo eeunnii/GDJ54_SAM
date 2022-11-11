@@ -44,7 +44,7 @@
 				<script>
 					// 행 단위 선택
 					$('.notice').click(function(){
-						location.href = '${contextPath}/ntc/increseHit?noticeNo=' + $(this).data('notice_no');
+						location.href = '${contextPath}/ntc/read?noticeNo=' + $(this).data('notice_no');
 					});
 				</script>
 			</tbody>

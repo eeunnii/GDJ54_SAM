@@ -39,16 +39,19 @@ public class NoticeController {
 		noticeService.addNotice(request, response);
 	}
 	
-	@GetMapping("/ntc/detail")  // 조회수증가
-	public String detail(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo) {
+	@GetMapping("/ntc/read")  // 조회수증가(상세보기 이전단계)
+	public String read(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo) {
 		int result = noticeService.increseNoticeHit(noticeNo);
 		String path = null;
 		if(result > 0) {
-			
+			path = "/ntc/detail?noticeNo=" + noticeNo;  // 조회수증가하면 상세보기진행
+		} else {
+			path = "/ntc/list";
 		}
+		return "redirect:" + path;
 	}
 	
-	@GetMapping("/ntc/detail2")  // 상세보기
+	@GetMapping("/ntc/detail")  // 상세보기
 	public String detail2(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo, Model model) {
 		noticeService.findNoticeByNo(noticeNo, model);
 		return "notice/detail";
