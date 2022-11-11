@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.notice.service.NoticeService;
 
@@ -38,7 +39,11 @@ public class NoticeController {
 		noticeService.addNotice(request, response);
 	}
 	
-	
+	@GetMapping("/ntc/detail")  // /ntc/detail?noticeNo=1
+	public String detail(@RequestParam(value="noticeNo", required=false, defaultValue="0") int noticeNo, Model model) {
+		noticeService.findNoticeByNo(noticeNo, model);
+		return "notice/detail";
+	}
 	
 	
 	
