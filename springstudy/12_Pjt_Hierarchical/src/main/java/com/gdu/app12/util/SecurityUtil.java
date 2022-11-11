@@ -1,5 +1,8 @@
 package com.gdu.app12.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SecurityUtil {
 
 	// 크로스 사이트 스크립팅 방지
