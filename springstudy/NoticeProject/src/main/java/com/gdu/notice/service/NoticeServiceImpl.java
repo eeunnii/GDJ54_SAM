@@ -25,7 +25,14 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void findNoticeByNo(int noticeNo, Model model) {
-		model.addAttribute("notice", mapper.selectNoticeByNo(noticeNo));
+		// 조회수 증가를 반드시 먼저 한다.
+		// 조회수 증가에 성공하면 공지내용을 가져온다.
+		int result = mapper.updateHit(noticeNo);
+		if(result > 0) {
+			model.addAttribute("notice", mapper.selectNoticeByNo(noticeNo));
+		} else {
+			model.addAttribute("notice", null);
+		}
 	}
 
 	@Override

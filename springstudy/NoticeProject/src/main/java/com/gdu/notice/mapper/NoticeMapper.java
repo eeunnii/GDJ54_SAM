@@ -10,5 +10,6 @@ import com.gdu.notice.domain.NoticeDTO;
 public interface NoticeMapper {
 	public List<NoticeDTO> selectAllNotices();
 	public int insertNotice(NoticeDTO notice);
-	public NoticeDTO selectNoticeByNo(int noticeNo);
+	public NoticeDTO selectNoticeByNo(int noticeNo);  // findNoticeByNo
+	public int updateHit(int noticeNo);               // findNoticeByNo
 }
