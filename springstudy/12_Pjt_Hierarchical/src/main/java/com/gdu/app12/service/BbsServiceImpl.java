@@ -62,7 +62,7 @@ public class BbsServiceImpl implements BbsService {
 	@Override
 	public int addBbs(HttpServletRequest request) {
 		
-		String writer = request.getParameter("writer");
+		String writer = securityUtil.sha256(request.getParameter("writer"));
 		String title = securityUtil.preventXSS(request.getParameter("title"));
 		String ip = request.getRemoteAddr();
 		
@@ -86,7 +86,7 @@ public class BbsServiceImpl implements BbsService {
 	public int addReply(HttpServletRequest request) {
 		
 		// 작성자, 제목
-		String writer = request.getParameter("writer");
+		String writer = securityUtil.sha256(request.getParameter("writer"));
 		String title = securityUtil.preventXSS(request.getParameter("title"));
 		
 		// IP
