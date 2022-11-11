@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import com.gdu.app12.domain.BbsDTO;
 import com.gdu.app12.mapper.BbsMapper;
 import com.gdu.app12.util.PageUtil;
+import com.gdu.app12.util.SecurityUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -23,6 +24,7 @@ public class BbsServiceImpl implements BbsService {
 
 	private BbsMapper bbsMapper;
 	private PageUtil pageUtil;
+	private SecurityUtil securityUtil;
 	
 	@Override
 	public void findAllBbsList(HttpServletRequest request, Model model) {
@@ -61,7 +63,7 @@ public class BbsServiceImpl implements BbsService {
 	public int addBbs(HttpServletRequest request) {
 		
 		String writer = request.getParameter("writer");
-		String title = request.getParameter("title");
+		String title = securityUtil.preventXSS(request.getParameter("title"));
 		String ip = request.getRemoteAddr();
 		
 		BbsDTO bbs = new BbsDTO();
@@ -85,7 +87,7 @@ public class BbsServiceImpl implements BbsService {
 		
 		// 작성자, 제목
 		String writer = request.getParameter("writer");
-		String title = request.getParameter("title");
+		String title = securityUtil.preventXSS(request.getParameter("title"));
 		
 		// IP
 		String ip = request.getRemoteAddr();
