@@ -56,15 +56,15 @@
 	function fn_pwCheck(){
 		$('#pw').keyup(function(){
 			// 입력한 패스워드
-			let pw = $(this).val();
+			let pwValue = $(this).val();
 			// 정규식(8~20자, 소문자+대문자+숫자+특수문자8종(!@#$%^&*) 3개 이상 조합)
 			let regPw = /^[0-9a-zA-Z!@#$%^&*]{8,20}$/;
 			// 3개 이상 조합 확인
-			let validationPw = /[0-9]/.test(pw)  // 숫자가 있으면 true, 없으면 false
-			                 + /[a-z]/.test(pw)  // 소문자가 있으면 true, 없으면 false
-			                 + /[A-Z]/.test(pw)  // 대문자가 있으면 true, 없으면 false
-			                 + /[!@#$%^&*]/.test(pw);  // 특수문자8종이 있으면 true, 없으면 false
-			if(regPw.test(pw) == false || validationPw < 3){
+			let validatePw = /[0-9]/.test(pwValue)  // 숫자가 있으면 true, 없으면 false
+			                 + /[a-z]/.test(pwValue)  // 소문자가 있으면 true, 없으면 false
+			                 + /[A-Z]/.test(pwValue)  // 대문자가 있으면 true, 없으면 false
+			                 + /[!@#$%^&*]/.test(pwValue);  // 특수문자8종이 있으면 true, 없으면 false
+			if(regPw.test(pw) == false || validatePw < 3){
 				$('#msg_pw').text('8~20자의 소문자, 대문자, 숫자, 특수문자(!@#$%^&*)를 3개 이상 조합해야 합니다.');
 			} else {
 				$('#msg_pw').text('사용 가능한 비밀번호입니다.');
