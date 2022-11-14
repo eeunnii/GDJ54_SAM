@@ -12,6 +12,14 @@
 	
 	$(function(){
 		fn_idCheck();
+		fn_pwCheck();
+		fn_pwCheckAgain();
+		fn_mobileCheck();
+		fn_birthyear();
+		fn_birthmonth();
+		fn_birthdate();
+		fn_emailCheck();
+		fn_join();
 	});
 	
 	// 1. 아이디 중복체크 & 정규식
@@ -36,6 +44,46 @@
 				}
 			});
 		});
+	}
+	
+	// 2. 패스워드
+	function fn_pwCheck(){
+		
+	}
+	
+	// 3. 패스워드 확인
+	function fn_pwCheckAgain(){
+		
+	}
+	
+	// 4. 휴대전화
+	function fn_mobileCheck(){
+		
+	}
+	
+	// 5. 생년월일(년도)
+	function fn_birthyear(){
+		
+	}
+	
+	// 6. 생년월일(월)
+	function fn_birthmonth(){
+		
+	}
+	
+	// 7. 생년월일(일)
+	function fn_birthdate(){
+		
+	}
+	
+	// 8. 이메일
+	function fn_emailCheck(){
+		
+	}
+	
+	// 9. 서브밋 (회원가입)
+	function fn_join(){
+		
 	}
 	
 </script>
@@ -113,7 +161,7 @@
 				<input type="text" name="postcode" id="postcode" placeholder="우편번호">
 				<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소">
-				<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소">
+				<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소"><br>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
 				<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
