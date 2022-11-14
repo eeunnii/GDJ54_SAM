@@ -14,6 +14,7 @@
 		fn_checkAll();
 		fn_checkOne();
 		fn_toggleCheck();
+		fn_submit();
 	});
 	
 	// 모두 동의 (모두 동의의 체크 상태 = 개별 선택들의 체크 상태)
@@ -56,6 +57,17 @@
 		});
 	}
 	
+	// 서브밋 (필수 체크 여부 확인)
+	function fn_submit(){
+		$('#frm_agree').submit(function(event){
+			if($('#service').is(':checked') == false || $('#privacy').is(':checked') == false){
+				alert('필수 약관에 동의하세요.');
+				event.preventDefault();
+				return;
+			}
+		});
+	}
+	
 </script>
 <style>
 	.blind {
@@ -88,8 +100,8 @@
 			<hr>
 			
 			<div>
-				<input type="checkbox" id="serivce" class="check_one blind">
-				<label for="serivce" class="lbl_one">이용약관 동의(필수)</label>
+				<input type="checkbox" id="service" class="check_one blind">
+				<label for="service" class="lbl_one">이용약관 동의(필수)</label>
 				<div>
 					<textarea>본 약관은 ...</textarea>
 				</div>
