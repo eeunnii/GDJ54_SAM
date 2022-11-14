@@ -13,13 +13,20 @@
 	$(function(){
 		fn_checkAll();
 		fn_checkOne();
+		fn_toggleCheck();
 	});
 	
 	// 모두 동의 (모두 동의의 체크 상태 = 개별 선택들의 체크 상태)
 	function fn_checkAll(){
 		$('#check_all').click(function(){
 			// 체크 상태 변경
-			$('.check_one').prop('checked', $(this).prop('checked'));			
+			$('.check_one').prop('checked', $(this).prop('checked'));
+			// 체크 이미지 변경
+			if($(this).is(':checked')){  // 모두 동의가 체크되었다면
+				$('.lbl_one').addClass('lbl_checked');
+			} else {
+				$('.lbl_one').removeClass('lbl_checked');
+			}
 		});
 	}
 	
@@ -33,10 +40,21 @@
 			}
 			// 체크박스개수 vs 체크된박스개수
 			$('#check_all').prop('checked', $('.check_one').length == checkCount);
+			// 체크 이미지 변경
+			if($('#check_all').is(':checked')){
+				$('.lbl_all').addClass('lbl_checked');
+			} else {
+				$('.lbl_all').removeClass('lbl_checked');
+			}
 		});
 	}
 	
-	
+	// 체크할때마다 lbl_checked 클래스를 줬다 뺐었다 하기
+	function fn_toggleCheck(){
+		$('.lbl_all, .lbl_one').click(function(){
+			$(this).toggleClass('lbl_checked');
+		});
+	}
 	
 </script>
 <style>
@@ -48,6 +66,9 @@
 		background-image: url(${contextPath}/resources/images/uncheck.png);
 		background-size: 18px 18px;
 		background-repeat: no-repeat;
+	}
+	.lbl_checked {
+		background-image: url(${contextPath}/resources/images/check.png);
 	}
 </style>
 </head>
