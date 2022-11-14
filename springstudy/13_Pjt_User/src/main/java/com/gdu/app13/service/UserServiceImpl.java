@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 		
 		// 이메일을 보내는 사용자 정보
 		String username = "forspringlec@gmail.com";  // 본인 지메일 주소
-		String password = "dwjdlkkujcnnifjy";        // 발급 받은 앱 비밀번호
+		String password = "";        // 발급 받은 앱 비밀번호
 		
 		// 사용자 정보를 javax.mail.Session에 저장
 		Session session = Session.getInstance(properties, new Authenticator() {
