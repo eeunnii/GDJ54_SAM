@@ -109,7 +109,15 @@
 				/* 응답 */
 				dataType: 'json',
 				success: function(resData){
-					
+					alert('인증코드를 발송했습니다. 이메일을 확인하세요.');
+					// 발송한 인증코드와 사용자가 입력한 인증코드 비교
+					$('#btn_verifyAuthCode').click(function(){
+						if(resData.authCode == $('#authCode').val()){
+							alert('인증되었습니다.');
+						} else {
+							alert('인증에 실패했습니다.');
+						}
+					});
 				},
 				error: function(jqXHR){
 					alert('인증번호 발송이 실패했습니다.');
