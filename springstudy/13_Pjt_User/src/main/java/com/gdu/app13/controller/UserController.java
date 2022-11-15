@@ -64,7 +64,10 @@ public class UserController {
 		userService.join(request, response);
 	}
 	
-	
+	@GetMapping("/user/retire")
+	public void retire(HttpServletRequest request, HttpServletResponse response) {
+		userService.retire(request, response);
+	}
 	
 	
 	

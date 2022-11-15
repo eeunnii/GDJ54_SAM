@@ -21,7 +21,15 @@
 		<div>
 			<a href="${contextPath}/user/mypage">${loginUser.name}</a> 님 반갑습니다.
 		</div>
-		<a href="${contextPath}/user/retire">회원탈퇴</a>
+		<a id="lnk_retire" href="${contextPath}/user/retire">회원탈퇴</a>
+		<script>
+			$('#lnk_retire').click(function(event){
+				if(confirm('탈퇴하시겠습니까?') == false){
+					event.preventDefault();  // a 태그의 기본 이벤트인 href 속성 실행을 막음
+					return;
+				}
+			});
+		</script>
 	</c:if>
 	
 </body>
