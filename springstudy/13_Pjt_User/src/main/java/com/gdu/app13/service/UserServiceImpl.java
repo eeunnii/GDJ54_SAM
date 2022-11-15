@@ -140,12 +140,13 @@ public class UserServiceImpl implements UserService {
 		pw = securityUtil.sha256(pw);
 		name = securityUtil.preventXSS(name);
 		String birthday = birthmonth + birthdate;
+		detailAddress = securityUtil.preventXSS(detailAddress);
 		int agreeCode = 0;  // 필수 동의
-		if(location != null && promotion == null) {
+		if(!location.isEmpty() && promotion.isEmpty()) {
 			agreeCode = 1;  // 필수 + 위치
-		} else if(location == null && promotion != null) {
+		} else if(location.isEmpty() && !promotion.isEmpty()) {
 			agreeCode = 2;  // 필수 + 프로모션
-		} else if(location != null && promotion != null) {
+		} else if(!location.isEmpty() && !promotion.isEmpty()) {
 			agreeCode = 3;  // 필수 + 위치 + 프로모션
 		}
 		
@@ -175,7 +176,18 @@ public class UserServiceImpl implements UserService {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			
 			if(result > 0) {
+				
+				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+				request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+				
+				// 로그인 기록 남기기
+				int updateResult = userMapper.updateAccessLog(id);
+				if(updateResult == 0) {
+					userMapper.insertAccessLog(id);
+				}
+				
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.');");
 				out.println("location.href='" + request.getContextPath() + "';");
