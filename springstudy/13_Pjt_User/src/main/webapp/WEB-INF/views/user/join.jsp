@@ -399,7 +399,7 @@
 			<!-- 성별 -->
 			<div>
 				<label for="none">선택 안함</label>
-				<input type="radio" name="gender" id="none" value="N" checked="checked">
+				<input type="radio" name="gender" id="none" value="NO" checked="checked">
 				<label for="male">남자</label>
 				<input type="radio" name="gender" id="male" value="M">
 				<label for="female">여자</label>
@@ -496,7 +496,7 @@
 				<input type="text" name="email" id="email">
 				<input type="button" value="인증번호받기" id="btn_getAuthCode">
 				<span id="msg_email"></span><br>
-				<input type="text" name="authCode" id="authCode" placeholder="인증코드 입력">
+				<input type="text" id="authCode" placeholder="인증코드 입력">
 				<input type="button" value="인증하기" id="btn_verifyAuthCode">
 			</div>
 			
