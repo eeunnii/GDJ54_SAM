@@ -311,7 +311,9 @@
 				$('#authCode').prop('readonly', true);
 				
 			});  // new Promise
+			
 		});  // click
+		
 	}  // fn_emailCheck
 	
 	// 10. 서브밋 (회원가입)
