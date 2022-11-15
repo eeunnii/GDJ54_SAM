@@ -11,4 +11,5 @@ public interface UserService {
 	public Map<String, Object> sendAuthCode(String email);
 	public void join(HttpServletRequest request, HttpServletResponse response);
 	public void retire(HttpServletRequest request, HttpServletResponse response);
+	public void login(HttpServletRequest request, HttpServletResponse response);
 }

@@ -1,5 +1,6 @@
 package com.gdu.app13.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -254,6 +255,69 @@ public class UserServiceImpl implements UserService {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public void login(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String url = request.getParameter("url");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		
+		// pw는 DB에 저장된 데이터와 동일한 형태로 가공
+		pw = securityUtil.sha256(pw);
+		
+		// DB로 보낼 UserDTO 생성
+		UserDTO user = UserDTO.builder()
+				.id(id)
+				.pw(pw)
+				.build();
+	
+		// id, pw가 일치하는 회원을 DB에서 조회하기
+		UserDTO loginUser = userMapper.selectUserByIdPw(user);
+		
+		// id, pw가 일치하는 회원이 있다 : 로그인 기록 남기기 + session에 loginUser 저장하기
+		if(loginUser != null) {
+			
+			// 로그인 기록 남기기
+			int updateResult = userMapper.updateAccessLog(id);
+			if(updateResult == 0) {
+				userMapper.insertAccessLog(id);
+			}
+			
+			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+			request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+			
+			// 이동 (로그인페이지 이전 페이지로 되돌아가기)
+			try {
+				response.sendRedirect(url);
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		// id, pw가 일치하는 회원이 없다 : 로그인 페이지로 돌려 보내기
+		else {
+			
+			// 응답
+			try {
+				
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				
+				out.println("<script>");
+				out.println("alert('일치하는 회원 정보가 없습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+				out.close();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 	}
