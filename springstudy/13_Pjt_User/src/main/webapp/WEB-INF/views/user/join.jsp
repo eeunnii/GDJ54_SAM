@@ -14,6 +14,7 @@
 		fn_idCheck();
 		fn_pwCheck();
 		fn_pwCheckAgain();
+		fn_nameCheck();
 		fn_mobileCheck();
 		fn_birthyear();
 		fn_birthmonth();
@@ -26,6 +27,7 @@
 	var idPass = false;
 	var pwPass = false;
 	var rePwPass = false;
+	var namePass = false;
 	var mobilePass = false;
 	var authCodePass = false;
 	
@@ -121,7 +123,22 @@
 		
 	}  // fn_pwCheckAgain
 	
-	// 4. 휴대전화
+	// 4. 이름
+	function fn_nameCheck(){
+		
+		$('#name').keyup(function(){
+			
+			// 입력한 이름
+			let nameValue = $(this).val();
+			
+			// 공백 검사
+			namePass = (nameValue != '');
+			
+		});  // keyup
+		
+	}  // fn_nameCheck
+	
+	// 5. 휴대전화
 	function fn_mobileCheck(){
 		
 		$('#mobile').keyup(function(){
@@ -145,7 +162,7 @@
 		
 	}  // fn_mobileCheck
 	
-	// 5. 생년월일(년도)
+	// 6. 생년월일(년도)
 	function fn_birthyear(){
 		let year = new Date().getFullYear();
 		let strYear = '<option value="">년도</option>';
@@ -155,7 +172,7 @@
 		$('#birthyear').append(strYear);
 	}  // fn_birthyear
 	
-	// 6. 생년월일(월)
+	// 7. 생년월일(월)
 	function fn_birthmonth(){
 		let strMonth = '<option value="">월</option>';
 		for(let m = 1; m <= 12; m++){
@@ -168,7 +185,7 @@
 		$('#birthmonth').append(strMonth);
 	}  // fn_birthmonth
 	
-	// 7. 생년월일(일)
+	// 8. 생년월일(일)
 	function fn_birthdate(){
 		$('#birthdate').append('<option value="">일</option>');
 		let endDay = 0;
@@ -196,7 +213,7 @@
 		});
 	}  // fn_birthdate
 	
-	// 8. 이메일
+	// 9. 이메일
 	//    1) 입력된 이메일이 회원 정보에 있는지 체크하는 ajax
 	//    2) 입력된 이메일로 인증번호를 보내는 ajax
 	function fn_emailCheck(){
@@ -290,7 +307,7 @@
 		});  // click
 	}  // fn_emailCheck
 	
-	// 9. 서브밋 (회원가입)
+	// 10. 서브밋 (회원가입)
 	function fn_join(){
 		
 		$('#frm_join').submit(function(event){
@@ -301,6 +318,10 @@
 				return;
 			} else if(pwPass == false || rePwPass == false){
 				alert('비밀번호를 확인하세요.');
+				event.preventDefault();
+				return;
+			} else if(namePass == false){
+				alert('이름을 확인하세요.');
 				event.preventDefault();
 				return;
 			} else if(mobilePass == false){
