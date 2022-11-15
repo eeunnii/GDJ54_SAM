@@ -187,17 +187,22 @@
 	
 	// 8. 생년월일(일)
 	function fn_birthdate(){
+		
 		$('#birthdate').append('<option value="">일</option>');
-		let endDay = 0;
-		let strDay = '';
-		$('#birthmonth').on('change', function(){
-			switch($('#birthmonth').val()){
-			case 2:
+		
+		$('#birthmonth').change(function(){
+			
+			$('#birthdate').empty();
+			$('#birthdate').append('<option value="">일</option>');
+			let endDay = 0;
+			let strDay = '';
+			switch($(this).val()){
+			case '02':
 				endDay = 29; break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
+			case '04':
+			case '06':
+			case '09':
+			case '11':
 				endDay = 30; break;
 			default:
 				endDay = 31; break;
@@ -210,7 +215,9 @@
 				}
 			}
 			$('#birthdate').append(strDay);
-		});
+			
+		});  // change
+		
 	}  // fn_birthdate
 	
 	// 9. 이메일
