@@ -6,22 +6,27 @@
 
 <mapper namespace="com.gdu.app13.mapper.UserMapper">
 
-	<select id="selectUserById" parameterType="String" resultType="UserDTO">
+	<!-- 아이디 중복체크, 이메일 중복체크, 로그인 -->
+	<select id="selectUserByMap" parameterType="Map" resultType="UserDTO">
 		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
 		  FROM USERS
-		 WHERE ID = #{id}
+		 <where>
+			 <if test="id != null">
+			 	ID = #{id}
+			 </if>
+			 <if test="pw != null">
+			 	AND PW = #{pw}
+			 </if>
+			 <if test="email != null">
+			 	AND EMAIL = #{email}
+			 </if>
+		 </where>
 	</select>
 	
 	<select id="selectRetireUserById" parameterType="String" resultType="RetireUserDTO">
 		SELECT ID
 		  FROM RETIRE_USERS
 		 WHERE ID = #{id}
-	</select>
-	
-	<select id="selectUserByEmail" parameterType="String" resultType="UserDTO">
-		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
-		  FROM USERS
-		 WHERE EMAIL = #{email}
 	</select>
 	
 	<!-- 일반회원가입 -->
@@ -59,16 +64,6 @@
 		VALUES
 			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
 	</insert>
-	
-	<!-- 로그인 -->
-	<select id="selectUserByIdPw" parameterType="UserDTO" resultType="UserDTO">
-		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
-		  FROM USERS
-		 WHERE ID = #{id}
-		   AND PW = #{pw}
-	</select>
-	
-	
 	
 	
 	

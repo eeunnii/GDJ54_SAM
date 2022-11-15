@@ -47,17 +47,36 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> isReduceId(String id) {
+		
+		// selectUserByMap 추가 부분
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isUser", userMapper.selectUserById(id) != null);
+		
+		// selectUserByMap 수정 부분
+		// result.put("isUser", userMapper.selectUserById(id) != null);
+		result.put("isUser", userMapper.selectUserByMap(map) != null);
+		
 		result.put("isRetireUser", userMapper.selectRetireUserById(id) != null);
 		return result;
+		
 	}
 	
 	@Override
 	public Map<String, Object> isReduceEmail(String email) {
+		
+		// selectUserByMap 추가 부분
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isUser", userMapper.selectUserByEmail(email) != null);
+		
+		// selectUserByMap 수정 부분
+		// result.put("isUser", userMapper.selectUserByEmail(email) != null);
+		result.put("isUser", userMapper.selectUserByMap(map) != null);
 		return result;
+		
 	}
 	
 	@Override
@@ -184,8 +203,15 @@ public class UserServiceImpl implements UserService {
 			
 			if(result > 0) {
 				
+				// selectUserByMap 추가 부분
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
+				// selectUserByMap 수정 부분
+				// request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+				
 				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-				request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+				request.getSession().setAttribute("loginUser", userMapper.selectUserByMap(map));
 				
 				// 로그인 기록 남기기
 				int updateResult = userMapper.updateAccessLog(id);
@@ -270,14 +296,22 @@ public class UserServiceImpl implements UserService {
 		// pw는 DB에 저장된 데이터와 동일한 형태로 가공
 		pw = securityUtil.sha256(pw);
 		
-		// DB로 보낼 UserDTO 생성
-		UserDTO user = UserDTO.builder()
-				.id(id)
-				.pw(pw)
-				.build();
+		// DB로 보낼 UserDTO 생성 (Map으로 대체된 부분)
+		// UserDTO user = UserDTO.builder()
+		// 		.id(id)
+		//		.pw(pw)
+		//		.build();
 	
+		// selectUserByMap 추가 부분
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		// selectUserByMap 수정 부분
+		// UserDTO loginUser = userMapper.selectUserByIdPw(user);
+		
 		// id, pw가 일치하는 회원을 DB에서 조회하기
-		UserDTO loginUser = userMapper.selectUserByIdPw(user);
+		UserDTO loginUser = userMapper.selectUserByMap(map);
 		
 		// id, pw가 일치하는 회원이 있다 : 로그인 기록 남기기 + session에 loginUser 저장하기
 		if(loginUser != null) {
@@ -289,7 +323,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-			request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+			request.getSession().setAttribute("loginUser", loginUser);  // 잘못된 코드 수정
 			
 			// 이동 (로그인페이지 이전 페이지로 되돌아가기)
 			try {
