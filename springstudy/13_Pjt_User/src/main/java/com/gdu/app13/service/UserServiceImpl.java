@@ -32,12 +32,11 @@ import com.gdu.app13.util.SecurityUtil;
 @Service
 public class UserServiceImpl implements UserService {
 
-	// 이메일을 보내는 사용자 정보
 	@Value(value = "${mail.username}")
-	private String username;  // 본인 지메일 주소
+	private String username;
 	
 	@Value(value="${mail.password}")
-	private String password;  // 발급 받은 앱 비밀번호
+	private String password;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -48,16 +47,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> isReduceId(String id) {
 		
-		// selectUserByMap 추가 부분
+		// 조회 조건으로 사용할 Map
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-		// selectUserByMap 수정 부분
-		// result.put("isUser", userMapper.selectUserById(id) != null);
 		result.put("isUser", userMapper.selectUserByMap(map) != null);
-		
 		result.put("isRetireUser", userMapper.selectRetireUserById(id) != null);
 		return result;
 		
@@ -66,14 +61,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> isReduceEmail(String email) {
 		
-		// selectUserByMap 추가 부분
+		// 조회 조건으로 사용할 Map
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-		// selectUserByMap 수정 부분
-		// result.put("isUser", userMapper.selectUserByEmail(email) != null);
 		result.put("isUser", userMapper.selectUserByMap(map) != null);
 		return result;
 		
@@ -81,17 +73,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> sendAuthCode(String email) {
-			
-		// 인증코드 만들기
-		String authCode = securityUtil.getAuthCode(6);  // String authCode = securityUtil.generateRandomString(6);
-		System.out.println("발송된 인증코드 : " + authCode);
-		
-		// 이메일 전송을 위한 필수 속성을 Properties 객체로 생성
-		Properties properties = new Properties();
-		properties.put("mail.smtp.host", "smtp.gmail.com");  // 구글 메일로 보냄(보내는 메일은 구글 메일만 가능)
-		properties.put("mail.smtp.port", "587");             // 구글 메일로 보내는 포트 번호
-		properties.put("mail.smtp.auth", "true");            // 인증된 메일
-		properties.put("mail.smtp.starttls.enable", "true"); // TLS 허용
 		
 		/*
 			이메일 보내기 API 사용을 위한 사전 작업
@@ -104,6 +85,17 @@ public class UserServiceImpl implements UserService {
 			        (2) 기기 선택 : Windows 컴퓨터
 			        (3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
 		*/
+		
+		// 인증코드 만들기
+		String authCode = securityUtil.getAuthCode(6);  // String authCode = securityUtil.generateRandomString(6);
+		System.out.println("발송된 인증코드 : " + authCode);
+		
+		// 이메일 전송을 위한 필수 속성을 Properties 객체로 생성
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.gmail.com");  // 구글 메일로 보냄(보내는 메일은 구글 메일만 가능)
+		properties.put("mail.smtp.port", "587");             // 구글 메일로 보내는 포트 번호
+		properties.put("mail.smtp.auth", "true");            // 인증된 메일
+		properties.put("mail.smtp.starttls.enable", "true"); // TLS 허용
 		
 		// 사용자 정보를 javax.mail.Session에 저장
 		Session session = Session.getInstance(properties, new Authenticator() {
@@ -129,8 +121,7 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		
-		// join.jsp로 반환할 데이터
-		// 생성한 인증코드를 보내줘야 함
+		// join.jsp로 생성한 인증코드를 보내줘야 함
 		// 그래야 사용자가 입력한 인증코드와 비교를 할 수 있음
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("authCode", authCode);
@@ -203,12 +194,9 @@ public class UserServiceImpl implements UserService {
 			
 			if(result > 0) {
 				
-				// selectUserByMap 추가 부분
+				// 조회 조건으로 사용할 Map
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", id);
-				
-				// selectUserByMap 수정 부분
-				// request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
 				
 				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
 				request.getSession().setAttribute("loginUser", userMapper.selectUserByMap(map));
@@ -223,12 +211,16 @@ public class UserServiceImpl implements UserService {
 				out.println("alert('회원 가입되었습니다.');");
 				out.println("location.href='" + request.getContextPath() + "';");
 				out.println("</script>");
+				
 			} else {
+				
 				out.println("<script>");
 				out.println("alert('회원 가입에 실패했습니다.');");
 				out.println("history.go(-2);");
 				out.println("</script>");
+				
 			}
+			
 			out.close();
 			
 		} catch(Exception e) {
@@ -271,12 +263,16 @@ public class UserServiceImpl implements UserService {
 				out.println("alert('회원 탈퇴되었습니다.');");
 				out.println("location.href='" + request.getContextPath() + "';");
 				out.println("</script>");
+				
 			} else {
+				
 				out.println("<script>");
 				out.println("alert('회원 탈퇴에 실패했습니다.');");
 				out.println("history.back();");
 				out.println("</script>");
+				
 			}
+			
 			out.close();
 			
 		} catch(Exception e) {
@@ -295,35 +291,26 @@ public class UserServiceImpl implements UserService {
 		
 		// pw는 DB에 저장된 데이터와 동일한 형태로 가공
 		pw = securityUtil.sha256(pw);
-		
-		// DB로 보낼 UserDTO 생성 (Map으로 대체된 부분)
-		// UserDTO user = UserDTO.builder()
-		// 		.id(id)
-		//		.pw(pw)
-		//		.build();
-	
-		// selectUserByMap 추가 부분
+
+		// 조회 조건으로 사용할 Map
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("pw", pw);
 		
-		// selectUserByMap 수정 부분
-		// UserDTO loginUser = userMapper.selectUserByIdPw(user);
-		
 		// id, pw가 일치하는 회원을 DB에서 조회하기
 		UserDTO loginUser = userMapper.selectUserByMap(map);
 		
-		// id, pw가 일치하는 회원이 있다 : 로그인 기록 남기기 + session에 loginUser 저장하기
+		// id, pw가 일치하는 회원이 있다 : session에 loginUser 저장하기 + 로그인 기록 남기기 
 		if(loginUser != null) {
 			
+			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+			request.getSession().setAttribute("loginUser", loginUser);
+
 			// 로그인 기록 남기기
 			int updateResult = userMapper.updateAccessLog(id);
 			if(updateResult == 0) {
 				userMapper.insertAccessLog(id);
 			}
-			
-			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-			request.getSession().setAttribute("loginUser", loginUser);  // 잘못된 코드 수정
 			
 			// 이동 (로그인페이지 이전 페이지로 되돌아가기)
 			try {
