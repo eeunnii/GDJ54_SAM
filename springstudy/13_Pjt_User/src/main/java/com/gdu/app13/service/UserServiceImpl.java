@@ -430,6 +430,12 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	@Override
+	public UserDTO getUserBySessionId(Map<String, Object> map) {
+		return userMapper.selectUserByMap(map);
+	}
+	
+	
 	
 	
 	
