@@ -83,7 +83,7 @@
 					아이디 저장
 				</label>
 				<label for="keepLogin">
-					<input type="checkbox" name="keepLogin" value="keep" id="keepLogin">
+					<input type="checkbox" name="keepLogin" id="keepLogin">
 					로그인 유지
 				</label>
 			</div>

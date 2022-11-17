@@ -2,6 +2,7 @@ package com.gdu.app13.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -13,6 +14,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -284,6 +286,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 로그인 유지 처리는 keepLogin 메소드가 따로 처리함
+		keepLogin(request, response);
+		
 		// 파라미터
 		String url = request.getParameter("url");
 		String id = request.getParameter("id");
@@ -343,7 +348,61 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	
+	@Override
+	public void keepLogin(HttpServletRequest request, HttpServletResponse response) {
+		
+		/*
+			로그인 유지를 체크한 경우
+			
+			1. session_id를 쿠키에 저장해 둔다.
+			   (쿠키명 : keepLogin)
+			2. session_id를 DB에 저장해 둔다.
+			   (SESSION_ID 칼럼에 session_id를 저장하고, SESSION_LIMIT_DATE 칼럼에 15일 후 날짜를 저장한다.)
+		*/
+		
+		/*
+			로그인 유지를 체크하지 않은 경우
+			
+			1. 쿠키 또는 DB에 저장된 정보를 삭제한다.
+			   편의상 쿠키명 keepLogin을 제거하는 것으로 처리한다.
+		*/
+		
+		// 파라미터
+		String id = request.getParameter("id");
+		String keepLogin = request.getParameter("keepLogin");
+		
+		// 로그인 유지를 체크한 경우
+		if(keepLogin != null) {
+			
+			// session_id
+			String sessionId = request.getSession().getId();
+			
+			// session_id를 쿠키에 저장하기
+			Cookie cookie = new Cookie("keepLogin", sessionId);
+			cookie.setMaxAge(60 * 60 * 24 * 15);  // 15일
+			response.addCookie(cookie);
+			
+			// session_id를 DB에 저장하기
+			UserDTO user = UserDTO.builder()
+					.id(id)
+					.sessionId(sessionId)
+					.sessionLimitDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))  // 현재타임스탬프 + 15일에 해당하는 타임스탬프
+					.build();
+
+			userMapper.updateSessionInfo(user);
+			
+		}
+		// 로그인 유지를 체크하지 않은 경우
+		else {
+			
+			// keepLogin 쿠키 제거하기
+			Cookie cookie = new Cookie("keepLogin", "");
+			cookie.setMaxAge(0);  // 쿠키 유지 시간이 0이면 삭제를 의미함
+			response.addCookie(cookie);
+			
+		}
+		
+	}
 	
 	
 	
