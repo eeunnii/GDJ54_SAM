@@ -286,9 +286,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
-		// 로그인 유지 처리는 keepLogin 메소드가 따로 처리함
-		keepLogin(request, response);
-		
 		// 파라미터
 		String url = request.getParameter("url");
 		String id = request.getParameter("id");
@@ -307,6 +304,9 @@ public class UserServiceImpl implements UserService {
 		
 		// id, pw가 일치하는 회원이 있다 : session에 loginUser 저장하기 + 로그인 기록 남기기 
 		if(loginUser != null) {
+			
+			// 로그인 유지 처리는 keepLogin 메소드가 따로 처리함
+			keepLogin(request, response);
 			
 			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
 			request.getSession().setAttribute("loginUser", loginUser);
@@ -380,6 +380,7 @@ public class UserServiceImpl implements UserService {
 			// session_id를 쿠키에 저장하기
 			Cookie cookie = new Cookie("keepLogin", sessionId);
 			cookie.setMaxAge(60 * 60 * 24 * 15);  // 15일
+			cookie.setPath(request.getContextPath());
 			response.addCookie(cookie);
 			
 			// session_id를 DB에 저장하기
@@ -398,13 +399,36 @@ public class UserServiceImpl implements UserService {
 			// keepLogin 쿠키 제거하기
 			Cookie cookie = new Cookie("keepLogin", "");
 			cookie.setMaxAge(0);  // 쿠키 유지 시간이 0이면 삭제를 의미함
+			cookie.setPath(request.getContextPath());
 			response.addCookie(cookie);
 			
 		}
 		
 	}
 	
-	
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 로그아웃 처리
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginUser") != null) {
+			session.invalidate();
+		}
+		
+		// 로그인 유지 풀기
+		Cookie[] cookieList = request.getCookies();
+		Cookie cookie = null;
+		for(int i = 0; i < cookieList.length; i++) {
+			if(cookieList[i].getName().equals("keepLogin")) {
+				cookie = new Cookie("keepLogin", "");
+				cookie.setMaxAge(0);  // 쿠키 유지 시간이 0이면 삭제를 의미함
+				cookie.setPath(request.getContextPath());
+				break;
+			}
+		}
+		response.addCookie(cookie);
+		
+	}
 	
 	
 	
