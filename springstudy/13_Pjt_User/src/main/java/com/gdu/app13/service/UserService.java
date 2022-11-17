@@ -18,5 +18,6 @@ public interface UserService {
 	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public UserDTO getUserBySessionId(Map<String, Object> map);  // KeepLoginInterceptor에서 호출
+	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	
 }

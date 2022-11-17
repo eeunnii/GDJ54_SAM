@@ -90,6 +90,25 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/user/check/form")
+	public String checkForm() {
+		return "user/check";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/user/check/pw", produces="application/json")
+	public Map<String, Object> checkPw(HttpServletRequest request) {
+		return userService.confirmPassword(request);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
