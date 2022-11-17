@@ -29,6 +29,8 @@ public class KeepLoginInterceptor implements HandlerInterceptor {
 		
 		// 로그인이 되어 있지 않은 경우 + 쿠키에 keepLogin이 있는 경우 => 로그인 유지 동작(자동 로그인)
 		
+		System.out.println("hahaha");
+		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginUser") == null) {
 			
