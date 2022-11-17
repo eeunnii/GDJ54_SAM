@@ -101,7 +101,10 @@ public class UserController {
 		return userService.confirmPassword(request);
 	}
 	
-	
+	@GetMapping("/user/mypage")
+	public String mypage() {
+		return "user/mypage";
+	}
 	
 	
 	
