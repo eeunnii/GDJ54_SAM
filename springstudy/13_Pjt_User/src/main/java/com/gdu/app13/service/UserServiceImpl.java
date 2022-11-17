@@ -416,16 +416,9 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		// 로그인 유지 풀기
-		Cookie[] cookieList = request.getCookies();
-		Cookie cookie = null;
-		for(int i = 0; i < cookieList.length; i++) {
-			if(cookieList[i].getName().equals("keepLogin")) {
-				cookie = new Cookie("keepLogin", "");
-				cookie.setMaxAge(0);  // 쿠키 유지 시간이 0이면 삭제를 의미함
-				cookie.setPath(request.getContextPath());
-				break;
-			}
-		}
+		Cookie cookie = new Cookie("keepLogin", "");
+		cookie.setMaxAge(0);  // 쿠키 유지 시간이 0이면 삭제를 의미함
+		cookie.setPath(request.getContextPath());
 		response.addCookie(cookie);
 		
 	}
