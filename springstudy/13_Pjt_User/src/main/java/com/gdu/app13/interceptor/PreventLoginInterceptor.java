@@ -5,8 +5,11 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+
+@Component
 public class PreventLoginInterceptor implements HandlerInterceptor {
 
 	
@@ -20,7 +23,7 @@ public class PreventLoginInterceptor implements HandlerInterceptor {
 			throws Exception {
 		
 		
-		if(request.getAttribute("loginUser") != null) {
+		if(request.getSession().getAttribute("loginUser") != null) {
 			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
