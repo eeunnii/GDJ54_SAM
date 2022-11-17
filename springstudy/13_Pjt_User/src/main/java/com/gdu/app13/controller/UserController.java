@@ -64,8 +64,8 @@ public class UserController {
 		userService.join(request, response);
 	}
 	
-	@GetMapping("/user/retire")
-	public void requiredLogin_retire(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/user/retire")
+	public void retire(HttpServletRequest request, HttpServletResponse response) {
 		userService.retire(request, response);
 	}
 	
@@ -85,7 +85,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/logout")
-	public String requiredLogin_logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		userService.logout(request, response);
 		return "redirect:/";
 	}
