@@ -28,7 +28,8 @@ public interface UserService {
 	public String getNaverLoginApiURL(HttpServletRequest request);  // 네이버로그인-1
 	public String getNaverLoginToken(HttpServletRequest request);   // 네이버로그인-2
 	public UserDTO getNaverLoginProfile(String access_token);       // 네이버로그인-3
-	
-	
+	public UserDTO getNaverUserById(String id);
+	public void naverLogin(HttpServletRequest request, UserDTO naverUser);
+	public void naverJoin(HttpServletRequest request, HttpServletResponse response);
 	
 }
