@@ -75,6 +75,9 @@ public class UserController {
 		// 요청 헤더 referer : 이전 페이지의 주소가 저장
 		model.addAttribute("url", request.getHeader("referer"));  // 로그인 후 되돌아 갈 주소 url
 		
+		// 네이버 로그인
+		model.addAttribute("apiURL", userService.getNaverLoginApiURL(request));
+		
 		return "user/login";
 		
 	}

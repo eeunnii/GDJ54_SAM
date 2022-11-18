@@ -2,6 +2,9 @@ package com.gdu.app13.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -584,6 +587,38 @@ public class UserServiceImpl implements UserService {
 		}
 
 	}
+	
+	@Override
+	public String getNaverLoginApiURL(HttpServletRequest request) {
+	    
+		String apiURL = null;
+		
+		try {
+			
+			String clientId = "ZuA2Hxw8DnfFAdWjRSk4";
+			String redirectURI = URLEncoder.encode("http://localhost:9090/" + request.getContextPath() + "/user/naver/login", "UTF-8");  // 네이버 로그인 Callback URL에 작성한 주소 입력 
+			SecureRandom random = new SecureRandom();
+			String state = new BigInteger(130, random).toString();
+			
+			apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+			apiURL += "&client_id=" + clientId;
+			apiURL += "&redirect_uri=" + redirectURI;
+			apiURL += "&state=" + state;
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("state", state);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return apiURL;
+		
+	}
+	
+	
+	
+	
 	
 	
 	
