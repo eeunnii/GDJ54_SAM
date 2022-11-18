@@ -26,6 +26,7 @@ public interface UserService {
 	public void restoreUser(HttpServletRequest request, HttpServletResponse response);
 	
 	public String getNaverLoginApiURL(HttpServletRequest request);  // 네이버로그인-1
+	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request);  // 네이버로그인-2
 	
 	
 	

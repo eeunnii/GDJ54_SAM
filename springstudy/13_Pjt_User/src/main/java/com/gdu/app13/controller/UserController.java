@@ -87,6 +87,11 @@ public class UserController {
 		userService.login(request, response);
 	}
 	
+	@GetMapping("/user/naver/login")
+	public void naverLogin(HttpServletRequest request) {
+		userService.getNaverLoginTokenNProfile(request);
+	}
+	
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		userService.logout(request, response);
@@ -124,6 +129,7 @@ public class UserController {
 		userService.restoreUser(request, response);
 	}
 	
+
 	
 	
 	
