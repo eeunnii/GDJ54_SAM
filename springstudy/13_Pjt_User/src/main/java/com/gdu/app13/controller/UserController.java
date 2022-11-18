@@ -111,7 +111,10 @@ public class UserController {
 		userService.modifyPassword(request, response);
 	}
 	
-	
+	@GetMapping("/user/sleep/display")
+	public String sleepDisplay() {
+		return "user/sleep";
+	}
 	
 	
 	
