@@ -623,7 +623,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request) {
+	public String getNaverLoginToken(HttpServletRequest request) {
 		
 		// access_token 받기
 		
@@ -639,10 +639,7 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		
-		String access_token = "";
-	    
 		StringBuffer res = new StringBuffer();  // StringBuffer는 StringBuilder과 동일한 역할 수행
-		
 		try {
 			
 			String apiURL;
@@ -658,9 +655,9 @@ public class UserServiceImpl implements UserService {
 			con.setRequestMethod("GET");
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			if(responseCode==200) { // 정상 호출
+			if(responseCode == 200) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {  // 에러 발생
+			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
@@ -686,7 +683,13 @@ public class UserServiceImpl implements UserService {
 		}
 			
 		JSONObject obj = new JSONObject(res.toString());
-		access_token = obj.getString("access_token");
+		String access_token = obj.getString("access_token");
+		return access_token;
+		
+	}
+	
+	@Override
+	public UserDTO getNaverLoginProfile(String access_token) {
 		
 		// access_token을 이용해서 profile 받기
 		String header = "Bearer " + access_token;
@@ -702,9 +705,9 @@ public class UserServiceImpl implements UserService {
 			con.setRequestProperty("Authorization", header);
 			int responseCode = con.getResponseCode();
 			BufferedReader br;
-			if(responseCode==200) { // 정상 호출
+			if(responseCode == 200) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {  // 에러 발생
+			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
 			String inputLine;
@@ -738,8 +741,33 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		// 받아온 profile을 UserDTO로 만들어서 반환
-		
-		return null;
+		UserDTO user = null;
+		try {
+			
+			JSONObject profile = new JSONObject(sb.toString()).getJSONObject("response");
+			String id = profile.getString("id");
+			String name = profile.getString("name");
+			String gender = profile.getString("gender");
+			String email = profile.getString("email");
+			String mobile = profile.getString("mobile").replaceAll("-", "");
+			String birthyear = profile.getString("birthyear");
+			String birthday = profile.getString("birthday").replace("-", "");
+			
+			user = UserDTO.builder()
+					.id(id)
+					.name(name)
+					.gender(gender)
+					.email(email)
+					.mobile(mobile)
+					.birthyear(birthyear)
+					.birthday(birthday)
+					.build();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		return user;
 		
 	}
 	

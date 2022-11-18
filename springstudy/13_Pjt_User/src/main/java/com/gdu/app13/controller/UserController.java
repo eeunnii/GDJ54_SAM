@@ -89,7 +89,8 @@ public class UserController {
 	
 	@GetMapping("/user/naver/login")
 	public void naverLogin(HttpServletRequest request) {
-		userService.getNaverLoginTokenNProfile(request);
+		String access_token = userService.getNaverLoginToken(request);
+		userService.getNaverLoginProfile(access_token);
 	}
 	
 	@GetMapping("/user/logout")
