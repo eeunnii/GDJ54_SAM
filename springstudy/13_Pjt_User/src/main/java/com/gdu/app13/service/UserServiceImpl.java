@@ -529,7 +529,14 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	
+	@Transactional
+	@Override
+	public void sleepUserHandle() {
+		int insertCount = userMapper.insertSleepUser();
+		if(insertCount > 0) {
+			userMapper.deleteUserForSleep();
+		}
+	}
 	
 	
 	

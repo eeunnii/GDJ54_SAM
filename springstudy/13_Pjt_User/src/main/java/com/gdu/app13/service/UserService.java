@@ -20,5 +20,6 @@ public interface UserService {
 	public UserDTO getUserBySessionId(Map<String, Object> map);  // KeepLoginInterceptor에서 호출
 	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
+	public void sleepUserHandle();  // SleepUserScheduler에서 호출
 	
 }
