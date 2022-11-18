@@ -544,7 +544,46 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectSleepUserById(id);
 	}
 	
-	
+	@Transactional
+	@Override
+	public void restoreUser(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 계정 복원을 원하는 사용자의 아이디
+		HttpSession session = request.getSession();
+		SleepUserDTO sleepUser = (SleepUserDTO)session.getAttribute("sleepUser");
+		String id = sleepUser.getId();
+		
+		// 계정복구진행
+		int insertCount = userMapper.insertRestoreUser(id);
+		int deleteCount = 0;
+		if(insertCount > 0) {
+			deleteCount = userMapper.deleteSleepUser(id);
+		}
+		
+		// 응답
+		try {
+
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(insertCount > 0 && deleteCount > 0) {
+				out.println("<script>");
+				out.println("alert('휴면 계정이 복구되었습니다. 휴면 계정 활성화를 위해 곧바로 로그인을 해 주세요.');");
+				out.println("location.href='" + request.getContextPath() + "/user/login/form';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('휴면 계정이 복구되지 않았습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	
 	
