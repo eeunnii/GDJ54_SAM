@@ -8,6 +8,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(function(){
+		
+		$('#frm_restore').submit(function(event){
+			if($('#pw').val() == ''){
+				alert('비밀번호를 입력하세요.');
+				event.preventDefault();
+				return;
+			}
+		});
+				
+	});
+
+</script>
 </head>
 <body>
 
@@ -23,12 +38,24 @@
 				<li>마지막 로그인 ${sleepUser.lastLoginDate}</li>
 				<li>휴면전환일 ${sleepUser.sleepDate}</li>
 			</ul>
-			휴면 해제를 위해 휴면해제하기 버튼을 클릭해 주세요.
 		</div>
 		
+		<hr>
+		
 		<div>
-			<input type="button" value="취소" onclick="location.href='${contextPath}'">
-			<input type="button" value="휴면해제하기" id="btn_restore">
+			<div>
+				비밀번호를 입력한 뒤 휴면해제 버튼을 클릭해 주세요.
+			</div>
+			<form id="frm_restore" action="${contextPath}/user/restore" method="post">
+				<div>
+					<label for="pw">비밀번호</label>
+					<input type="password" id="pw" name="pw">
+				</div>
+				<div>
+					<button>휴면해제</button>
+					<input type="button" value="취소" onclick="location.href='${contextPath}'">
+				</div>
+			</form>
 		</div>
 	
 	</div>
