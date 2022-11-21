@@ -17,4 +17,16 @@ public class UploadController {
 		return "index";
 	}
 	
+	@GetMapping("/upload/list")
+	public String list() {
+		return "upload/list";
+	}
+	
+	@GetMapping("/upload/write")
+	public String write() {
+		return "upload/write";
+	}
+	
+	
+	
 }

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-
+	<a href="${contextPath}/upload/list">업로드게시판</a>
 	
 </body>
 </html>
