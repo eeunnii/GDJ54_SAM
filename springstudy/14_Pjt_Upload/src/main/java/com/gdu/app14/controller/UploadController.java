@@ -2,6 +2,7 @@ package com.gdu.app14.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gdu.app14.service.UploadService;
@@ -10,7 +11,7 @@ import com.gdu.app14.service.UploadService;
 public class UploadController {
 
 	@Autowired
-	private UploadService attachService;
+	private UploadService uploadService;
 	
 	@GetMapping("/")
 	public String index() {
@@ -18,7 +19,8 @@ public class UploadController {
 	}
 	
 	@GetMapping("/upload/list")
-	public String list() {
+	public String list(Model model) {
+		model.addAttribute("uploadList", uploadService.getUploadList());
 		return "upload/list";
 	}
 	

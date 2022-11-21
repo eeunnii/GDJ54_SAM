@@ -6,6 +6,16 @@
 
 <mapper namespace="com.gdu.app14.mapper.UploadMapper">
 
+	<select id="selectUploadList" resultType="UploadDTO">
+		SELECT UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE
+		  FROM UPLOAD
+		 ORDER BY UPLOAD_NO DESC
+	</select>
+	
+	
+	
+	
+	
 	
 	
 </mapper>
