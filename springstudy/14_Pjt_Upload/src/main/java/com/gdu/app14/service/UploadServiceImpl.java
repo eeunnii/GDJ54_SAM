@@ -51,14 +51,15 @@ public class UploadServiceImpl implements UploadService {
 		int uploadResult = uploadMapper.insertUpload(upload);  // <selectKey>에 의해서 인수 upload에 uploadNo값이 저장된다.
 		
 		/* ATTACH 테이블에 저장하기 */
-		
 		// 첨부 결과
 		int attachResult = 0;
 		
 		// 첨부된 파일 목록
 		List<MultipartFile> files = multipartRequest.getFiles("files");  // <input type="file" name="files">
+		System.out.println(files);
 		
 		// 첨부된 파일 목록 순회(하나씩 저장)
+		if(files.get(0).getSize() != 0) {
 		for(MultipartFile multipartFile : files) {
 			
 			try {
@@ -106,6 +107,7 @@ public class UploadServiceImpl implements UploadService {
 			}
 			
 		}  // for
+		}
 		
 		// 응답
 		try {
