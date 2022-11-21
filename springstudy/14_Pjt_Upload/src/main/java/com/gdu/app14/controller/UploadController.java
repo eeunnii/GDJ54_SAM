@@ -1,9 +1,13 @@
 package com.gdu.app14.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app14.service.UploadService;
 
@@ -28,6 +32,21 @@ public class UploadController {
 	public String write() {
 		return "upload/write";
 	}
+	
+	@PostMapping("/upload/add")
+	public void add(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+		uploadService.save(multipartRequest, response);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

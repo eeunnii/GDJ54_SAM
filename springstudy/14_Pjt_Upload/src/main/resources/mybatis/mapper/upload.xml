@@ -7,12 +7,25 @@
 <mapper namespace="com.gdu.app14.mapper.UploadMapper">
 
 	<select id="selectUploadList" resultType="UploadDTO">
-		SELECT UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE
-		  FROM UPLOAD
-		 ORDER BY UPLOAD_NO DESC
+		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, 1 AS ATTACH_CNT
+		  FROM UPLOAD U INNER JOIN ATTACH A
+			ON U.UPLOAD_NO = A.UPLOAD_NO
 	</select>
 	
-	
+	<!--
+		UPLOAD_SEQ.NEXTVAL 값을 INSERT 수행 이전에(BEFORE)
+		parameter로 전달되는 UploadDTO의 uploadNo에 넣어 주시오.
+	-->
+	<insert id="insertUpload" parameterType="UploadDTO">
+		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
+			SELECT UPLOAD_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey>
+		INSERT INTO UPLOAD
+			(UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE)
+		VALUES
+			(#{uploadNo}, #{title}, #{content}, SYSTIMESTAMP, SYSTIMESTAMP)
+	</insert>
 	
 	
 	

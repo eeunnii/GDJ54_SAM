@@ -9,4 +9,5 @@ import com.gdu.app14.domain.UploadDTO;
 @Mapper
 public interface UploadMapper {
 	public List<UploadDTO> selectUploadList();
+	public int insertUpload(UploadDTO upload);
 }

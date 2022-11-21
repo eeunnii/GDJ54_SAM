@@ -35,7 +35,7 @@
 							<td>${upload.uploadNo}</td>
 							<td>${upload.title}</td>
 							<td>${upload.createDate}</td>
-							<td>${upload.modifyDate}</td>
+							<td>${upload.attachCnt}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
