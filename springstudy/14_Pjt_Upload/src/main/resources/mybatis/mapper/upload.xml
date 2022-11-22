@@ -57,15 +57,24 @@
 		 WHERE ATTACH_NO = #{attachNo}
 	</select>
 	
-	<delete id="deleteAttachByAttachNo" parameterType="int">
+	<update id="updateUpload" parameterType="UploadDTO">
+		UPDATE UPLOAD
+		   SET TITLE = #{title}
+		     , CONTENT = #{content}
+		     , MODIFY_DATE = SYSTIMESTAMP
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</update>
+	
+	<delete id="deleteAttach" parameterType="int">
 		DELETE
 		  FROM ATTACH
 		 WHERE ATTACH_NO = #{attachNo}
 	</delete>
 	
-	
-	
-	
-	
+	<delete id="deleteUpload" parameterType="int">
+		DELETE
+		  FROM UPLOAD
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</delete>
 	
 </mapper>
