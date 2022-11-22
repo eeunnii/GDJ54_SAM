@@ -45,7 +45,17 @@
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</select>
 	
+	<update id="updateDownloadCnt" parameterType="int">
+		UPDATE ATTACH
+		   SET DOWNLOAD_CNT = DOWNLOAD_CNT + 1
+		 WHERE ATTACH_NO = #{attachNo}
+	</update>
 	
+	<select id="selectAttachByNo" parameterType="int" resultType="AttachDTO">
+		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
+		  FROM ATTACH
+		 WHERE ATTACH_NO = #{attachNo}
+	</select>
 	
 	
 	

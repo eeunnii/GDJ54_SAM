@@ -7,6 +7,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -144,7 +148,25 @@ public class UploadServiceImpl implements UploadService {
 		model.addAttribute("attachList", uploadMapper.selectAttachList(uploadNo));
 	}
 	
-	
+	@Override
+	public ResponseEntity<Resource> download(String userAgent, int attachNo) {
+		
+		// 다운로드 할 첨부 파일의 정보(경로, 이름)
+		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
+		File file = new File(attach.getPath(), attach.getFilesystem());
+		
+		// 반환할 Resource
+		Resource resource = new FileSystemResource(file);
+		
+		// Resource가 없으면 종료 (다운로드할 파일이 없음)
+		if(resource.exists() == false) {
+			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
+		}
+		
+		
+		return null;
+		
+	}
 	
 	
 	
