@@ -64,6 +64,10 @@
 				<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
 			</div>
 		</c:forEach>
+		<br>
+		<div>
+			<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+		</div>
 	</div>
 	
 </body>

@@ -1,9 +1,13 @@
 package com.gdu.app14.service;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -193,6 +197,84 @@ public class UploadServiceImpl implements UploadService {
 		// 다운로드 헤더 만들기
 		HttpHeaders header = new HttpHeaders();
 		header.add("Content-Disposition", "attachment; filename=" + origin);
+		header.add("Content-Length", file.length() + "");
+		
+		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+		
+	}
+	
+	@Override
+	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo) {
+		
+		// 다운로드 할 첨부 파일들의 정보(경로, 이름)
+		List<AttachDTO> attachList = uploadMapper.selectAttachList(uploadNo);
+		
+		// zip 파일을 만들기 위한 스트림
+		FileOutputStream fout = null;
+		ZipOutputStream zout = null;   // zip 파일 생성 스트림
+		FileInputStream fin = null;
+		
+		// storage/temp 디렉터리에 zip 파일 생성
+		String tmpPath = "storage" + File.separator + "temp";
+		
+		File tmpDir = new File(tmpPath);
+		if(tmpDir.exists() == false) {
+			tmpDir.mkdirs();
+		}
+		
+		// zip 파일명은 타임스탬프 값으로 생성
+		String tmpName =  System.currentTimeMillis() + ".zip";
+		
+		try {
+			
+			fout = new FileOutputStream(new File(tmpPath, tmpName));
+			zout = new ZipOutputStream(fout);
+			
+			// 첨부가 있는지 확인
+			if(attachList != null && attachList.isEmpty() == false) {
+
+				// 첨부 파일 하나씩 순회
+				for(AttachDTO attach : attachList) {
+					
+					// zip 파일에 첨부 파일 추가
+					ZipEntry zipEntry = new ZipEntry(attach.getOrigin());
+					zout.putNextEntry(zipEntry);
+					
+					fin = new FileInputStream(new File(attach.getPath(), attach.getFilesystem()));
+					byte[] buffer = new byte[1024];
+					int length;
+					while((length = fin.read(buffer)) != -1){
+						zout.write(buffer, 0, length);
+					}
+					zout.closeEntry();
+					fin.close();
+
+					// 각 첨부 파일 모두 다운로드 횟수 증가
+					uploadMapper.updateDownloadCnt(attach.getAttachNo());
+					
+				}
+				
+				zout.close();
+
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
+		// 반환할 Resource
+		File file = new File(tmpPath, tmpName);
+		Resource resource = new FileSystemResource(file);
+		
+		// Resource가 없으면 종료 (다운로드할 파일이 없음)
+		if(resource.exists() == false) {
+			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
+		}
+		
+		// 다운로드 헤더 만들기
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Disposition", "attachment; filename=" + tmpName);  // 다운로드할 zip파일명은 타임스탬프로 만든 이름을 그대로 사용
 		header.add("Content-Length", file.length() + "");
 		
 		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
