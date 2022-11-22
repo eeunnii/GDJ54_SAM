@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app14.service.UploadService;
@@ -38,7 +39,11 @@ public class UploadController {
 		uploadService.save(multipartRequest, response);
 	}
 	
-	
+	@GetMapping("/upload/detail")
+	public String detail(@RequestParam(value="uploadNo", required=false, defaultValue="0") int uploadNo, Model model) {
+		uploadService.getUploadByNo(uploadNo, model);
+		return "upload/detail";
+	}
 	
 	
 	

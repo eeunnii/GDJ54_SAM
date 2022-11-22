@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app14.domain.UploadDTO;
@@ -11,4 +12,5 @@ import com.gdu.app14.domain.UploadDTO;
 public interface UploadService {
 	public List<UploadDTO> getUploadList();
 	public void save(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
+	public void getUploadByNo(int uploadNo, Model model);
 }
