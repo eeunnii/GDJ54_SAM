@@ -20,9 +20,9 @@ public class DeleteTmpFiles {
 		File tmpDir = new File(tmpPath);
 		
 		if(tmpDir.exists()) {
-			File[] files = tmpDir.listFiles();
-			for(File file : files) {
-				file.delete();
+			File[] tmpFiles = tmpDir.listFiles();
+			for(File tmp : tmpFiles) {
+				tmp.delete();
 			}
 		}
 		

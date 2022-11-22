@@ -206,6 +206,9 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo) {
 		
+		// storage/temp 디렉터리에 임시 zip 파일을 만든 뒤 이를 다운로드 받을 수 있음
+		// com.gdu.app14.batch.DeleteTmpFiles에 의해서 storage/temp 디렉터리의 임시 zip 파일은 주기적으로 삭제됨
+		
 		// 다운로드 할 첨부 파일들의 정보(경로, 이름)
 		List<AttachDTO> attachList = uploadMapper.selectAttachList(uploadNo);
 		

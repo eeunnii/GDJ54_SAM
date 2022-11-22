@@ -19,4 +19,5 @@ public interface UploadMapper {
 	public int updateUpload(UploadDTO upload);
 	public int deleteAttach(int attachNo);
 	public int deleteUpload(int uploadNo);
+	public List<AttachDTO> selectAttachListInYesterday();
 }
