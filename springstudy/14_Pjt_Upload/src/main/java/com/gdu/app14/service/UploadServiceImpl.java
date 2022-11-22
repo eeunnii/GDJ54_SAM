@@ -2,6 +2,7 @@ package com.gdu.app14.service;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -163,8 +165,36 @@ public class UploadServiceImpl implements UploadService {
 			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
 		}
 		
+		// 다운로드 횟수 증가
+		uploadMapper.updateDownloadCnt(attachNo);
 		
-		return null;
+		// 다운로드 되는 파일명(브라우저 마다 다르게 세팅)
+		String origin = attach.getOrigin();
+		try {
+			
+			// IE (userAgent에 "Trident"가 포함되어 있음)
+			if(userAgent.contains("Trident")) {
+				origin = URLEncoder.encode(origin, "UTF-8").replaceAll("\\+", " ");
+			}
+			// Edge (userAgent에 "Edg"가 포함되어 있음)
+			else if(userAgent.contains("Edg")) {
+				origin = URLEncoder.encode(origin, "UTF-8");
+			}
+			// 나머지
+			else {
+				origin = new String(origin.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 다운로드 헤더 만들기
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Disposition", "attachment; filename=" + origin);
+		header.add("Content-Length", file.length() + "");
+		
+		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
 		
 	}
 	

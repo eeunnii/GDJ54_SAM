@@ -27,7 +27,7 @@
 		<h3>첨부목록</h3>	
 		<c:forEach items="${attachList}" var="attach">
 			<div>
-				<a href="">${attach.origin}</a>
+				<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
 			</div>
 		</c:forEach>
 	</div>
