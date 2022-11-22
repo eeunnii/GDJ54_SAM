@@ -198,6 +198,33 @@ public class UploadServiceImpl implements UploadService {
 		
 	}
 	
+	@Override
+	public void removeAttachByAttachNo(int attachNo) {
+		
+		// 삭제할 Attach 정보 가져오기
+		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
+		
+		// DB에서 Attach 정보 삭제
+		int result = uploadMapper.deleteAttachByAttachNo(attachNo);
+		
+		// 첨부 파일 삭제
+		if(result > 0) {
+			
+			// 첨부 파일을 File 객체로 만듬
+			File file = new File(attach.getPath(), attach.getFilesystem());
+			
+			// 삭제
+			if(file.exists()) {
+				file.delete();
+			}
+			
+		}
+		
+	}
+	
+	
+	
+	
 	
 	
 	

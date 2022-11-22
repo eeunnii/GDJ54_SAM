@@ -16,4 +16,5 @@ public interface UploadService {
 	public void save(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void getUploadByNo(int uploadNo, Model model);
 	public ResponseEntity<Resource> download(String userAgent, int attachNo);
+	public void removeAttachByAttachNo(int attachNo);
 }

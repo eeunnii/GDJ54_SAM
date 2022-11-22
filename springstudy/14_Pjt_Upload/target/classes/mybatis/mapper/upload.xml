@@ -57,6 +57,11 @@
 		 WHERE ATTACH_NO = #{attachNo}
 	</select>
 	
+	<delete id="deleteAttachByAttachNo" parameterType="int">
+		DELETE
+		  FROM ATTACH
+		 WHERE ATTACH_NO = #{attachNo}
+	</delete>
 	
 	
 	

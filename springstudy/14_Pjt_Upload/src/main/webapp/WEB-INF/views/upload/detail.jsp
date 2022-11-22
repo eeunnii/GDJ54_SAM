@@ -8,6 +8,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(function(){
+		
+		// 첨부 삭제
+		$('.btn_attach_remove').click(function(){
+			if(confirm('해당 첨부파일을 삭제할까요?')){
+				location.href = '${contextPath}/upload/attach/remove?uploadNo=' + $(this).data('upload_no') + '&attachNo=' + $(this).data('attach_no');
+			}
+		});
+		
+	});
+
+</script>
 </head>
 <body>
 
@@ -28,6 +42,7 @@
 		<c:forEach items="${attachList}" var="attach">
 			<div>
 				<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+				<input type="button" value="삭제" class="btn_attach_remove" data-upload_no="${upload.uploadNo}" data-attach_no="${attach.attachNo}">
 			</div>
 		</c:forEach>
 	</div>
