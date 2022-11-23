@@ -1,5 +1,7 @@
 package com.gdu.app15.service;
 
-public interface BlogService {
+import org.springframework.ui.Model;
 
+public interface BlogService {
+	public void getBlogList(Model model);
 }
