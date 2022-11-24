@@ -32,13 +32,20 @@
 	
 	<div>
 		<form id="frm_btn" method="post">
+			<input type="hidden" name="blogNo" value="${blog.blogNo}">
 			<input type="button" value="수정" id="btn_edit_blog">
 			<input type="button" value="삭제" id="btn_remove_blog">
+			<input type="button" value="목록" onclick="location.href='${contextPath}/blog/list'">
 		</form>
 		<script>
+			$('#btn_edit_blog').click(function(){
+				$('#frm_btn').attr('action', '${contextPath}/blog/edit');
+				$('#frm_btn').submit();
+			});
 			$('#btn_remove_blog').click(function(){
 				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')){
-					
+					$('#frm_btn').attr('action', '${contextPath}/blog/remove');
+					$('#frm_btn').submit();
 				}
 			});
 		</script> 
