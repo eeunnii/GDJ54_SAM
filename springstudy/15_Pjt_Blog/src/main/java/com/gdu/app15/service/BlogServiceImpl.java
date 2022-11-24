@@ -1,5 +1,6 @@
 package com.gdu.app15.service;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app15.domain.BlogDTO;
 import com.gdu.app15.mapper.BlogMapper;
+import com.gdu.app15.util.MyFileUtil;
 import com.gdu.app15.util.PageUtil;
 
 @Service
@@ -21,11 +25,13 @@ public class BlogServiceImpl implements BlogService {
 
 	private BlogMapper blogMapper;
 	private PageUtil pageUtil;
+	private MyFileUtil myFileUtil;
 	
 	@Autowired
-	public void set(BlogMapper blogMapper, PageUtil pageUtil) {
+	public void set(BlogMapper blogMapper, PageUtil pageUtil, MyFileUtil myFileUtil) {
 		this.blogMapper = blogMapper;
 		this.pageUtil = pageUtil;
+		this.myFileUtil = myFileUtil;
 	}
 	
 	@Override
@@ -112,7 +118,43 @@ public class BlogServiceImpl implements BlogService {
 		
 	}
 	
-	
+	@Override
+	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest) {
+		
+		// 파라미터 file
+		MultipartFile multipartFile = multipartRequest.getFile("file");
+		
+		// 저장할 파일명
+		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
+		
+		// 저장 경로
+		String path = "C:\\upload";
+		
+		// 저장 경로가 없으면 만들기
+		File dir = new File(path);
+		if(dir.exists() == false) {
+			dir.mkdirs();
+		}
+		
+		// 저장할 File 객체
+		File file = new File(path, filesystem);  // new File(dir, filesystem)도 가능
+		
+		// HDD에 File 객체 저장하기
+		try {
+			multipartFile.transferTo(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 저장된 파일을 확인할 수 있는 매핑을 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("src", multipartRequest.getContextPath() + "/load/image/" + filesystem);
+		return map;
+		
+		// 저장된 파일이 aaa.jpg라고 가정하면
+		// src=${contextPath}/load/image/aaa.jpg 이다. 
+		
+	}
 	
 	
 	
