@@ -33,7 +33,27 @@
 			    ['para', ['ul', 'ol', 'paragraph']],
 			    ['height', ['height']],
 			    ['insert', ['link', 'picture', 'video']]
-			]
+			],
+			callbacks: {
+				// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨 
+				onImageUpload: function(files){
+					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용 
+					var formData = new FormData();
+					formData.append('file', files[0]);  // 파라미터 file, summernote 편집기에 추가된 이미지가 files[0]임
+					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
+					$.ajax({
+						type: 'post',
+						url: getContextPath() + '/blog/uploadImage',
+						data: formData,
+						contentType: false,  // ajax 이미지 첨부용
+						processData: false,  // ajax 이미지 첨부용
+						dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
+						success: function(resData){
+							$('#content').summernote('insertImage', 이미지경로);
+						}
+					});  // ajax
+				}  // onImageUpload
+			}  // callbacks
 		});
 		
 		// 목록
