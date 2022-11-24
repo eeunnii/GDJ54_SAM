@@ -12,4 +12,10 @@ public interface BlogService {
 	public void getBlogList(Model model);
 	public void saveBlog(HttpServletRequest request, HttpServletResponse response);
 	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
+	public int increseBlogHit(int blogNo);
+	public void getBlogByNo(int blogNo, Model model);
+	
+	
+	
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -49,16 +50,21 @@ public class BlogController {
 		return blogService.saveSummernoteImage(multipartRequest);
 	}
 	
+	@GetMapping("/blog/increse/hit")
+	public String increseHit(@RequestParam(value="blogNo", required=false, defaultValue="0") int blogNo) {
+		int result = blogService.increseBlogHit(blogNo);
+		if(result > 0) {  // 조회수 증가에 성공하면 상세보기로 이동
+			return "redirect:/blog/detail?blogNo=" + blogNo;
+		} else {          // 조회수 증가에 실패하면 목록보기로 이동
+			return "redirect:/blog/list";
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("/blog/detail")
+	public String detail(@RequestParam(value="blogNo", required=false, defaultValue="0") int blogNo, Model model) {
+		blogService.getBlogByNo(blogNo, model);
+		return "blog/detail";
+	}
 	
 	
 }
