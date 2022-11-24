@@ -29,6 +29,29 @@
 	<div>
 		${blog.content}
 	</div>
+	
+	<div>
+		<form id="frm_btn" method="post">
+			<input type="button" value="수정" id="btn_edit_blog">
+			<input type="button" value="삭제" id="btn_remove_blog">
+		</form>
+		<script>
+			$('#btn_remove_blog').click(function(){
+				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')){
+					
+				}
+			});
+		</script> 
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 </div>
