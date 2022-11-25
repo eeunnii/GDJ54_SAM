@@ -55,7 +55,7 @@
 			/* 요청 */
 			type: 'get',
 			url: '${contextPath}/member/detail2',
-			data: $('#frm_member').serialize(),
+			data: $('#frm_member').serialize(),  // form에 있는 모든 요소를 파라미터로 알아서 보내달라. name 속성이 파라미터로 인식된다.
 			/* 응답 */
 			dataType: 'json',
 			success: function(resData){

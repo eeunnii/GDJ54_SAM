@@ -21,7 +21,7 @@ public class RequestLoggingAspect {
 	
 	
 	// 로거
-	private static final Logger LOG = LoggerFactory.getLogger(RequestLoggingAspect.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RequestLoggingAspect.class);
 
 	
 	// 포인트컷 설정
@@ -54,13 +54,13 @@ public class RequestLoggingAspect {
 		// 어드바이스는 proceed() 메소드 실행 결과를 반환
 		Object result = null;
 		try {
-			result = joinPoint.proceed(joinPoint.getArgs());
+			result = joinPoint.proceed();  // @Around는 ProceedingJoinPoint 실행을 개발자가 직접 해야 하고, 나머지 어드바이스는 자동으로 JoinPoint가 실행된다.
 		} catch (Exception e) {
 			throw e;
 		} finally {
 			// 무조건 실행되는 영역(여기서 로그를 찍는다.)
 			// 치환문자 : {}
-			LOG.info("{} {} {} > {}", request.getMethod(), request.getRequestURI(), params, request.getRemoteHost());
+			LOGGER.debug("{} {} {} > {}", request.getMethod(), request.getRequestURI(), params, request.getRemoteHost());
 		}
 		
 		return result;

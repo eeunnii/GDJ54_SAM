@@ -19,14 +19,14 @@ public class MemberServiceImpl implements MemberService {
 			id = request.getParameter("id");
 			pw = request.getParameter("pw");
 			if(id.isEmpty() || pw.isEmpty()) {
-				throw new RuntimeException("아이디와 비밀번호를 모두 입력하세요");
+				throw new RuntimeException("아이디와 비밀번호를 모두 입력하세요");  // 아이디/비밀번호 중 하나만 비어 있어도 catch로 넘겨버림
 			}
-			return "당신의 아이디는 " + id + "이고, 패스워드는 " + pw + "입니다.";
+			return "당신의 아이디는 " + id + "이고, 패스워드는 " + pw + "입니다.";  // success로 넘길 값
 		} catch(Exception e) {
 			try {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
-				out.println(e.getMessage());
+				out.println(e.getMessage());  // error로 넘길 값
 				out.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();

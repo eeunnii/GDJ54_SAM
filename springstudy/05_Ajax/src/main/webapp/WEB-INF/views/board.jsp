@@ -74,7 +74,7 @@
 					.appendTo('#result');
 				},
 				error: function(jqXHR){
-					if(jqXHR.status == 500){
+					if(jqXHR.status == 500){  // INTERNAL_SERVER_ERROR의 응답 코드는 500
 						alert('제목은 필수입니다.');
 					}
 				}

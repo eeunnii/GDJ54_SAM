@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.gdu</groupId>
 	<artifactId>app10</artifactId>
 	<name>10_Mybatis_Interface</name>
@@ -151,6 +153,7 @@
 		</dependency>
 		
 	</dependencies>
+	
     <build>
         <plugins>
             <plugin>
@@ -189,4 +192,5 @@
             </plugin>
         </plugins>
     </build>
+    
 </project>

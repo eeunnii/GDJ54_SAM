@@ -14,8 +14,9 @@
 	
 	$(document).ready(function(){
 		
+		// jquery-ui의 datepicker 사용해 보기
 		$('#targetDt').datepicker({
-			dateFormat: 'yymmdd'  // 실제로는 yyyymmdd로 적용
+			dateFormat: 'yymmdd'  // 실제로는 yyyymmdd로 적용됨
 		});
 		
 		$('#btn').click(function(){

@@ -8,12 +8,12 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public Contact execute1(Contact member) {
-		return member;
+		return member;  // 받아 온 거 그대로 보내기
 	}
 	
 	@Override
 	public Map<String, Object> execute2(Map<String, Object> map) {
-		return map;
+		return map;  // 받아 온 거 그대로 보내기
 	}
 
 }

@@ -108,7 +108,8 @@ public class DBConfig {
 		*/
 		
 		AspectJExpressionPointcut pointCut = new AspectJExpressionPointcut();
-		pointCut.setExpression("execution(* com.gdu.app08.service.*Impl.*Transaction(..))");
+		pointCut.setExpression("execution(* com.gdu.app08.service.*Impl.*Transaction(..))");  // ServiceImpl의 메소드 중에서 Transaction으로 메소드 이름이 끝나는 모든 메소드가 동작한다.
+		                                                                                      // BoardServiceImpl의 testTransaction() 메소드는 이것 때문에 어드바이스가 동작한다.
 		
 		return new DefaultPointcutAdvisor(pointCut, transactionInterceptor());
 		

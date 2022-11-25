@@ -19,10 +19,14 @@ public class GalleryServiceImpl implements GalleryService {
 		
 		try {
 			
-			String contentType = Files.probeContentType(file.toPath());
+			String contentType = Files.probeContentType(file.toPath());  // 전달 받은 파일의 Content-Type 알아내기
 			
 			HttpHeaders header = new HttpHeaders();
-			header.add("Content-Type", contentType);  // image/jpeg
+			header.add("Content-Type", contentType);  // header.add("Content-Type", "image/jpeg");
+			
+			// FileCopyUtils.copyToByteArray(file)
+			// File 객체로 전달된 파일을 바이트 배열(byte[])로 변경해 줌
+			// 이미지나 동영상을 바이트 배열로 바꿔서 뷰로 보내면 뷰에서는 이미지나 동영상이 실제로 표시됨
 			
 			entity = new ResponseEntity<byte[]>( FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK );
 			

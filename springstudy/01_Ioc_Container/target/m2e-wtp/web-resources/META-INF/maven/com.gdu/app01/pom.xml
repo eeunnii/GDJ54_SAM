@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>com.gdu</groupId>
 	<artifactId>app01</artifactId>
 	<name>01_Ioc_Container</name>
@@ -26,7 +28,8 @@
 		jar에 문제가 발생한 경우,
 		  1) STS를 끄고
 		  2) 이 디렉터리에 저장된 모든 jar를 다 지우고
-		  3) STS를 다시 켠다. 켜지면 지워진 jar를 다 받을때까지 한참 기다려야 한다.
+		  3) STS를 다시 켠다. 켜지면 지워진 jar를 모두 다시 받는다. 받을때까지 한참 기다려야 한다.
+		  4) 다 받은 것 같으면 [Maven] - [Update Project]
 	-->
 	
 	<!--
@@ -150,7 +153,7 @@
 		</dependency>
 	
 		<!-- Test -->
-		<!-- JUnit5는 JUnit Jupiter라고 하고, 디펜던시를 통째로 바꿔야 한다. -->
+		<!-- JUnit5는 JUnit Jupiter라고 한다. 사용하려면 디펜던시를 통째로 바꿔야 한다. -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -190,6 +193,7 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -200,4 +204,5 @@
             </plugin>
         </plugins>
     </build>
+    
 </project>

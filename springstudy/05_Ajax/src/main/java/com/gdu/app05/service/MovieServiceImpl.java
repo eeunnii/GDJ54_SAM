@@ -13,7 +13,7 @@ public class MovieServiceImpl implements MovieService {
 	public String getBoxOffice(String targetDt) {
 		
 		// key
-		String key = "e246df0435b84d071abad3ce5355e26e";
+		String key = "e246df0435b84d071abad3ce5355e26e";  // 각자 발급 받은 service key
 		
 		// ApiURL
 		String apiURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
@@ -34,7 +34,7 @@ public class MovieServiceImpl implements MovieService {
 		
 		// API 응답
 		StringBuilder sb = new StringBuilder();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {  // try-catch-resources문은 자원의 close를 생략할 수 있다.
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {  // try-catch-resources문을 쓰면 reader.close를 생략할 수 있다.
 			String line = null;
 			while((line = reader.readLine()) != null) {
 				sb.append(line);
@@ -46,7 +46,7 @@ public class MovieServiceImpl implements MovieService {
 		// con 닫기
 		con.disconnect();
 		
-		// 반환 (API로부터 가져온 모든 텍스트 정보)
+		// 반환 (API로부터 가져온 모든 텍스트 정보 -> JSON 형식으로 되어 있는 텍스트임)
 		return sb.toString();
 		
 	}

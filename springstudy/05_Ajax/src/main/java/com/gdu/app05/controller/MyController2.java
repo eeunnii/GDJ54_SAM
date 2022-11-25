@@ -16,33 +16,33 @@ import com.gdu.app05.service.BoardService;
 @Controller
 public class MyController2 {
 
-	@GetMapping("board")
-	public String board() {
-		return "board";  // board.jsp로 forward
-	}
-	
 	
 	@Autowired
 	private BoardService boardService;
+
 	
+	@GetMapping("/board")
+	public String board() {
+		return "board";
+	}
 	
 	@ResponseBody
-	@GetMapping(value="board/detail1"
-	          , produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/board/detail1"
+	          , produces=MediaType.APPLICATION_JSON_VALUE)  // "application/json"하고 똑같은 걸 스프링이 만들어 두었음.
 	public ResponseEntity<Board> detail1(HttpServletRequest request){
 		return boardService.execute1(request);
 	}
 	
 	
 	@ResponseBody
-	@GetMapping("board/detail2")  // produces가 없음을 주의! 반환값 ResponseEntity에 관련 코드를 작성하였음
+	@GetMapping("/board/detail2")  // produces가 없음을 주의! 반환값 ResponseEntity에 관련 코드를 작성하였음
 	public ResponseEntity<Board> detail2(@RequestParam(value="title") String title, @RequestParam(value="content") String content){
 		return boardService.execute2(title, content);
 	}
 	
 	
 	@ResponseBody
-	@GetMapping("board/detail3")  // 이번에도 produces가 없음
+	@GetMapping("/board/detail3")  // 이번에도 produces가 없음
 	public ResponseEntity<Board> detail3(Board board){
 		return boardService.execute3(board);
 	}

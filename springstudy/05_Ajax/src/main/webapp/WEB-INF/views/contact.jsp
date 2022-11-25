@@ -39,11 +39,13 @@
 			type: 'post',
 			
 			// data에 파라미터가 없음을 주의!
+			// "파라미터=값" 형식이 아니라 "값"만 전달하고 있음. 
 			// 파라미터로 전달되지 않기 때문에 주소창을 이용한 get방식이 불가능함
-			data: JSON.stringify({
+			var contact = JSON.stringify({
 				'name': $('#name').val(),
 				'tel': $('#tel').val()
-			}),
+			});
+			data: contact,
 			
 			// 서버로 보내는 JSON 데이터의 MIME-TYPE을 작성해 줌
 			contentType: 'application/json',

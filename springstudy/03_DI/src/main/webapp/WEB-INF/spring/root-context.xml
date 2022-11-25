@@ -7,20 +7,10 @@
 	
 	<!-- Spring Container : Bean을 만들어 두는 곳(Spring Bean Configuration File) -->
 	
-	<bean id="board1" class="com.gdu.app03.domain.Board">
-		<property name="boardNo" value="1" />
-		<property name="title" value="공지1" />
-		<property name="createDate" value="2022-10-31" />
-	</bean>
-	
-	<bean id="board2" class="com.gdu.app03.domain.Board">
-		<constructor-arg value="2" />
-		<constructor-arg value="공지2" />
-		<constructor-arg value="2022-11-01" />
-	</bean>
-	
 	<!--  
-	@Inject 사용을 위해서 직접 qualifier를 등록한 경우
+	
+	@Inject 사용을 위해서 직접 qualifier를 직접 등록할 수 있으나 알아서 무엇하리,,, 잘 안씀
+	
 	<bean id="board1" class="com.gdu.app03.domain.Board">
 		<qualifier value="board1" />
 		<property name="boardNo" value="1" />
@@ -34,6 +24,21 @@
 		<constructor-arg value="공지2" />
 		<constructor-arg value="2022-11-01" />
 	</bean>
+	
 	-->
+
+	<!-- setter로 container에 board1 만들어두기 -->
+	<bean id="board1" class="com.gdu.app03.domain.Board">
+		<property name="boardNo" value="1" />
+		<property name="title" value="공지1" />
+		<property name="createDate" value="2022-10-31" />
+	</bean>
+	
+	<!-- constructor로 container에 board2 만들어두기 -->
+	<bean id="board2" class="com.gdu.app03.domain.Board">
+		<constructor-arg value="2" />
+		<constructor-arg value="공지2" />
+		<constructor-arg value="2022-11-01" />
+	</bean>	
 	
 </beans>
