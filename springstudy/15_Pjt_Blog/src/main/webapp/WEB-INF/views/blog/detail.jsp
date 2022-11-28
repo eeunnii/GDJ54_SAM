@@ -81,12 +81,18 @@
 		</form>
 	</div>
 	
+	<!-- 현재 페이지 번호를 저장하고 있는 hidden -->
+	<input type="hidden" id="page" value="1">
+	
 	<script>
 	
+		// 함수 호출
 		fn_commentCount();
 		fn_addComment();
 		fn_commentList();
+		fn_changePage();
 		
+		// 함수 정의
 		function fn_commentCount(){
 			$.ajax({
 				type: 'get',
@@ -126,7 +132,7 @@
 			$.ajax({
 				type: 'get',
 				url: '${contextPath}/comment/list',
-				data: 'blogNo=${blog.blogNo}&page=1',
+				data: 'blogNo=${blog.blogNo}&page=' + $('#page').val(),
 				dataType: 'json',
 				success: function(resData){
 					/*
@@ -169,11 +175,45 @@
 						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
 					});
 					// 페이징
-					
+					$('#paging').empty();
+					var pageUtil = resData.pageUtil;
+					var paging = '';
+					// 이전 블록
+					if(pageUtil.beginPage != 1) {
+						paging += '<span class="enable_link" data-page="'+ (pageUtil.beginPage - 1) +'">◀</span>';
+					}
+					// 페이지번호
+					for(let p = pageUtil.beginPage; p <= pageUtil.endPage; p++) {
+						if(p == $('#page').val()){
+							paging += '<strong>' + p + '</strong>';
+						} else {
+							paging += '<span class="enable_link" data-page="'+ p +'">' + p + '</span>';
+						}
+					}
+					// 다음 블록
+					if(pageUtil.endPage != pageUtil.totalPage){
+						paging += '<span class="enable_link" data-page="'+ (pageUtil.endPage + 1) +'">▶</span>';
+					}
+					$('#paging').append(paging);
 				}
 			});
 		}  // fn_commentList
-	
+		
+		function fn_changePage(){
+			$(document).on('click', '.enable_link', function(){
+				$('#page').val( $(this).data('page') );
+				fn_commentList();
+			});
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 	
 	
