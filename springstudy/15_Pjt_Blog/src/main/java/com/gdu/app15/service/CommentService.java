@@ -1,5 +1,7 @@
 package com.gdu.app15.service;
 
-public interface CommentService {
+import java.util.Map;
 
+public interface CommentService {
+	public Map<String, Object> getCommentCount(int blogNo);
 }

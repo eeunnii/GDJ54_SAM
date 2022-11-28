@@ -27,10 +27,17 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public void findAllEmployees(HttpServletRequest request, Model model) {
 		
-		// request에서 page 파라미터 꺼내기
+		// field 파라미터가 전달되지 않는 경우 EMPLOYEE_ID로 처리한다.
+		Optional<String> opt1 = Optional.ofNullable(request.getParameter("field"));
+		String field = opt1.orElse("EMPLOYEE_ID");
+		
+		// order 파라미터가 전달되지 않는 경우 ASC로 처리한다.
+		Optional<String> opt2 = Optional.ofNullable(request.getParameter("order"));
+		String order = opt2.orElse("ASC");
+		
 		// page 파라미터가 전달되지 않는 경우 page = 1로 처리한다.
-		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		int page = Integer.parseInt(opt.orElse("1"));
+		Optional<String> opt3 = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt3.orElse("1"));
 		
 		// 전체 레코드(직원) 개수 구하기
 		int totalRecord = empMapper.selectAllEmployeesCount();
@@ -38,26 +45,41 @@ public class EmpServiceImpl implements EmpService {
 		// PageUtil 계산하기
 		pageUtil.setPageUtil(page, totalRecord);
 	
-		// Map 만들기(begin, end)
+		// Map 만들기(field, order, begin, end)
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("order", order);
 		map.put("begin", pageUtil.getBegin());
 		map.put("end", pageUtil.getEnd());
 		
 		// begin~end 목록 가져오기
-		List<EmpDTO> employees = empMapper.selectEmployeesByPage(map);
+		List<EmpDTO> employees = empMapper.selectEmployeesByMap(map);
 		
 		// 뷰로 보낼 데이터
+		switch(order) {
+		case "ASC": model.addAttribute("order", "DESC"); break;
+		case "DESC": model.addAttribute("order", "ASC"); break;		
+		}
 		model.addAttribute("employees", employees);
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/list"));
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
+		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/list?field=" + field + "&order=" + order));
 
 	}
 
 	@Override
 	public void findEmployees(HttpServletRequest request, Model model) {
 		
-		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
-		int page = Integer.parseInt(opt.orElse("1"));
+		// field 파라미터가 전달되지 않는 경우 EMPLOYEE_ID로 처리한다.
+		Optional<String> opt1 = Optional.ofNullable(request.getParameter("field"));
+		String field = opt1.orElse("EMPLOYEE_ID");
+		
+		// order 파라미터가 전달되지 않는 경우 ASC로 처리한다.
+		Optional<String> opt2 = Optional.ofNullable(request.getParameter("order"));
+		String order = opt2.orElse("ASC");
+		
+		// page 파라미터가 전달되지 않는 경우 page = 1로 처리한다.
+		Optional<String> opt3 = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt3.orElse("1"));
 		
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
@@ -85,7 +107,7 @@ public class EmpServiceImpl implements EmpService {
 		String path = null;
 		switch(column) {
 		case "EMPLOYEE_ID":
-		case "E.DEPARTMENT_ID":
+		case "DEPARTMENT_ID":
 		case "LAST_NAME":
 		case "FIRST_NAME":
 		case "PHONE_NUMBER":

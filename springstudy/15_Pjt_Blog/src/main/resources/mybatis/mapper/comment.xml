@@ -6,6 +6,12 @@
 
 <mapper namespace="com.gdu.app15.mapper.CommentMapper">
 
-
+	<select id="selectCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM COMMENTS
+		 WHERE BLOG_NO = #{blogNo}
+	</select>
+	
+	
 	
 </mapper>

@@ -51,9 +51,30 @@
 		</script> 
 	</div>
 	
+	<hr>
 	
+	<span id="btn_comment_list">
+		댓글
+		<span id="comment_count"></span>개
+	</span>
 	
+	<script>
 	
+		fn_commentCount();
+		
+		function fn_commentCount(){
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/comment/getCount',
+				data: 'blogNo=${blog.blogNo}',
+				dataType: 'json',
+				success: function(resData){  // resData = {"commentCount": 개수}
+					$('#comment_count').text(resData.commentCount);
+				}
+			});
+		}
+	
+	</script>
 	
 	
 	
