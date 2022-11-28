@@ -10,6 +10,12 @@
 	<jsp:param value="${blog.blogNo}번 블로그" name="title"/>
 </jsp:include>
 
+<style>
+	.blind {
+		display: none;
+	}
+</style>
+
 <div>
 
 	<h1>${blog.title}</h1>
@@ -60,7 +66,7 @@
 	
 	<hr>
 	
-	<div>
+	<div id="comment_area" class="blind">
 		<div id="comment_list"></div>
 		<div id="paging"></div>
 	</div>
@@ -88,9 +94,11 @@
 	
 		// 함수 호출
 		fn_commentCount();
+		fn_switchCommentList();
 		fn_addComment();
 		fn_commentList();
 		fn_changePage();
+		
 		
 		// 함수 정의
 		function fn_commentCount(){
@@ -102,6 +110,12 @@
 				success: function(resData){  // resData = {"commentCount": 개수}
 					$('#comment_count').text(resData.commentCount);
 				}
+			});
+		}
+		
+		function fn_switchCommentList(){
+			$('#btn_comment_list').click(function(){
+				$('#comment_area').toggleClass('blind');
 			});
 		}
 		
