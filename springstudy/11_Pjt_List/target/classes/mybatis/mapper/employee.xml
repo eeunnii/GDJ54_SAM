@@ -65,24 +65,30 @@
 		          FROM (SELECT E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
 		                  FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
 		                    ON D.DEPARTMENT_ID = E.DEPARTMENT_ID
-		                  ORDER BY E.HIRE_DATE DESC) A) B
+		                  ORDER BY <choose>
+									 <when test="title=='DEPARTMENT_ID'">E.DEPARTMENT_ID</when>
+									 <otherwise>${title}</otherwise>
+								   </choose> ${order}) A) B
 		 WHERE B.RN BETWEEN #{begin} AND #{end}
 		-->
 		
 		<!-- ROW_NUMBER() 함수 사용 -->
 		SELECT A.*
-	<choose>
-		<when test="field == 'DEPARTMENT_ID'">
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY E.DEPARTMENT_ID ${order}) AS RN, E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
-		</when>
-		<otherwise>
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${field} ${order}) AS RN, E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
-		</otherwise>
-	</choose>
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY <choose>
+													<when test="title=='DEPARTMENT_ID'">E.DEPARTMENT_ID</when>
+													<otherwise>${title}</otherwise>
+												  </choose> ${order}) AS RN, E.*, D.DEPARTMENT_NAME, D.LOCATION_ID
 		          FROM DEPARTMENTS D RIGHT OUTER JOIN EMPLOYEES E
 		            ON D.DEPARTMENT_ID = E.DEPARTMENT_ID) A
 		 WHERE A.RN BETWEEN #{begin} AND #{end}
 		  
+	</select>
+	
+	
+	<select id="selectAutoCompleteList" parameterType="Map" resultType="EmpDTO">
+		SELECT DISTINCT ${column}
+		  FROM EMPLOYEES
+		 WHERE ${column} LIKE CONCAT(#{query}, '%')
 	</select>
 	
 	<select id="selectFindEmployeesCount" parameterType="Map" resultType="int">
@@ -163,12 +169,6 @@
 		              ON D.DEPARTMENT_ID = E.DEPARTMENT_ID) A
 		 WHERE A.RN BETWEEN #{begin} AND #{end}
 		 
-	</select>
-
-	<select id="selectAutoCompleteList" parameterType="Map" resultType="EmpDTO">
-		SELECT DISTINCT ${target}
-		  FROM EMPLOYEES
-		 WHERE ${target} LIKE CONCAT(#{param}, '%')
 	</select>
 
 </mapper>

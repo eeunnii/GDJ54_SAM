@@ -52,7 +52,6 @@
 							dataType: 'json',    // HDD에 저장된 이미지의 경로를 json으로 받아옴
 							success: function(resData){
 								
-								
 								/*
 									resData의 src 속성값이 ${contextPath}/load/image/aaa.jpg인 경우
 									<img src="${contextPath}/load/image/aaa.jpg"> 태그가 만들어진다.
@@ -112,7 +111,7 @@
 			<textarea name="content" name="filesystemList" id="content"></textarea>				
 		</div>
 		
-		<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선을 모두 올라감: 서비스단에서 지움) -->
+		<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
 		<div id="summernote_image_list"></div>
 		
 		<div>
