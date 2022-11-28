@@ -126,16 +126,53 @@
 			$.ajax({
 				type: 'get',
 				url: '${contextPath}/comment/list',
-				data: 'blogNo=${blog.blogNo}',  // page도 넘겨줘야함
+				data: 'blogNo=${blog.blogNo}&page=1',
 				dataType: 'json',
 				success: function(resData){
+					/*
+						resData = {
+							"commentList": [
+								{댓글하나},
+								{댓글하나},
+								...
+							],
+							"pageUtil": {
+								page: x,
+								...
+							}
+						}
+					*/
 					// 화면에 댓글 목록 뿌리기
-					
+					$('#comment_list').empty();
+					$.each(resData.commentList, function(i, comment){
+						var div = '';
+						if(comment.depth == 0){
+							div += '<div>';
+						} else {
+							div += '<div style="margin-left: 40px;">';
+						}
+						if(comment.state == 1) {
+							div += '<div>' + comment.content + '</div>';
+						} else {
+							if(comment.depth == 0) {
+								div += '<div>삭제된 댓글입니다.</div>';
+							} else {
+								div += '<div>삭제된 답글입니다.</div>';
+							}
+						}
+						div += '<div>';
+						moment.locale('ko-KR');
+						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '</div>';
+						div += '</div>';
+						$('#comment_list').append(div);
+						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
+					});
 					// 페이징
 					
 				}
 			});
-		}
+		}  // fn_commentList
 	
 	</script>
 	
