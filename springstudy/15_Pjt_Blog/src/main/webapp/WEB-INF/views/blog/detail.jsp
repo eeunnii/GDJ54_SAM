@@ -61,6 +61,13 @@
 	<hr>
 	
 	<div>
+		<div id="comment_list"></div>
+		<div id="paging"></div>
+	</div>
+	
+	<hr>
+	
+	<div>
 		<form id="frm_add_comment">
 			<div class="add_comment">
 				<div class="add_comment_input">
@@ -78,6 +85,7 @@
 	
 		fn_commentCount();
 		fn_addComment();
+		fn_commentList();
 		
 		function fn_commentCount(){
 			$.ajax({
@@ -106,10 +114,26 @@
 						if(resData.isAdd){
 							alert('댓글이 등록되었습니다.');
 							$('#content').val('');
-							fn_commentList();  // 댓글 목록 가져와서 뿌리는 함수
+							fn_commentList();   // 댓글 목록 가져와서 뿌리는 함수
+							fn_commentCount();  // 댓글 목록 개수 갱신하는 함수
 						}
 					}
 				});
+			});
+		}
+		
+		function fn_commentList(){
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/comment/list',
+				data: 'blogNo=${blog.blogNo}',  // page도 넘겨줘야함
+				dataType: 'json',
+				success: function(resData){
+					// 화면에 댓글 목록 뿌리기
+					
+					// 페이징
+					
+				}
 			});
 		}
 	
