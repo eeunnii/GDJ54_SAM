@@ -12,6 +12,6 @@
 <body>
 
 	<a href="${contextPath}/blog/list">블로그</a>
-	
+
 </body>
 </html>

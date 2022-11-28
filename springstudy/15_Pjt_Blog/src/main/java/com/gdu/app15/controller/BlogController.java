@@ -39,15 +39,15 @@ public class BlogController {
 		return "blog/write";
 	}
 	
-	@PostMapping("/blog/add")
-	public void add(HttpServletRequest request, HttpServletResponse response) {
-		blogService.saveBlog(request, response);
-	}
-	
 	@ResponseBody
 	@PostMapping(value="/blog/uploadImage", produces="application/json")
 	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {
 		return blogService.saveSummernoteImage(multipartRequest);
+	}
+	
+	@PostMapping("/blog/add")
+	public void add(HttpServletRequest request, HttpServletResponse response) {
+		blogService.saveBlog(request, response);
 	}
 	
 	@GetMapping("/blog/increse/hit")
