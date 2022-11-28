@@ -74,7 +74,7 @@ public class BlogServiceImpl implements BlogService {
 		MultipartFile multipartFile = multipartRequest.getFile("file");
 			
 		// 저장 경로
-		String path = "C:\\summernoteImage";
+		String path = "C:" + File.separator + "summernoteImage";
 				
 		// 저장할 파일명
 		String filesystem = myFileUtil.getFilename(multipartFile.getOriginalFilename());
@@ -103,6 +103,7 @@ public class BlogServiceImpl implements BlogService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public void saveBlog(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -214,6 +215,7 @@ public class BlogServiceImpl implements BlogService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public void modifyBlog(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -270,14 +272,13 @@ public class BlogServiceImpl implements BlogService {
 		
 	}
 	
-	@Transactional
 	@Override
 	public void removeBlog(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 파라미터 blogNo
 		int blogNo = Integer.parseInt(request.getParameter("blogNo"));
 		
-		// HDD에서 삭제할 SummernoteImage 리스트 
+		// HDD에서 삭제해야 하는 SummernoteImage 리스트 
 		List<SummernoteImageDTO> summernoteImageList = blogMapper.selectSummernoteImageListInBlog(blogNo);
 		
 		// DB 삭제
