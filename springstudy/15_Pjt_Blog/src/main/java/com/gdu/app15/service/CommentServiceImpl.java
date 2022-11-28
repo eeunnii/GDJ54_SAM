@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gdu.app15.domain.CommentDTO;
 import com.gdu.app15.mapper.CommentMapper;
 import com.gdu.app15.util.PageUtil;
 
@@ -25,7 +26,12 @@ public class CommentServiceImpl implements CommentService {
 		return result;
 	}
 	
-	
+	@Override
+	public Map<String, Object> addComment(CommentDTO comment) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isAdd", commentMapper.insertComment(comment) == 1);
+		return result;
+	}
 	
 	
 	

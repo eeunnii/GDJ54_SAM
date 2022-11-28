@@ -58,9 +58,26 @@
 		<span id="comment_count"></span>개
 	</span>
 	
+	<hr>
+	
+	<div>
+		<form id="frm_add_comment">
+			<div class="add_comment">
+				<div class="add_comment_input">
+					<input type="text" name="content" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
+				</div>
+				<div class="add_comment_btn">
+					<input type="button" value="작성완료" id="btn_add_comment">
+				</div>
+			</div>
+			<input type="hidden" name="blogNo" value="${blog.blogNo}">
+		</form>
+	</div>
+	
 	<script>
 	
 		fn_commentCount();
+		fn_addComment();
 		
 		function fn_commentCount(){
 			$.ajax({
@@ -71,6 +88,28 @@
 				success: function(resData){  // resData = {"commentCount": 개수}
 					$('#comment_count').text(resData.commentCount);
 				}
+			});
+		}
+		
+		function fn_addComment(){
+			$('#btn_add_comment').click(function(){
+				if($('#comment').val() == ''){
+					alert('댓글 내용을 입력하세요');
+					return;
+				}
+				$.ajax({
+					type: 'post',
+					url: '${contextPath}/comment/add',
+					data: $('#frm_add_comment').serialize(),
+					dataType: 'json',
+					success: function(resData){  // resData = {"isAdd", true}
+						if(resData.isAdd){
+							alert('댓글이 등록되었습니다.');
+							$('#content').val('');
+							fn_commentList();  // 댓글 목록 가져와서 뿌리는 함수
+						}
+					}
+				});
 			});
 		}
 	
