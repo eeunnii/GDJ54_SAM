@@ -20,4 +20,5 @@ public interface BlogMapper {
 	public int deleteBlog(int blogNo);
 	public List<SummernoteImageDTO> selectSummernoteImageListInBlog(int blogNo);
 	public List<SummernoteImageDTO> selectAllSummernoteImageList();
+	public int deleteSummernoteImage(String filesystem);
 }

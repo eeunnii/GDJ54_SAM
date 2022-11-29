@@ -204,8 +204,9 @@ public class BlogServiceImpl implements BlogService {
 				if(blog.getContent().contains(summernoteImage.getFilesystem()) == false) {
 					File file = new File("C:" + File.separator + "summernoteImage", summernoteImage.getFilesystem());
 					if(file.exists()) {
-						file.delete();
+						file.delete();  // HDD에 저장된 파일 지우기
 					}
+					blogMapper.deleteSummernoteImage(summernoteImage.getFilesystem());  // DB에 목록에서 지우기
 				}
 			}
 		}

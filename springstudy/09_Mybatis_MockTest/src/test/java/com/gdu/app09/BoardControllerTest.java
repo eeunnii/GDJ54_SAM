@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 
 
-//ServletContext 사용을 위해서 추가한 애너테이션, 
+// ServletContext 사용을 위해서 추가한 애너테이션, 
 @WebAppConfiguration
 
 

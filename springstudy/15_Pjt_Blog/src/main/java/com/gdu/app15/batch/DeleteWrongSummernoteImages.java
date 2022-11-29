@@ -25,8 +25,8 @@ public class DeleteWrongSummernoteImages {
 	@Autowired
 	private BlogMapper blogMapper;
 	
-	//@Scheduled(cron="0 0 4 * * *")  // 새벽 4시마다 동작
-	@Scheduled(cron="0 0/1 * * * *")
+	@Scheduled(cron="0 0 4 * * *")  // 새벽 4시마다 동작
+	//@Scheduled(cron="0 0/1 * * * *")
 	public void execute() {
 
 		// 써머노트 이미지 경로

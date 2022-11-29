@@ -73,4 +73,10 @@
 		  FROM SUMMERNOTE_IMAGE
 	</select>
 	
+	<delete id="deleteSummernoteImage" parameterType="String">
+		DELETE
+		  FROM SUMMERNOTE_IMAGE
+		 WHERE FILESYSTEM = #{filesystem}
+	</delete>
+	
 </mapper>
