@@ -100,6 +100,7 @@
 		fn_changePage();
 		fn_removeComment();
 		fn_switchReplyArea();
+		fn_addReply();
 		
 		// 함수 정의
 		function fn_commentCount(){
@@ -177,8 +178,9 @@
 							div += comment.content;
 							// 작성자만 삭제할 수 있도록 if 처리 필요
 							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
-							// 댓글만 답글을 달 수 있도록 if 처리 필요
-							div += '<input type="button" value="답글" class="btn_reply_area">';
+							if(comment.depth == 0) {
+								div += '<input type="button" value="답글" class="btn_reply_area">';
+							}
 							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
@@ -194,7 +196,7 @@
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">';
-						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';
+						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
 						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해주세요">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
@@ -262,9 +264,27 @@
 			});
 		}
 		
-		
-		
-		
+		function fn_addReply(){
+			$(document).on('click', '.btn_reply_add', function(){
+				if($(this).prev().val() == ''){
+					alert('답글 내용을 입력하세요.');
+					return;
+				}
+				$.ajax({
+					type: 'post',
+					url: '${contextPath}/comment/reply/add',
+					data: $(this).closest('.frm_reply').serialize(),  // 이건 안 됩니다 $('.frm_reply').serialize(),
+					dataType: 'json',
+					success: function(resData){  // resData = {"isAdd", true}
+						if(resData.isAdd){
+							alert('답글이 등록되었습니다.');
+							fn_commentList();
+							fn_commentCount();
+						}
+					}
+				});
+			});
+		}
 		
 	</script>
 	

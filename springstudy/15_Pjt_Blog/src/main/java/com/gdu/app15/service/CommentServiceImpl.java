@@ -64,12 +64,11 @@ public class CommentServiceImpl implements CommentService {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	public Map<String, Object> addReply(CommentDTO reply) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isAdd", commentMapper.insertReply(reply) == 1);
+		return result;
+	}
 	
 }

@@ -44,12 +44,10 @@ public class CommentController {
 		return commentService.removeComment(commentNo);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@ResponseBody
+	@PostMapping(value="/comment/reply/add", produces="application/json")
+	public Map<String, Object> replyAdd(CommentDTO reply){
+		return commentService.addReply(reply);
+	}
 	
 }
