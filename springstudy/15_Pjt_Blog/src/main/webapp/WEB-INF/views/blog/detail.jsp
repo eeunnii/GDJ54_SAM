@@ -99,7 +99,7 @@
 		fn_commentList();
 		fn_changePage();
 		fn_removeComment();
-		
+		fn_switchReplyArea();
 		
 		// 함수 정의
 		function fn_commentCount(){
@@ -173,9 +173,13 @@
 							div += '<div style="margin-left: 40px;">';
 						}
 						if(comment.state == 1) {
-							div += '<div>' + comment.content;
+							div += '<div>';
+							div += comment.content;
 							// 작성자만 삭제할 수 있도록 if 처리 필요
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '"></div>';
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
+							// 댓글만 답글을 달 수 있도록 if 처리 필요
+							div += '<input type="button" value="답글" class="btn_reply_area">';
+							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
 								div += '<div>삭제된 댓글입니다.</div>';
@@ -186,6 +190,15 @@
 						div += '<div>';
 						moment.locale('ko-KR');
 						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '</div>';
+						div += '<div style="margin-left: 40px;" class="reply_area blind">';
+						div += '<form class="frm_reply">';
+						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">';
+						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';
+						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해주세요">';
+						// 로그인한 사용자만 볼 수 있도록 if 처리
+						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
+						div += '</form>';
 						div += '</div>';
 						div += '</div>';
 						$('#comment_list').append(div);
@@ -243,7 +256,11 @@
 			});
 		}
 		
-		
+		function fn_switchReplyArea(){
+			$(document).on('click', '.btn_reply_area', function(){
+				$(this).parent().next().next().toggleClass('blind');
+			});
+		}
 		
 		
 		
