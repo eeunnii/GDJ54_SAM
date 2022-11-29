@@ -98,6 +98,7 @@
 		fn_addComment();
 		fn_commentList();
 		fn_changePage();
+		fn_removeComment();
 		
 		
 		// 함수 정의
@@ -172,7 +173,9 @@
 							div += '<div style="margin-left: 40px;">';
 						}
 						if(comment.state == 1) {
-							div += '<div>' + comment.content + '</div>';
+							div += '<div>' + comment.content;
+							// 작성자만 삭제할 수 있도록 if 처리 필요
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '"></div>';
 						} else {
 							if(comment.depth == 0) {
 								div += '<div>삭제된 댓글입니다.</div>';
@@ -220,7 +223,25 @@
 			});
 		}
 		
-		
+		function fn_removeComment(){
+			$(document).on('click', '.btn_comment_remove', function(){
+				if(confirm('삭제된 댓글은 복구할 수 없습니다. 댓글을 삭제할까요?')){
+					$.ajax({
+						type: 'post',
+						url: '${contextPath}/comment/remove',
+						data: 'commentNo=' + $(this).data('comment_no'),
+						dataType: 'json',
+						success: function(resData){  // resData = {"isRemove": true}
+							if(resData.isRemove){
+								alert('댓글이 삭제되었습니다.');
+								fn_commentList();
+								fn_commentCount();
+							}
+						}
+					});
+				}
+			});
+		}
 		
 		
 		

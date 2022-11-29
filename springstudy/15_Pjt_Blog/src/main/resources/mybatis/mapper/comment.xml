@@ -27,6 +27,19 @@
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<update id="deleteComment" parameterType="int">
+		UPDATE COMMENTS
+		   SET STATE = -1
+		 WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>
