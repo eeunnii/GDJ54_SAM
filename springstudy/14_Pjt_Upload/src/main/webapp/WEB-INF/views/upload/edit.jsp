@@ -26,16 +26,20 @@
 			let files = this.files;
 			
 			// 첨부된 파일 순회
-			for(let i = 0; i < files.length; i++){
+			$('#file_list').empty();
+			$.each(files, function(i, file){
 				
 				// 크기 체크
-				if(files[i].size > maxSize){
+				if(file.size > maxSize){
 					alert('10MB 이하의 파일만 첨부할 수 있습니다.');
 					$(this).val('');  // 첨부된 파일을 모두 없애줌
 					return;
 				}
 				
-			}
+				// 첨부 목록 표시
+				$('#file_list').append('<div>' + file.name + '</div>');
+				
+			});
 			
 		});
 		
@@ -60,6 +64,11 @@
 		
 		<form action="${contextPath}/upload/modify" method="post" enctype="multipart/form-data">
 		
+			<div>
+				<button>수정완료</button>
+				<input type="button" value="목록" onclick="location.href='${contextPath}/upload/list'">
+			</div>
+
 			<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
 		
 			<div>
@@ -73,10 +82,7 @@
 			<div>
 				<label for="files">첨부 추가</label>
 				<input type="file" id="files" name="files" multiple="multiple">
-			</div>
-			<div>
-				<button>수정완료</button>
-				<input type="button" value="목록" onclick="location.href='${contextPath}/upload/list'">
+				<div id="file_list"></div>
 			</div>
 		
 		</form>
