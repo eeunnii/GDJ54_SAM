@@ -11,7 +11,9 @@
 </head>
 <body>
 
-	<a href="${contextPath}/emp/list">사원목록</a>
+	<div><a href="${contextPath}/emp/list">사원목록</a></div>
+
+	<div><a href="${contextPath}/emp/search.form">사원검색</a></div>	
 
 </body>
 </html>

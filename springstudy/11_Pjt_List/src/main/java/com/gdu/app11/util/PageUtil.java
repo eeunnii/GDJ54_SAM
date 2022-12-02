@@ -42,12 +42,13 @@ public class PageUtil {
 		// beginPage, endPage 계산
 		beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;
 		endPage = beginPage + pagePerBlock - 1;
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}
 		
 	}
 	
 	public String getPaging(String path) {
-		
-		StringBuilder sb = new StringBuilder();
 		
 		// 1. path에 파라미터가 없는 경우
 		//     /emp/list
@@ -56,6 +57,8 @@ public class PageUtil {
 		// 2. path에 파라미터가 있는 경우
 		//     /emp/search?column=EMPLOYEE_ID&query=150
 		//     /emp/search?column=EMPLOYEE_ID&query=150&page=1  (page 앞에 &를 사용)
+
+		StringBuilder sb = new StringBuilder();
 		
 		if(path.contains("?")) {
 			path += "&";
@@ -73,17 +76,12 @@ public class PageUtil {
 		}
 		
 		// 페이지번호 : 현재 페이지는 링크가 없다
-		int endPage = beginPage + pagePerBlock - 1;
 		for(int p = beginPage; p <= endPage; p++) {
-			if(p <= totalPage) {
-				if(p == page) {
-					sb.append("<span class=\"now_page\">" + p + "</span>");
-				} else {
-					sb.append("<a class=\"lnk\" href=\"" + path + "page=" + p + "\">" + p + "</a>");
-				}				
+			if(p == page) {
+				sb.append("<strong class=\"now_page\">" + p + "</strong>");
 			} else {
-				sb.append("<span class=\"hidden\">" + p + "</span>");
-			}
+				sb.append("<a class=\"lnk\" href=\"" + path + "page=" + p + "\">" + p + "</a>");
+			}				
 		}
 		
 		// 다음블록 : 마지막 블록이 아니면 다음블록이 있다

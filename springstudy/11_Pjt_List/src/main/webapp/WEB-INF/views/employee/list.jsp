@@ -15,29 +15,58 @@
 		text-decoration: none;
 		color: gray;
 	}
+	.title {
+		cursor: pointer;
+	}
+	.title:hover {
+		color: teal;
+	}
 	.paging {
 		width: 210px;
 		margin: 0 auto;
 		color: gray;
 	}
-	.paging a, .paging span {
+	.paging a, .paging span, .paging strong {
 		display: inline-block;
 		width: 30px;
 		height: 30px;
-		line-height: 30px;
+		line-height: 28px;
 		text-align: center;
 	}
 	.hidden {
 		visibility: hidden;
 	}
 	.now_page {
-		border: 1px solid gray;
 		color: teal;
 		font-weight: 900;
 	}
 	.lnk:hover {
-		border: 1px solid gray;
 		color: skyblue;
+	}
+	table {
+		width: 1760px;
+		border-collapse: collapse;
+	}
+	td:nth-of-type(1) { width: 80px; }
+	td:nth-of-type(2) { width: 160px; }
+	td:nth-of-type(3) { width: 240px; }
+	td:nth-of-type(4) { width: 240px; }
+	td:nth-of-type(5) { width: 240px; }
+	td:nth-of-type(6) { width: 160px; }
+	td:nth-of-type(7) { width: 160px; }
+	td:nth-of-type(7) { width: 160px; }
+	td:nth-of-type(7) { width: 160px; }
+	td:nth-of-type(7) { width: 160px; }
+	td {
+		padding: 5px;
+		border-top: 1px solid silver;
+		border-bottom: 1px solid silver;
+		text-align: center;
+	}
+	tfoot td {
+		border-left: 0;
+		border-right: 0;
+		border-bottom: 0;
 	}
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
@@ -59,51 +88,21 @@
 			location.href = '${contextPath}/emp/list?title=' + $(this).data('title') + '&order=' + $(this).data('order') + '&page=${page}';
 		});
 		
-		// 자동 완성
-		$('#query').keyup(function(){
-			$('#auto_complete').empty();
-			if($(this).val() == ''){
-				return;
-			}
-			$.ajax({
-				/* 요청 */
-				type: 'get',
-				url: '${contextPath}/emp/autoComplete',
-				data: 'column=' + $('#column').val() + '&query=' + $(this).val(),
-				/* 응답 */
-				dataType: 'json',
-				success: function(resData){
-					if(resData.status == 200){
-						$.each(resData.list, function(i, emp){
-							$('#auto_complete')
-							.append($('<option>').val(emp[resData.column]));
-						});
-					}
-				}
-			});
-		});
-		
 	});
 	
 </script>
 </head>
 <body>
 
-	<div>
-		<h1>조회 가능한 목록을 자동완성으로 확인하기</h1>
-		<form action="${contextPath}/emp/search">
-			<select name="column" id="column">
-				<option value="FIRST_NAME">이름</option>
-				<option value="LAST_NAME">성</option>
-				<option value="EMAIL">이메일</option>
-			</select>
-			<input type="text" name="query" id="query" list="auto_complete">
-			<datalist id="auto_complete"></datalist>
-			<input type="submit" value="조회">
-		</form>
+	<div>	
+		<input type="button" value="조회화면으로이동" onclick="location.href='${contextPath}/emp/search.form'">
 	</div>
-	
+
 	<hr>
+
+	<div>
+		<h1>사원 전체 목록 조회하기</h1>
+	</div>
 
 	<div>
 		<select id="recordPerPage">
@@ -111,6 +110,11 @@
 			<option value="20">20개</option>
 			<option value="30">30개</option>
 		</select>
+	</div>
+	
+	<hr>
+
+	<div>
 		<table>
 			<thead>
 				<tr>
