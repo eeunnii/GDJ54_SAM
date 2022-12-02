@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<input type="button" value="추첨" id="btn">
+	
+	<br><br>
+	
+	<h1>남은 조 : <span id="targets"></span></h1>
+	<h1>(1, 2, 3, 4, 5) : <span id="pick"></span></h1>
+
+	<script>
+		var targets = ['일조', '이조', '삼조', '사조', '오조'];
+		$('#targets').text(targets);
+		$('#btn').click(function(){
+			let i = Math.floor(Math.random() * targets.length);
+			$('#pick').append(targets.splice(i, 1) + "&nbsp;");
+			$('#targets').text(targets);
+		});
+	</script>
+
+</body>
+</html>
