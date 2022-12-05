@@ -15,16 +15,13 @@ import com.gdu.app01.service.BoardService;
 @Controller
 public class BoardController {
 
-
 	@Autowired
 	private BoardService boardService;
-	
 
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
-	
 	
 	@GetMapping("/brd/list")
 	public String list(Model model) {
@@ -32,19 +29,16 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	
 	@GetMapping("/brd/write")
 	public String write() {
 		return "board/write";
 	}
-	
 	
 	@PostMapping("/brd/add")
 	public void add(HttpServletRequest request, HttpServletResponse response) {
 		// saveBoard() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
 		boardService.saveBoard(request, response);
 	}	
-	
 	
 	@GetMapping("/brd/detail")
 	public String detail(@RequestParam(value="boardNo", required=false, defaultValue="0") int boardNo
@@ -53,7 +47,6 @@ public class BoardController {
 		return "board/detail"; 
 	}
 	
-	
 	@PostMapping("/brd/edit")
 	public String edit(@RequestParam(value="boardNo", required=false, defaultValue="0") int boardNo
 			         , Model model) {
@@ -61,13 +54,11 @@ public class BoardController {
 		return "board/edit"; 
 	}
 	
-	
 	@PostMapping("/brd/modify")
 	public void modify(HttpServletRequest request, HttpServletResponse response) {
 		// modifyBoard() 메소드에 detail.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
 		boardService.modifyBoard(request, response);
 	}
-	
 	
 	@PostMapping("/brd/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
