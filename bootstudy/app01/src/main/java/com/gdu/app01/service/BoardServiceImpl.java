@@ -1,4 +1,4 @@
-package com.gdu.app10.service;
+package com.gdu.app01.service;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gdu.app10.domain.BoardDTO;
-import com.gdu.app10.mapper.BoardMapper;
+import com.gdu.app01.domain.BoardDTO;
+import com.gdu.app01.mapper.BoardMapper;
 
 @Service  // 컴포넌트로 등록
 public class BoardServiceImpl implements BoardService {

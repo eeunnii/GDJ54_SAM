@@ -1,4 +1,4 @@
-package com.gdu.app10.controller;
+package com.gdu.app01.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gdu.app10.service.BoardService;
+import com.gdu.app01.service.BoardService;
 
 @Controller
 public class BoardController {

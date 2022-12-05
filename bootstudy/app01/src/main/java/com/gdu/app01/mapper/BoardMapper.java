@@ -1,10 +1,10 @@
-package com.gdu.app10.mapper;
+package com.gdu.app01.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gdu.app10.domain.BoardDTO;
+import com.gdu.app01.domain.BoardDTO;
 
 /*
 	@Mapper
