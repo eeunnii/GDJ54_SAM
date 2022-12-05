@@ -75,4 +75,10 @@ public class BoardController {
 		boardService.removeBoard(request, response);
 	}
 	
+	@PostMapping("/brd/remove/list")
+	public void removeList(HttpServletRequest request, HttpServletResponse response) {
+		// removeBoardList() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
+		boardService.removeBoardList(request, response);
+	}
+	
 }

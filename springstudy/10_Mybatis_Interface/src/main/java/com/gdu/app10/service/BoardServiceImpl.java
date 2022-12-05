@@ -1,6 +1,7 @@
 package com.gdu.app10.service;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -115,6 +116,38 @@ public class BoardServiceImpl implements BoardService {
 				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
 			} else {
 				out.println("alert('삭제 실패');");
+				out.println("history.back();");  // 이전 화면으로 이동
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public void removeBoardList(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String[] boardNoList = request.getParameterValues("boardNoList");
+		
+		// 삭제
+		int result = boardMapper.deleteBoardList(Arrays.asList(boardNoList));  // String 배열을 List<String>으로 변경해서 전달
+		
+		try {
+			
+			// 자바스크립트로 응답으로 만들어서 처리하는 방식
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('모두 삭제 성공');");
+				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
+			} else {
+				out.println("alert('모두 삭제 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
 			}
 			out.println("</script>");

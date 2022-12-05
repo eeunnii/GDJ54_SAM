@@ -22,4 +22,5 @@ public interface BoardMapper {
 	public int insertBoard(BoardDTO board);
 	public int updateBoard(BoardDTO board);
 	public int deleteBoard(int boardNo);
+	public int deleteBoardList(List<String> boardNoList);
 }
