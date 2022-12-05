@@ -1,13 +1,8 @@
-package com.gdu.app13.util;
+package test;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.stereotype.Component;
-
-@Component
 public class SecurityUtil {
 
 	// 크로스 사이트 스크립팅 방지
@@ -68,23 +63,6 @@ public class SecurityUtil {
 		
 		return sb.toString();
 		
-	}
-	
-	// 인증코드2 만들기(commons-lang3 디펜던시)
-	public String generateRandomString(int length) {
-	    boolean useLetter = true;
-	    boolean useNumbers = true;
-	    return RandomStringUtils.random(length, useLetter, useNumbers);
-	}
-	
-	// commons-codec 디펜던시 암호 : 1234 -> yqid83716#52d-!
-	public String encodeBase64(String str) {
-		return new String(Base64.encodeBase64(str.getBytes()));
-	}
-	
-	// commons-codec 디펜던시 복호 : yqid83716#52d-! - > 1234
-	public String decodeBase64(String str) {
-		return new String(Base64.decodeBase64(str.getBytes()));
 	}
 	
 }

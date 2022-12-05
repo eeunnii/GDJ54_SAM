@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,8 +29,8 @@ public class UserController {
 		return "index";
 	}
 	
-	@GetMapping("/user/agree")
-	public String agree() {
+	@GetMapping("/user/agree/form")
+	public String agreeForm() {
 		return "user/agree";
 	}
 	
@@ -150,11 +151,33 @@ public class UserController {
 		userService.restoreUser(request, response);
 	}
 	
-
+	@GetMapping("/user/findId/form")  // 아이디 찾기 화면
+	public String findIdForm() {
+		return "user/findId";
+	}
 	
+	@ResponseBody
+	@PostMapping(value="/user/findId", produces="application/json")  // 아이디 찾기
+	public Map<String, Object> findId(@RequestBody Map<String, Object> map) {
+		return userService.findUser(map);
+	}
 	
+	@GetMapping("/user/findPw/form")  // 비밀번호 찾기 화면
+	public String findPwForm() {
+		return "user/findPw";
+	}
 	
+	@ResponseBody
+	@PostMapping(value="/user/findPw", produces="application/json")  // 비밀번호 찾기
+	public Map<String, Object> findPw(@RequestBody Map<String, Object> map) {
+		return userService.findUser(map);
+	}
 	
+	@ResponseBody
+	@PostMapping(value="/user/sendTemporaryPassword", produces="application/json")  // 이메일로 임시비번 전송
+	public  Map<String, Object> memberSendEmailTemporaryPassword(UserDTO user) {
+		return userService.sendTemporaryPassword(user);
+	}
 	
 	
 }

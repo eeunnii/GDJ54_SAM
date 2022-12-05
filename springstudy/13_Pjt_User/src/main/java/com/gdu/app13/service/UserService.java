@@ -32,4 +32,7 @@ public interface UserService {
 	public void naverLogin(HttpServletRequest request, UserDTO naverUser);
 	public void naverJoin(HttpServletRequest request, HttpServletResponse response);
 	
+	public Map<String, Object> findUser(Map<String, Object> map);
+	public Map<String, Object> sendTemporaryPassword(UserDTO user);
+	
 }

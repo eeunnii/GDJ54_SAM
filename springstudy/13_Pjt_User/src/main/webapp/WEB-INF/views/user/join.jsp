@@ -398,12 +398,13 @@
 			
 			<!-- 성별 -->
 			<div>
-				<label for="none">선택 안함</label>
+				<span>성별*</span>
 				<input type="radio" name="gender" id="none" value="NO" checked="checked">
-				<label for="male">남자</label>
+				<label for="none">선택 안함</label>
 				<input type="radio" name="gender" id="male" value="M">
-				<label for="female">여자</label>
+				<label for="male">남자</label>
 				<input type="radio" name="gender" id="female" value="F">
+				<label for="female">여자</label>
 			</div>
 		
 			<!-- 휴대전화 -->

@@ -13,7 +13,7 @@
 
 	<!-- 로그인이 안 된 상태 -->
 	<c:if test="${loginUser == null}">
-		<a href="${contextPath}/user/agree">회원가입페이지</a>
+		<a href="${contextPath}/user/agree/form">회원가입페이지</a>
 		<a href="${contextPath}/user/login/form">로그인페이지</a>
 	</c:if>
 

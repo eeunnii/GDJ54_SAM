@@ -13,15 +13,7 @@ import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +30,7 @@ import com.gdu.app13.domain.RetireUserDTO;
 import com.gdu.app13.domain.SleepUserDTO;
 import com.gdu.app13.domain.UserDTO;
 import com.gdu.app13.mapper.UserMapper;
+import com.gdu.app13.util.JavaMailUtil;
 import com.gdu.app13.util.SecurityUtil;
 
 @PropertySource(value = {"classpath:email.properties"})
@@ -55,6 +48,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private SecurityUtil securityUtil;
+	
+	@Autowired
+	private JavaMailUtil javaMailUtil;
 	
 	@Override
 	public Map<String, Object> isReduceId(String id) {
@@ -86,52 +82,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Map<String, Object> sendAuthCode(String email) {
 		
-		/*
-			이메일 보내기 API 사용을 위한 사전 작업
-			
-			1. 구글 로그인
-			2. [Google 계정] - [보안]
-			    1) [2단계 인증]  - [사용]
-			    2) [앱 비밀번호]
-			        (1) 앱 선택   : 기타
-			        (2) 기기 선택 : Windows 컴퓨터
-			        (3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
-		*/
-		
 		// 인증코드 만들기
 		String authCode = securityUtil.getAuthCode(6);  // String authCode = securityUtil.generateRandomString(6);
-		System.out.println("발송된 인증코드 : " + authCode);
+		// System.out.println("발송된 인증코드 : " + authCode);
 		
-		// 이메일 전송을 위한 필수 속성을 Properties 객체로 생성
-		Properties properties = new Properties();
-		properties.put("mail.smtp.host", "smtp.gmail.com");  // 구글 메일로 보냄(보내는 메일은 구글 메일만 가능)
-		properties.put("mail.smtp.port", "587");             // 구글 메일로 보내는 포트 번호
-		properties.put("mail.smtp.auth", "true");            // 인증된 메일
-		properties.put("mail.smtp.starttls.enable", "true"); // TLS 허용
-		
-		// 사용자 정보를 javax.mail.Session에 저장
-		Session session = Session.getInstance(properties, new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-		
-		// 이메일 작성 및 전송
-		try {
-			
-			Message message = new MimeMessage(session);
-			
-			message.setFrom(new InternetAddress(username, "인증코드관리자"));            // 보내는사람
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));  // 받는사람
-			message.setSubject("[Application] 인증 요청 메일입니다.");                   // 제목
-			message.setContent("인증번호는 <strong>" + authCode + "</strong>입니다.", "text/html; charset=UTF-8");  // 내용
-			
-			Transport.send(message);  // 이메일 전송
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		// 메일 전송
+		javaMailUtil.sendJavaMail(email, "[Application] 인증요청", "인증번호는 <strong>" + authCode + "</strong>입니다.");
 		
 		// join.jsp로 생성한 인증코드를 보내줘야 함
 		// 그래야 사용자가 입력한 인증코드와 비교를 할 수 있음
@@ -582,7 +538,8 @@ public class UserServiceImpl implements UserService {
 				
 				out.println("<script>");
 				out.println("alert('휴면 계정이 복구되었습니다. 휴면 계정 활성화를 위해 곧바로 로그인을 해 주세요.');");
-				out.println("location.href='" + request.getContextPath() + "/user/login/form';");
+				// out.println("location.href='" + request.getContextPath() + "/user/login/form';");  // 로그인 후 referer에 의해 /user/restore로 되돌아오기 때문에 사용하지 말 것
+				out.println("location.href='" + request.getContextPath() + "';");
 				out.println("</script>");
 				
 			} else {
@@ -895,8 +852,36 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	@Override
+	public Map<String, Object> findUser(Map<String, Object> map) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("findUser", userMapper.selectUserByMap(map));
+		return result;
+	}
 	
-	
+	@Override
+	public Map<String, Object> sendTemporaryPassword(UserDTO user) {
+
+		// 9자리 임시 비밀번호
+		String temporaryPassword = securityUtil.generateRandomString(9);
+		System.out.println("임시비번 : " + temporaryPassword);
+		
+		// 메일 전송
+		String text = "";
+		text += "비밀번호가 초기화되었습니다.<br>";
+		text += "임시비밀번호 : <strong>" + temporaryPassword + "</strong><br><br>";
+		text += "임시비밀번호로 로그인 후에 반드시 비밀번호를 변경해 주세요.";
+		javaMailUtil.sendJavaMail(user.getEmail(), "[Application] 임시비밀번호", text);
+		
+		// DB로 보낼 user
+		user.setPw(securityUtil.sha256(temporaryPassword));  // user에 포함된 userNo와 pw를 사용
+		
+		// 임시 비밀번호로 DB 정보 수정하고 결과 반환
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isSuccess", userMapper.updateUserPassword(user));
+		return result;
+		
+	}
 	
 	
 	

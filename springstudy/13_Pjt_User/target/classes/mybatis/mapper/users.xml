@@ -6,7 +6,7 @@
 
 <mapper namespace="com.gdu.app13.mapper.UserMapper">
 
-	<!-- 아이디 중복체크1, 이메일 중복체크, 로그인, 로그인 유지를 이용한 로그인, 마이페이지 가기 전 비번 확인, 네이버로그인으로 가입한 회원인지 확인 -->
+	<!-- 아이디 중복체크1, 이메일 중복체크, 로그인, 로그인 유지를 이용한 로그인, 마이페이지 가기 전 비번 확인, 네이버로그인으로 가입한 회원인지 확인, 아이디 찾기, 비밀번호 찾기 -->
 	<select id="selectUserByMap" parameterType="Map" resultType="UserDTO">
 		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
 		  FROM USERS
@@ -23,6 +23,9 @@
 			 <if test="sessionId != null">
 			 	AND SESSION_ID = #{sessionId}
 			 	AND SESSION_LIMIT_DATE > SYSDATE
+			 </if>
+			 <if test="name != null">
+			 	AND NAME = #{name}
 			 </if>
 		 </where>
 	</select>
@@ -86,7 +89,7 @@
 		 WHERE ID = #{id}
 	</update>
 	
-	<!-- 마이페이지 : 비밀번호 수정 -->
+	<!-- 마이페이지 : 비밀번호 수정, 임시비밀번호로 수정 -->
 	<update id="updateUserPassword" parameterType="UserDTO">
 		UPDATE USERS
 		   SET PW = #{pw}

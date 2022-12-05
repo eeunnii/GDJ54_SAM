@@ -83,6 +83,7 @@
 			
 			<!-- 성별(프로필에 포함-3) -->
 			<div>
+				<span>성별*</span>
 				<input type="radio" name="gender" id="none" value="NO" checked="checked">
 				<label for="none">선택 안함</label>
 				<input type="radio" name="gender" id="male" value="M">
