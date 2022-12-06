@@ -45,9 +45,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4">
-						${paging}
-					</td>
+					<!-- th:utext="HTML구성요소포함한텍스트" -->
+					<td colspan="4" th:utext="${paging}"></td>
 				</tr>
 			</tfoot>
 		</table>
