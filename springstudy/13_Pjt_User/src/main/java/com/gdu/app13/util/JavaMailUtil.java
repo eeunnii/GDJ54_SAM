@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 	        (3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
 */
 
-@PropertySource(value = {"classpath:email.properties"})
+@PropertySource(value = {"classpath:application.properties"})
 @Component
 public class JavaMailUtil {
 

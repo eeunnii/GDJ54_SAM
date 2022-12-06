@@ -8,15 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-
 @Component
 public class PreventLoginInterceptor implements HandlerInterceptor {
-
 	
 	// 로그인이 완료된 사용자가
 	// 로그인페이지이동, 약관페이지이동, 가입페이지이동 등의 요청을 하면
 	// 이를 막는 인터셉터
-	
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

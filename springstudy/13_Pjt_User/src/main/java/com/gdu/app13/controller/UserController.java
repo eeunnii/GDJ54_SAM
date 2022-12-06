@@ -179,5 +179,9 @@ public class UserController {
 		return userService.sendTemporaryPassword(user);
 	}
 	
+	@PostMapping("/user/modify")
+	public void modify(HttpServletRequest request, HttpServletResponse response) {
+		userService.modifyUser(request, response);
+	}
 	
 }

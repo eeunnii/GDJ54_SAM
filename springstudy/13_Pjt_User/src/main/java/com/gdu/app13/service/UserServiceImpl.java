@@ -21,8 +21,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,15 +31,8 @@ import com.gdu.app13.mapper.UserMapper;
 import com.gdu.app13.util.JavaMailUtil;
 import com.gdu.app13.util.SecurityUtil;
 
-@PropertySource(value = {"classpath:email.properties"})
 @Service
 public class UserServiceImpl implements UserService {
-
-	@Value(value = "${mail.username}")
-	private String username;
-	
-	@Value(value="${mail.password}")
-	private String password;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -883,6 +874,94 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	
+	@Override
+	public void modifyUser(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		String mobile = request.getParameter("mobile");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("birthmonth");
+		String birthdate = request.getParameter("birthdate");
+		String postcode = request.getParameter("postcode");
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String detailAddress = request.getParameter("detailAddress");
+		String extraAddress = request.getParameter("extraAddress");
+		String email = request.getParameter("email");
+		String location = request.getParameter("location");
+		String promotion = request.getParameter("promotion");
+		
+		// 일부 파라미터는 DB에 넣을 수 있도록 가공
+		name = securityUtil.preventXSS(name);
+		String birthday = birthmonth + birthdate;
+		detailAddress = securityUtil.preventXSS(detailAddress);
+		int agreeCode = 0;  // 필수 동의
+		if(!location.isEmpty() && promotion.isEmpty()) {
+			agreeCode = 1;  // 필수 + 위치
+		} else if(location.isEmpty() && !promotion.isEmpty()) {
+			agreeCode = 2;  // 필수 + 프로모션
+		} else if(!location.isEmpty() && !promotion.isEmpty()) {
+			agreeCode = 3;  // 필수 + 위치 + 프로모션
+		}
+		
+		// DB로 보낼 UserDTO 만들기
+		UserDTO user = UserDTO.builder()
+				.id(id)
+				.name(name)
+				.gender(gender)
+				.email(email)
+				.mobile(mobile)
+				.birthyear(birthyear)
+				.birthday(birthday)
+				.postcode(postcode)
+				.roadAddress(roadAddress)
+				.jibunAddress(jibunAddress)
+				.detailAddress(detailAddress)
+				.extraAddress(extraAddress)
+				.agreeCode(agreeCode)
+				.build();
+				
+		// 회원정보수정
+		int result = userMapper.updateUser(user);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				
+				// 조회 조건으로 사용할 Map
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
+				// session에 올라간 정보를 수정된 내용으로 업데이트
+				request.getSession().setAttribute("loginUser", userMapper.selectUserByMap(map));
+				
+				out.println("<script>");
+				out.println("alert('회원 정보가 수정되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+				
+			} else {
+				
+				out.println("<script>");
+				out.println("alert('회원 정보 수정이 실패했습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+				
+			}
+			
+			out.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

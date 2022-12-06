@@ -140,7 +140,24 @@
 		 WHERE ID = #{id}
 	</delete>
 	
-	
+	<!-- 회원정보수정 -->
+	<update id="updateUser" parameterType="UserDTO">
+		UPDATE USERS
+		  SET NAME = #{name}
+		    , GENDER = #{gender}
+		    , EMAIL = #{email}
+		    , MOBILE = #{mobile}
+		    , BIRTHYEAR = #{birthyear}
+		    , BIRTHDAY = #{birthday}
+		    , POSTCODE = #{postcode}
+		    , ROAD_ADDRESS = #{roadAddress}
+		    , JIBUN_ADDRESS = #{jibunAddress}
+		    , DETAIL_ADDRESS = #{detailAddress}
+		    , EXTRA_ADDRESS = #{extraAddress}
+		    , AGREE_CODE = #{agreeCode}
+		    , INFO_MODIFY_DATE = SYSDATE
+		WHERE ID = #{id}
+	</update>
 	
 	
 	

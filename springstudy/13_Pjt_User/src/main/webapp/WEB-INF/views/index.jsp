@@ -27,7 +27,7 @@
 		<form id="lnk_retire" action="${contextPath}/user/retire" method="post"></form>
 		<script>
 			function fn_abc(){
-				if(confirm('탈퇴하시겠습니까?')){
+				if (confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
 					$('#lnk_retire').submit();
 				}
 			}

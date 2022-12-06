@@ -34,5 +34,6 @@ public interface UserService {
 	
 	public Map<String, Object> findUser(Map<String, Object> map);
 	public Map<String, Object> sendTemporaryPassword(UserDTO user);
+	public void modifyUser(HttpServletRequest request, HttpServletResponse response);
 	
 }

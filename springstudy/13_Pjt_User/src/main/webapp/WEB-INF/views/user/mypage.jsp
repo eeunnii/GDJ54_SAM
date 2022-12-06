@@ -18,7 +18,15 @@
 		fn_pwCheckAgain();
 		fn_pwSubmit();
 		// 일반정보 수정
-		
+		fn_nameCheck();
+		fn_mobileCheck();
+		fn_birthyear();
+		fn_birthmonth();
+		fn_birthdate();
+		fn_emailCheck();
+		fn_modify();
+		fn_cancel();
+		fn_retire();
 	});
 	
 	// 비밀번호 수정
@@ -86,15 +94,9 @@
 	}
 	
 	// 일반정보 수정
-	fn_nameCheck();
-	fn_mobileCheck();
-	fn_birthyear();
-	fn_birthmonth();
-	fn_birthdate();
-	fn_emailCheck();
-	fn_modify();
-	fn_cancel();
-	fn_retire();
+	var namePass = true;
+	var mobilePass = true;
+	var emailPass = true;
 	
 	function fn_nameCheck(){
 		$('#name').keyup(function(){
@@ -124,6 +126,7 @@
 			strYear += '<option value="' + y + '">' + y + '</option>';
 		}
 		$('#birthyear').append(strYear);
+		$('#birthyear').val('${loginUser.birthyear}').prop('selected', true);
 	}
 	
 	function fn_birthmonth(){
@@ -136,35 +139,34 @@
 			}
 		}
 		$('#birthmonth').append(strMonth);
+		$('#birthmonth').val('${loginUser.birthday.substring(0,2)}').prop('selected', true);
 	}
 	
 	function fn_birthdate(){
+		$('#birthdate').empty();
 		$('#birthdate').append('<option value="">일</option>');
-		$('#birthmonth').change(function(){
-			$('#birthdate').empty();
-			$('#birthdate').append('<option value="">일</option>');
-			let endDay = 0;
-			let strDay = '';
-			switch($(this).val()){
-			case '02':
-				endDay = 29; break;
-			case '04':
-			case '06':
-			case '09':
-			case '11':
-				endDay = 30; break;
-			default:
-				endDay = 31; break;
+		let endDay = 0;
+		let strDay = '';
+		switch($('#birthmonth').val()){
+		case '02':
+			endDay = 29; break;
+		case '04':
+		case '06':
+		case '09':
+		case '11':
+			endDay = 30; break;
+		default:
+			endDay = 31; break;
+		}
+		for(let d = 1; d <= endDay; d++){
+			if(d < 10){
+				strDay += '<option value="0' + d + '">' + d + '일</option>';
+			} else {
+				strDay += '<option value="' + d + '">' + d + '일</option>';
 			}
-			for(let d = 1; d <= endDay; d++){
-				if(d < 10){
-					strDay += '<option value="0' + d + '">' + d + '일</option>';
-				} else {
-					strDay += '<option value="' + d + '">' + d + '일</option>';
-				}
-			}
-			$('#birthdate').append(strDay);
-		});
+		}
+		$('#birthdate').append(strDay);
+		$('#birthdate').val('${loginUser.birthday.substring(2)}').prop('selected', true);
 	}
 	
 	function fn_emailCheck(){
@@ -173,6 +175,7 @@
 			let emailValue = $(this).val();
 			if(regEmail.test(emailValue) == false){
 				$('#msg_email').text('이메일 형식이 올바르지 않습니다.');
+				emailPass = false;
 				return;
 			}
 			$.ajax({
@@ -183,8 +186,10 @@
 				success: function(resData){
 					if(resData.isUser){
 						$('#msg_email').text('이미 사용중인 이메일입니다.');
+						emailPass = false;
 					} else {
 						$('#msg_email').text('');
+						emailPass = true;
 					}
 				}
 			});
@@ -193,11 +198,7 @@
 	
 	function fn_modify(){
 		$('#frm_edit').submit(function(event){
-			if(idPass == false){
-				alert('아이디를 확인하세요.');
-				event.preventDefault();
-				return;
-			} else if(namePass == false){
+			if(namePass == false){
 				alert('이름을 확인하세요.');
 				event.preventDefault();
 				return;
@@ -209,27 +210,27 @@
 				alert('생년월일을 확인하세요.');
 				event.preventDefault();
 				return;
-			} else if(authCodePass == false){
-				alert('이메일 인증을 받으세요.');
+			} else if(emailPass == false){
+				alert('이메일을 확인하세요.');
 				event.preventDefault();
 				return;
 			}
 		});
-		
-		function fn_cancel(){
-			$('#btn_cancel').click(function(){
-				location.href='${contextPath}';
-			});			
-		}
+	}
+	
+	function fn_cancel(){
+		$('#btn_cancel').click(function(){
+			location.href='${contextPath}';
+		});			
+	}
 
-		function fn_retire(){
-			$('#btn_retire').click(function(){
-				if (confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
-					location.href = '${contextPath}/user/retire';
-				}
-			});
-		}
-	} 
+	function fn_retire(){
+		$('#btn_retire').click(function(){
+			if (confirm('동일한 아이디로 재가입이 불가능합니다. 회원 탈퇴하시겠습니까?')){
+				$('#lnk_retire').submit();
+			}
+		});
+	}
 	
 </script>
 </head>
@@ -273,7 +274,7 @@
 			<form id="frm_edit" action="${contextPath}/user/modify" method="post">
 			
 				<!-- hidden -->
-				<input type="hidden" name="userNo" value="${loginUser.userNo}">
+				<input type="hidden" name="id" value="${loginUser.id}">
 			
 				<!-- 아이디 -->
 				<div>
@@ -319,6 +320,9 @@
 					<select name="birthmonth" id="birthmonth"></select>
 					<select name="birthdate" id="birthdate"></select>				
 				</div>
+				<script>
+					
+				</script>
 				
 				<!-- 주소 -->
 				<div>
@@ -434,6 +438,9 @@
 				</div>
 			
 			</form>
+			
+			<!-- 회원탈퇴용 form -->
+			<form id="lnk_retire" action="${contextPath}/user/retire" method="post"></form>
 			
 		</div>
 	

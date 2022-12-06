@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Component
 @EnableAspectJAutoProxy
 @Aspect
+@Component
 public class RequiredLoginAspect {
 
 	@Pointcut("execution(* com.gdu.app13.controller.*Controller.requiredLogin_*(..))")

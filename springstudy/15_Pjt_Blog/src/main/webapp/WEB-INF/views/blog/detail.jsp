@@ -123,7 +123,7 @@
 		
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
-				if($('#comment').val() == ''){
+				if($('#content').val() == ''){
 					alert('댓글 내용을 입력하세요');
 					return;
 				}
