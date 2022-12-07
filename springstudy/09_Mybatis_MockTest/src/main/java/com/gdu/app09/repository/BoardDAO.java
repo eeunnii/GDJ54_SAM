@@ -16,8 +16,8 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<BoardDTO> selectAllBoards() {
-		return sqlSessionTemplate.selectList("mybatis.mapper.board.selectAllBoards");  // mapper의 id를 직접 호출해 줘야 함(귀찮음)
+	public List<BoardDTO> selectBoardList() {
+		return sqlSessionTemplate.selectList("mybatis.mapper.board.selectBoardList");  // mapper의 id를 직접 호출해 줘야 함(귀찮음)
 	}
 	
 	public BoardDTO selectBoardByNo(int boardNo) { 

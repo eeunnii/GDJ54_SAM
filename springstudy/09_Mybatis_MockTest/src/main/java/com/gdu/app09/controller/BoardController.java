@@ -29,7 +29,7 @@ public class BoardController {
 	public String list(Model model) {
 		
 		// Model의 Attribute는 Mock 테스트에서 getModelAndView()로 확인 가능하다.
-		model.addAttribute("boards", boardService.findAllBoards());
+		model.addAttribute("boards", boardService.getBoardList());
 	
 		return "board/list";
 		
@@ -47,7 +47,7 @@ public class BoardController {
 			        , RedirectAttributes redirectAttributes) {
 		
 		// FlashAttribute는 Mock 테스트에서 getFlashMap()으로 확인 가능하다
-		redirectAttributes.addFlashAttribute("insertResult", boardService.saveBoard(board));  
+		redirectAttributes.addFlashAttribute("insertResult", boardService.addBoard(board));  
 		
 		return "redirect:/brd/list";  // FlashAttribute는 redirect할 때 데이터를 전달해 주므로 list.jsp에서 insertResult를 확인할 수 있다.
 		
@@ -59,7 +59,7 @@ public class BoardController {
 			           , Model model) {
 		
 		// Model의 Attribute는 Mock 테스트에서 getModelAndView()로 확인 가능하다.
-		model.addAttribute("board", boardService.findBoardByNo(boardNo));
+		model.addAttribute("board", boardService.getBoardByNo(boardNo));
 		
 		return "board/detail";
 		
@@ -69,7 +69,7 @@ public class BoardController {
 	@PostMapping("/brd/edit")
 	public String edit(int boardNo
 			         , Model model) {
-		model.addAttribute("board", boardService.findBoardByNo(boardNo));
+		model.addAttribute("board", boardService.getBoardByNo(boardNo));
 		return "board/edit";  // board 폴더의 edit.jsp로 forward 
 	}
 	

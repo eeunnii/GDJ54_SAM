@@ -10,24 +10,25 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Component
 @Aspect
+@EnableAspectJAutoProxy
 public class RequestLoggingAspect {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RequestLoggingAspect.class);
 
-	@Pointcut("within(com.gdu.app09.controller..*)")
+	@Pointcut("execution(* com.gdu.app09.controller.*Controller.*(..))")
 	public void setPointCut() { }
 	
-	@Around("com.gdu.app09.aop.RequestLoggingAspect.setPointCut()")
+	@Around("setPointCut()")
 	public Object executeLogging(ProceedingJoinPoint joinPoint) throws Throwable {
-		
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
-		
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = servletRequestAttributes.getRequest();
 		Map<String, String[]> map = request.getParameterMap();
 		String params = "";
 		if(map.isEmpty()) {
@@ -37,7 +38,6 @@ public class RequestLoggingAspect {
 				params += "[" + entry.getKey() + "=" + String.format("%s", (Object[])entry.getValue()) + "]";
 			}
 		}
-		
 		Object result = null;
 		try {
 			result = joinPoint.proceed();
@@ -46,9 +46,7 @@ public class RequestLoggingAspect {
 		} finally {
 			LOGGER.debug("{} {} {} > {}", request.getMethod(), request.getRequestURI(), params, request.getRemoteHost());
 		}
-		
 		return result;
-		
 	}
 	
 }

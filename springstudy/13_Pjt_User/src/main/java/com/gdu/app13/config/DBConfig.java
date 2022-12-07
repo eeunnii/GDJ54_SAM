@@ -22,7 +22,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 public class DBConfig {
 	
-	@Value(value = "${spring.datasource.driver-class-name}")
+	@Value(value = "${spring.datasource.hikari.driver-class-name}")
 	private String driverClassName;
 	
 	@Value(value="${spring.datasource.hikari.jdbc-url}")

@@ -17,7 +17,7 @@ import com.gdu.app10.domain.BoardDTO;
 @Mapper
 
 public interface BoardMapper {
-	public List<BoardDTO> selectAllBoards();
+	public List<BoardDTO> selectBoardList();
 	public BoardDTO selectBoardByNo(int boardNo);
 	public int insertBoard(BoardDTO board);
 	public int updateBoard(BoardDTO board);

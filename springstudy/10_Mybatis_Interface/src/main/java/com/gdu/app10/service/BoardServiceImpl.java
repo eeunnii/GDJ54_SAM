@@ -20,17 +20,17 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 
 	@Override
-	public List<BoardDTO> findAllBoards() {
-		return boardMapper.selectAllBoards();
+	public List<BoardDTO> getBoardList() {
+		return boardMapper.selectBoardList();
 	}
 
 	@Override
-	public BoardDTO findBoardByNo(int boardNo) {
+	public BoardDTO getBoardByNo(int boardNo) {
 		return boardMapper.selectBoardByNo(boardNo);
 	}
 
 	@Override
-	public void saveBoard(HttpServletRequest request, HttpServletResponse response) {
+	public void addBoard(HttpServletRequest request, HttpServletResponse response) {
 		
 		BoardDTO board = new BoardDTO();
 		board.setTitle(request.getParameter("title"));

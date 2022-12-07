@@ -27,7 +27,8 @@ public class RequestLoggingAspect {
 	
 	@Around("setPointCut()")
 	public Object executeLogging(ProceedingJoinPoint joinPoint) throws Throwable {
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = servletRequestAttributes.getRequest();
 		Map<String, String[]> map = request.getParameterMap();
 		String params = "";
 		if(map.isEmpty()) {

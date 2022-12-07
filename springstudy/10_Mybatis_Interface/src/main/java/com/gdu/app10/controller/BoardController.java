@@ -28,7 +28,7 @@ public class BoardController {
 	
 	@GetMapping("/brd/list")
 	public String list(Model model) {
-		model.addAttribute("boards", boardService.findAllBoards());
+		model.addAttribute("boards", boardService.getBoardList());
 		return "board/list";
 	}
 	
@@ -41,15 +41,15 @@ public class BoardController {
 	
 	@PostMapping("/brd/add")
 	public void add(HttpServletRequest request, HttpServletResponse response) {
-		// saveBoard() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
-		boardService.saveBoard(request, response);
+		// addBoard() 메소드에 list.jsp로 redirect하는 코드가 있기 때문에 return 없이 void 처리합니다.
+		boardService.addBoard(request, response);
 	}	
 	
 	
 	@GetMapping("/brd/detail")
 	public String detail(@RequestParam(value="boardNo", required=false, defaultValue="0") int boardNo
 			           , Model model) {
-		model.addAttribute("board", boardService.findBoardByNo(boardNo));
+		model.addAttribute("board", boardService.getBoardByNo(boardNo));
 		return "board/detail"; 
 	}
 	
@@ -57,7 +57,7 @@ public class BoardController {
 	@PostMapping("/brd/edit")
 	public String edit(@RequestParam(value="boardNo", required=false, defaultValue="0") int boardNo
 			         , Model model) {
-		model.addAttribute("board", boardService.findBoardByNo(boardNo));
+		model.addAttribute("board", boardService.getBoardByNo(boardNo));
 		return "board/edit"; 
 	}
 	

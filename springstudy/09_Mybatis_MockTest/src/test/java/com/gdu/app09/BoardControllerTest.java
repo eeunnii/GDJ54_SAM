@@ -1,8 +1,10 @@
 package com.gdu.app09;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import org.springframework.web.context.WebApplicationContext;
 // 필요한 Bean은 @Component로 등록되어 있으므로 component-scan 태그가 작성된 servlet-context.xml의 위치를 작성함
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BoardControllerTest {
 
 	
@@ -57,19 +60,8 @@ public class BoardControllerTest {
 				.build();
 	}
 
-	
 	@Test
-	public void 목록테스트() throws Exception {
-		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.get("/brd/list"))  // get 방식의 "/brd/list" 호출 테스트
-			.andReturn()            // 응답 결과에서
-			.getModelAndView()      // ModelAndView를 가져와서 (Model을 가져오기 위함)
-			.getModelMap()          // Model을 Map으로 바꾼 뒤
-			.toString());           // 로그로 찍어보자.
-	}
-	
-	
-	@Test
-	public void 등록테스트() throws Exception {
+	public void test1_등록테스트() throws Exception {
 		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.post("/brd/add")
 				.param("title", "테스트 제목")      // 등록할 파라미터
 				.param("writer", "테스트 작성자")
@@ -79,21 +71,8 @@ public class BoardControllerTest {
 				.toString());
 	}
 	
-	
 	@Test
-	public void 조회테스트() throws Exception {
-		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.get("/brd/detail")
-				.param("boardNo", "1"))
-				.andReturn()
-				.getModelAndView()
-				.getModelMap()
-				.toString());
-
-	}
-	
-	
-	@Test
-	public void 수정테스트() throws Exception {
+	public void test2_수정테스트() throws Exception {
 		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.post("/brd/modify")
 				.param("title", "수정 테스트 제목")
 				.param("content", "수정 테스트 내용")
@@ -103,15 +82,33 @@ public class BoardControllerTest {
 				.toString());
 	}
 	
+	@Test
+	public void test3_조회테스트() throws Exception {
+		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.get("/brd/detail")
+				.param("boardNo", "1"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				.toString());
+		
+	}
 	
 	@Test
-	public void 삭제테스트() throws Exception {
+	public void test4_목록테스트() throws Exception {
+		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.get("/brd/list"))  // get 방식의 "/brd/list" 호출 테스트
+			.andReturn()            // 응답 결과에서
+			.getModelAndView()      // ModelAndView를 가져와서 (Model을 가져오기 위함)
+			.getModelMap()          // Model을 Map으로 바꾼 뒤
+			.toString());           // 로그로 찍어보자.
+	}
+	
+	@Test
+	public void test5_삭제테스트() throws Exception {
 		LOGGER.debug(mockMvc.perform(MockMvcRequestBuilders.post("/brd/remove")
 				.param("boardNo", "1"))                // boardNo=1인 게시글을 삭제함
 				.andReturn()
 				.getFlashMap()  // RedirectAttributes를 이용해 FlashAttribute로 저장해 놓은 deleteResult 확인을 위함
 				.toString());
 	}
-	
 	
 }

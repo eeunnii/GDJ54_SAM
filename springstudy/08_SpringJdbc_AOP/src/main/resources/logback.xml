@@ -3,14 +3,6 @@
 <configuration>
 
 	<!-- Appenders -->
-	<!--
-		%date{패턴} : 로그기록시간(SimpleDateFormat과 동일한 패턴 방식을 사용함)
-		%thread     : 동작하는 스레드
-		%level      : 로그레벨(FATAL, ERROR, WARN, INFO, DEBUG, TRACE), %-5level은 5자리로 글자폭을 맞춤
-		%logger     : 로거이름(로그 찍는 클래스), %logger{36}는 최대 글자 수가 36자
-		%msg        : 로그메시지
-		%n          : new line
-	-->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>
@@ -19,20 +11,18 @@
 		</encoder>
 	</appender>
 
-	
-	<!--
-		로그레벨 (로그가 찍히는 상황)
-		1. OFF   : 로그 안 남김
-		2. ERROR : FATAL보다는 덜 심각한 에러
-		3. WARN  : 잠재적 문제
-		4. INFO  : 프로그램이 진행되는 상황
-		5. DEBUG : 디버깅
-		6. TRACE : DEBUG보다 세밀한 정보
-	-->
+	<!-- Application Loggers -->
+	<logger name="com.gdu.app08" level="DEBUG" />
 
-	<!-- 일반 logger : com.gdu.app08 패키지는 DEBUG 수준의 로그를 찍는다. -->
-	<logger name="com.gdu.app08" level="DEBUG">
-		<appender-ref ref="STDOUT" />
-	</logger>
+	<!-- 3rd party Loggers -->
+	<logger name="org.springframework.core" level="INFO" />
+	<logger name="org.springframework.beans" level="INFO" />
+	<logger name="org.springframework.context" level="INFO" />
+	<logger name="org.springframework.web" level="INFO" />
+	
+	<!-- Root Logger -->
+	<root level="DEBUG">
+ 		<appender-ref ref="STDOUT" />
+	</root>
 	
 </configuration>

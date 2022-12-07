@@ -13,8 +13,10 @@
 		%n          : new line
 	-->
 
+	<!-- 루트 아래 /storage/log -->
 	<variable name="LOG_HOME" value="/storage/log" />
 
+	<!-- Appenders -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>
@@ -64,7 +66,7 @@
 	<!-- Application Loggers : com.gdu.app07 패키지는 DEBUG 수준의 로그를 찍는다. -->
 	<logger name="com.gdu.app07" level="DEBUG" />
 
-	<!-- 3rdparty Loggers -->
+	<!-- 3rd party Loggers -->
 	<logger name="org.springframework.core" level="INFO" />
 	<logger name="org.springframework.beans" level="INFO" />
 	<logger name="org.springframework.context" level="INFO" />
