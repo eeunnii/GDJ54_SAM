@@ -44,19 +44,19 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/user/checkReduceId", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/user/checkReduceId", produces="application/json")
 	public Map<String, Object> checkReduceId(String id){
 		return userService.isReduceId(id);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/user/checkReduceEmail", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/user/checkReduceEmail", produces="application/json")
 	public Map<String, Object> checkReduceEmail(String email){
 		return userService.isReduceEmail(email);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/user/sendAuthCode", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/user/sendAuthCode", produces="application/json")
 	public Map<String, Object> sendAuthCode(String email){
 		return userService.sendAuthCode(email);
 	}

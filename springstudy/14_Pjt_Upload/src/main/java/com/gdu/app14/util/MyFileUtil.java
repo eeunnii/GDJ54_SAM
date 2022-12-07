@@ -44,7 +44,7 @@ public class MyFileUtil {
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		String sep = Matcher.quoteReplacement(File.separator);
-		return "storage" + sep + year + sep + makeZero(month) + sep + makeZero(day);
+		return "/storage" + sep + year + sep + makeZero(month) + sep + makeZero(day);  // 루트/storage
 	}
 	
 	// 어제 경로
@@ -55,7 +55,13 @@ public class MyFileUtil {
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		String sep = Matcher.quoteReplacement(File.separator);
-		return "storage" + sep + year + sep + makeZero(month) + sep + makeZero(day);
+		return "/storage" + sep + year + sep + makeZero(month) + sep + makeZero(day);  // 루트/storage
+	}
+	
+	// 임시 경로
+	public String getTempPath() {
+		String sep = Matcher.quoteReplacement(File.separator);
+		return "/storage" + sep + "temp";
 	}
 	
 	// 1~9 => 01~09

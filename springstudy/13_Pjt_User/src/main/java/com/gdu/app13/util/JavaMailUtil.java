@@ -58,7 +58,7 @@ public class JavaMailUtil {
 			properties.put("mail.smtp.host", host);  // 구글 메일로 보냄(보내는 메일은 구글 메일만 가능)
 			properties.put("mail.smtp.port", port);  // 구글 메일로 보내는 포트 번호
 			properties.put("mail.smtp.auth", mailSmtpAuth);  // 인증된 메일
-			properties.put("mail.smtp.starttls.enable", mailStarttlsEnable);  // TLS 허용
+			properties.put("mail.smtp.starttls.enable", mailStarttlsEnable);  // TLS 허용(port가 587인 경우 허용)
 			
 			// 사용자 정보를 javax.mail.Session에 저장
 			MimeMessage message = new MimeMessage(Session.getInstance(properties, new Authenticator() {

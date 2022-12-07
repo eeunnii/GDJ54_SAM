@@ -74,7 +74,7 @@ public class UploadController {
 	}
 	
 	@GetMapping("/upload/attach/remove")
-	public String attachRemove(@RequestParam("uploadNo") int uploadNo, @RequestParam("attachNo") int attachNo) {
+	public String uploadAttachRemove(@RequestParam("uploadNo") int uploadNo, @RequestParam("attachNo") int attachNo) {
 		uploadService.removeAttachByAttachNo(attachNo);
 		return "redirect:/upload/detail?uploadNo=" + uploadNo;
 	}

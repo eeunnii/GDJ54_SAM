@@ -857,11 +857,13 @@ public class UserServiceImpl implements UserService {
 		String temporaryPassword = securityUtil.generateRandomString(9);
 		System.out.println("임시비번 : " + temporaryPassword);
 		
-		// 메일 전송
+		// 메일 내용
 		String text = "";
 		text += "비밀번호가 초기화되었습니다.<br>";
 		text += "임시비밀번호 : <strong>" + temporaryPassword + "</strong><br><br>";
 		text += "임시비밀번호로 로그인 후에 반드시 비밀번호를 변경해 주세요.";
+		
+		// 메일 전송
 		javaMailUtil.sendJavaMail(user.getEmail(), "[Application] 임시비밀번호", text);
 		
 		// DB로 보낼 user

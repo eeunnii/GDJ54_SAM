@@ -206,8 +206,8 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo) {
 		
-		// storage/temp 디렉터리에 임시 zip 파일을 만든 뒤 이를 다운로드 받을 수 있음
-		// com.gdu.app14.batch.DeleteTmpFiles에 의해서 storage/temp 디렉터리의 임시 zip 파일은 주기적으로 삭제됨
+		// /storage/temp 디렉터리에 임시 zip 파일을 만든 뒤 이를 다운로드 받을 수 있음
+		// com.gdu.app14.batch.DeleteTmpFiles에 의해서 /storage/temp 디렉터리의 임시 zip 파일은 주기적으로 삭제됨
 		
 		// 다운로드 할 첨부 파일들의 정보(경로, 이름)
 		List<AttachDTO> attachList = uploadMapper.selectAttachList(uploadNo);
@@ -217,20 +217,20 @@ public class UploadServiceImpl implements UploadService {
 		ZipOutputStream zout = null;   // zip 파일 생성 스트림
 		FileInputStream fin = null;
 		
-		// storage/temp 디렉터리에 zip 파일 생성
-		String tmpPath = "storage" + File.separator + "temp";
+		// /storage/temp 디렉터리에 zip 파일 생성
+		String tempPath = myFileUtil.getTempPath();
 		
-		File tmpDir = new File(tmpPath);
-		if(tmpDir.exists() == false) {
-			tmpDir.mkdirs();
+		File tempDir = new File(tempPath);
+		if(tempDir.exists() == false) {
+			tempDir.mkdirs();
 		}
 		
 		// zip 파일명은 타임스탬프 값으로 생성
-		String tmpName =  System.currentTimeMillis() + ".zip";
+		String tempName =  System.currentTimeMillis() + ".zip";
 		
 		try {
 			
-			fout = new FileOutputStream(new File(tmpPath, tmpName));
+			fout = new FileOutputStream(new File(tempDir, tempName));
 			zout = new ZipOutputStream(fout);
 			
 			// 첨부가 있는지 확인
@@ -267,7 +267,7 @@ public class UploadServiceImpl implements UploadService {
 
 		
 		// 반환할 Resource
-		File file = new File(tmpPath, tmpName);
+		File file = new File(tempDir, tempName);
 		Resource resource = new FileSystemResource(file);
 		
 		// Resource가 없으면 종료 (다운로드할 파일이 없음)
@@ -277,7 +277,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		// 다운로드 헤더 만들기
 		HttpHeaders header = new HttpHeaders();
-		header.add("Content-Disposition", "attachment; filename=" + tmpName);  // 다운로드할 zip파일명은 타임스탬프로 만든 이름을 그대로 사용
+		header.add("Content-Disposition", "attachment; filename=" + tempName);  // 다운로드할 zip파일명은 타임스탬프로 만든 이름을 그대로 사용
 		header.add("Content-Length", file.length() + "");
 		
 		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);

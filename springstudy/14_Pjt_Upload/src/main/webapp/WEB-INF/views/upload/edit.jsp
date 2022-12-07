@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script>
 	
@@ -47,9 +48,10 @@
 	
 	function fn_removeAttach(){
 		// 첨부 삭제
-		$('.btn_attach_remove').click(function(){
-			if(confirm('해당 첨부파일을 삭제할까요?')){
-				location.href = '${contextPath}/upload/attach/remove?uploadNo=' + $(this).data('upload_no') + '&attachNo=' + $(this).data('attach_no');
+		$('.lnk_remove_attach').click(function(event){
+			if(confirm('첨부 파일을 삭제할까요?') == false){
+				event.preventDefault();
+				return;
 			}
 		});
 	}
@@ -91,7 +93,7 @@
 			<h3>첨부삭제</h3>	
 			<c:forEach items="${attachList}" var="attach">
 				<div>
-					${attach.origin}<input type="button" value="삭제" class="btn_attach_remove" data-upload_no="${upload.uploadNo}" data-attach_no="${attach.attachNo}">
+					${attach.origin}<a class="lnk_remove_attach" href="${contextPath}/upload/attach/remove?uploadNo=${upload.uploadNo}&attachNo=${attach.attachNo}"><i class="fa-regular fa-trash-can"></i></a>
 				</div>
 			</c:forEach>
 		</div>
