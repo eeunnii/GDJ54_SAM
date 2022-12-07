@@ -54,13 +54,13 @@ public class DeleteWrongFiles {
 		File[] wrongFiles = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return !pathList.contains(new File(dir, name).toPath());
+				return pathList.contains(new File(dir, name).toPath()) == false;
 			}
 		});
 		
 		/*
 		File dir = new File(path);
-		File[] wrongFiles = dir.listFiles((file -> pathList.contains(file.toPath()) == false));
+		File[] wrongFiles = dir.listFiles( (directory, file) -> pathList.contains(new File(directory, file).toPath()) == false );
 		*/
 		
 		System.out.println("2   " + Arrays.toString(wrongFiles));  // 어제 저장된 파일 중 DB에 기록되어 있지 않은 파일들
