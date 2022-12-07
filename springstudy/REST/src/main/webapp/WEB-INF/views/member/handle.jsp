@@ -11,8 +11,36 @@
 <script>
 	
 	$(function(){
-		
+		fn_add();
 	});
+	
+	function fn_add(){
+		$('#btn_add').click(function(){
+			// 추가할 회원 정보를 JSON으로 만든다.
+			let member = JSON.stringify({
+				'id': $('#id').val(),
+				'name': $('#name').val(),
+				'gender': $(':radio[name=gender]:checked').val(),
+				'address': $('#address').val()
+			});
+			// 추가할 회원 정보를 DB로 보낸다.
+			$.ajax({
+				/* 요청 */
+				type: 'post',
+				url: '${contextPath}/members',
+				data: member,  // 파라미터 이름 없음(본문에 member를 포함시켜서 전송)
+				contentType: 'application/json',  // 요청 데이터의 MIME-TYPE
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){
+					
+				},
+				error: function(jqXHR){
+					
+				}
+			});
+		});
+	}
 	
 </script>
 </head>
@@ -33,10 +61,10 @@
 		<div>
 			<span>성별</span>
 			<label for="male">
-				<input type="radio" name="gender" id="male">남자
+				<input type="radio" name="gender" id="male" value="M">남자
 			</label>
 			<label for="female">
-				<input type="radio" name="gender" id="female">여자
+				<input type="radio" name="gender" id="female" value="F">여자
 			</label>
 		</div>
 		<div>
