@@ -7,7 +7,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -24,10 +23,8 @@ import com.zaxxer.hikari.HikariDataSource;
 */
 @MapperScan(basePackages = {"com.gdu.app11.mapper"})
 
-
 @PropertySource(value = {"classpath:mybatis/config/mybatis.properties"})
 @EnableTransactionManagement
-@EnableAspectJAutoProxy
 @Configuration
 public class DBConfig {
 

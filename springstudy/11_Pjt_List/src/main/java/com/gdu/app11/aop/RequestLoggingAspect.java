@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Component  // RequestLoggingAspect 클래스를 Bean으로 만들어 두시오.
 @Aspect     // 안녕. 난 Aspect야. AOP 동작하려면 내가 필요해.
+@EnableAspectJAutoProxy
 public class RequestLoggingAspect {
 	
 	

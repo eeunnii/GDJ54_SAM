@@ -22,10 +22,10 @@ public class RequestLoggingAspect {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RequestLoggingAspect.class);
 
-	@Pointcut("within(com.gdu.app01.controller..*)")
+	@Pointcut("execution(* com.gdu.app01.controller.*Controller.*(..))")
 	public void setPointCut() { }
 	
-	@Around("com.gdu.app01.aop.RequestLoggingAspect.setPointCut()")
+	@Around("setPointCut()")
 	public Object executeLogging(ProceedingJoinPoint joinPoint) throws Throwable {
 		
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();

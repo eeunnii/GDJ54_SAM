@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 			out.println("<script>");
 			if(result > 0) {
 				out.println("alert('삽입 성공');");
-				out.println("location.href='" + request.getContextPath() + "/brd/list'");  //  /brd/list로 redirect
+				out.println("location.href='/brd/list'");  //  /brd/list로 redirect
 			} else {
 				out.println("alert('삽입 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
@@ -83,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
 			out.println("<script>");
 			if(result > 0) {
 				out.println("alert('수정 성공');");
-				out.println("location.href='" + request.getContextPath() + "/brd/detail?boardNo=" + boardNo + "';");  //  /brd/detail로 redirect
+				out.println("location.href='/brd/detail?boardNo=" + boardNo + "';");  //  /brd/detail로 redirect
 			} else {
 				out.println("alert('수정 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
@@ -113,7 +113,7 @@ public class BoardServiceImpl implements BoardService {
 			out.println("<script>");
 			if(result > 0) {
 				out.println("alert('삭제 성공');");
-				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
+				out.println("location.href='/brd/list';");  //  /brd/list로 redirect
 			} else {
 				out.println("alert('삭제 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
@@ -145,7 +145,7 @@ public class BoardServiceImpl implements BoardService {
 			out.println("<script>");
 			if(result > 0) {
 				out.println("alert('모두 삭제 성공');");
-				out.println("location.href='" + request.getContextPath() + "/brd/list';");  //  /brd/list로 redirect
+				out.println("location.href='/brd/list';");  //  /brd/list로 redirect
 			} else {
 				out.println("alert('모두 삭제 실패');");
 				out.println("history.back();");  // 이전 화면으로 이동
