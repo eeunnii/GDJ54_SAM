@@ -95,7 +95,7 @@
 <body>
 
 	<div>	
-		<input type="button" value="조회화면으로이동" onclick="location.href='${contextPath}/emp/search.form'">
+		<input type="button" value="조회화면으로이동" onclick="location.href='${contextPath}/emp/search/form'">
 	</div>
 
 	<hr>

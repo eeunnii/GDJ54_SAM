@@ -18,7 +18,7 @@ public class EmpSearchController {
 	@Autowired
 	private EmpSearchService empSearchService;
 	
-	@GetMapping("/emp/search.form")
+	@GetMapping("/emp/search/form")
 	public String searchForm() {
 		return "employee/search";
 	}

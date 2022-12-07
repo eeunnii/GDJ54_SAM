@@ -24,7 +24,7 @@ public class BbsController {
 	
 	@GetMapping("/bbs/list")
 	public String list(HttpServletRequest request, Model model) {
-		bbsService.findAllBbsList(request, model);
+		bbsService.findBbsList(request, model);
 		return "bbs/list";
 	}
 	
