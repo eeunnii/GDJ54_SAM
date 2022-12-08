@@ -93,7 +93,12 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
-	
+	@Override
+	public Map<String, Object> getMemberByNo(int memberNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("member", memberMapper.selectMemberByNo(memberNo));
+		return result;
+	}
 	
 	
 	

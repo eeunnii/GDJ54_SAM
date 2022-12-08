@@ -14,6 +14,7 @@
 		fn_add();
 		fn_init();
 		fn_list();
+		fn_detail();
 	});
 	
 	function fn_add(){
@@ -51,7 +52,7 @@
 	}
 	
 	function fn_init(){
-		$('#id').val('');
+		$('#id').val('').prop('readonly', false);
 		$('#name').val('');
 		$(':radio[name=gender]').prop('checked', false);
 		$('#address').val('');
@@ -83,12 +84,44 @@
 		});
 	}
 	
+	function fn_detail(){
+		$(document).on('click', '.btn_detail', function(){
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/members/' + $(this).data('member_no'),
+				dataType: 'json',
+				success: function(resData){
+					let member = resData.member;
+					if(member == null){
+						alert('해당 회원을 찾을 수 없습니다.');
+					} else {
+						$('#memberNo').val(member.memberNo);
+						$('#id').val(member.id).prop('readonly', true);
+						$('#name').val(member.name);
+						$(':radio[name=gender][value='+ member.gender +']').prop('checked', true);
+						$('#address').val(member.address);
+					}
+				}
+			});
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
 </head>
 <body>
 
 	<h1>회원 관리</h1>
 	<div>
+		<input type="hidden" id="memberNo">
 		<div>
 			<label for="id">
 				아이디 <input type="text" id="id">
@@ -120,7 +153,7 @@
 			</label>
 		</div>
 		<div>
-			<input type="button" value="초기화" id="btn_init">
+			<input type="button" value="초기화" onclick="fn_init()">
 			<input type="button" value="등록하기" id="btn_add">
 			<input type="button" value="수정하기" id="btn_modify">
 		</div>

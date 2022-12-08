@@ -23,9 +23,10 @@ import com.gdu.rest.service.MemberService;
 	3. 동작을 URL + Method 조합으로 결정한다.
 	4. 파라미터가 URL에 경로처럼 포함된다.(?를 사용하지 않는다.)
 	5. CRUD 처리 방식
-                 URL        Method
-		1) 삽입  /members   POST
-		2) 목록  /members   GET
+                 URL         Method
+		1) 삽입  /members    POST
+		2) 목록  /members    GET
+		3) 상세  /members/1  GET
 */
 
 @RestController  // 이 컨트롤러는 모든 메소드에 @ResponseBody 애너테이션을 추가한다.
@@ -47,7 +48,12 @@ public class MemberRestController {
 		return memberService.getMemberList(page);
 	}
 	
-	
+	// 상세
+	@GetMapping(value="/members/{memberNo}", produces="application/json")
+	public Map<String, Object> getMember(@PathVariable(value="memberNo", required=false) Optional<String> opt) {
+		int memberNo = Integer.parseInt(opt.orElse("0"));
+		return memberService.getMemberByNo(memberNo);
+	}
 	
 	
 	
