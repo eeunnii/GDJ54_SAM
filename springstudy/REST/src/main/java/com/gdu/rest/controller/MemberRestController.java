@@ -27,6 +27,7 @@ import com.gdu.rest.service.MemberService;
 		1) 삽입  /members    POST
 		2) 목록  /members    GET
 		3) 상세  /members/1  GET
+		4) 수정  /members    PUT
 */
 
 @RestController  // 이 컨트롤러는 모든 메소드에 @ResponseBody 애너테이션을 추가한다.

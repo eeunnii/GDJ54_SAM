@@ -15,6 +15,7 @@
 		fn_init();
 		fn_list();
 		fn_detail();
+		fn_modify();
 	});
 	
 	function fn_add(){
@@ -106,7 +107,18 @@
 		});
 	}
 	
-	
+	function fn_modify(){
+		$('#btn_modify').click(function(){
+			// 수정할 회원정보를 JSON으로 만들기
+			let member = JSON.stringify({
+				memberNo: $('#memberNo').val(),
+				name: $('#name').val(),
+				gender: $(':radio[name=gender]:checked').val(),
+				address: $('#address').val()
+			});
+			
+		});
+	}
 	
 	
 	
