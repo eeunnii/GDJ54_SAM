@@ -12,6 +12,8 @@
 	
 	$(function(){
 		fn_add();
+		fn_init();
+		fn_list();
 	});
 	
 	function fn_add(){
@@ -33,12 +35,51 @@
 				/* 응답 */
 				dataType: 'json',
 				success: function(resData){
-					
+					if(resData.insertResult > 0) {
+						alert('회원이 등록되었습니다.');
+						fn_list();
+						fn_init();
+					} else {
+						alert('회원이 등록되지 않았습니다.');
+					}
 				},
 				error: function(jqXHR){
 					alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
 				}
 			});
+		});
+	}
+	
+	function fn_init(){
+		$('#id').val('');
+		$('#name').val('');
+		$(':radio[name=gender]').prop('checked', false);
+		$('#address').val('');
+	}
+	
+	// 전역변수
+	var page = 1;
+	
+	function fn_list(){
+		$.ajax({
+			type: 'get',
+			url: '${contextPath}/members/page/' + page,
+			dataType: 'json',
+			success: function(resData){
+				$('#member_list').empty();
+				$.each(resData.memberList, function(i, member){
+					var tr = '<tr>';
+					tr += '<td><input type="checkbox" class="check_one" value="'+ member.memberNo +'"></td>';
+					tr += '<td>' + member.id + '</td>';
+					tr += '<td>' + member.name + '</td>';
+					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
+					tr += '<td>' + member.address + '</td>';
+					tr += '<td><input type="button" value="조회" class="btn_detail" data-member_no="'+ member.memberNo +'"></td>';
+					tr += '</tr>';
+					$('#member_list').append(tr);
+				});
+				
+			}
 		});
 	}
 	

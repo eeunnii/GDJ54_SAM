@@ -13,12 +13,16 @@ import org.springframework.stereotype.Service;
 
 import com.gdu.rest.domain.MemberDTO;
 import com.gdu.rest.mapper.MemberMapper;
+import com.gdu.rest.util.PageUtil;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberMapper memberMapper;
+	
+	@Autowired
+	private PageUtil pageUtil;
 	
 	@Override
 	public Map<String, Object> register(MemberDTO member, HttpServletResponse response) {
@@ -70,5 +74,32 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 		
 	}
+	
+	@Override
+	public Map<String, Object> getMemberList(int page) {
+		
+		int totalRecord = memberMapper.selectMemberCount();
+		pageUtil.setPageUtil(page, totalRecord);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("begin", pageUtil.getBegin());
+		map.put("end", pageUtil.getEnd());
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("memberList", memberMapper.selectMemberListByMap(map));
+		result.put("pageUtil", pageUtil);
+		
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

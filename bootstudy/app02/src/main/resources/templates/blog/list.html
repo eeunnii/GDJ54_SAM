@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/header::head('목록')}"></head>
+<style>
+	#picture {
+		width: 1920px;
+		height: 1282px;
+		background-image: url('/images/animal1.jpg');
+	}
+</style>
 <body>
 <div>
 	
@@ -47,6 +54,8 @@
 			</tfoot>
 		</table>
 	</div>
+	
+	<div id="picture"></div>
 
 </div>
 
