@@ -1,11 +1,13 @@
 package com.gdu.rest.service;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +29,41 @@ public class MemberServiceImpl implements MemberService {
 			result.put("insertResult", memberMapper.insertMember(member));
 			return result;
 			
-		} catch(DuplicateKeyException e) {
+		} catch(DuplicateKeyException e) {  // 아이디 중복
 			
+			try {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				response.setStatus(501);  // 응답 코드 501
+				out.println("이미 사용 중인 아이디입니다.");  // 응답 메시지
+				out.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
 			
+		} catch(DataIntegrityViolationException e) {
+			
+			try {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				response.setStatus(502);  // 응답 코드 502
+				out.println("필수 정보가 누락되었습니다.");  // 응답 메시지
+				out.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
 			
 		} catch(Exception e) {
 			
-			System.out.println(e.getClass().getName());
+			try {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				response.setStatus(503);  // 응답 코드 503
+				out.println("입력 정보를 확인하세요.");  // 응답 메시지
+				out.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
 			
 		}
 		

@@ -17,6 +17,23 @@
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
+<style>
+	@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #202020;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	html {
+		background-color: #f7f9fa;
+	}
+	a {
+		text-decoration: none;
+	}
+	</style>
 </head>
 <body>
 

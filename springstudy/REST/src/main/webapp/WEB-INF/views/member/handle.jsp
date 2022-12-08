@@ -36,7 +36,7 @@
 					
 				},
 				error: function(jqXHR){
-					
+					alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
 				}
 			});
 		});

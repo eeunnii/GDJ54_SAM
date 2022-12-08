@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app15.domain.BlogDTO;
 import com.gdu.app15.domain.SummernoteImageDTO;
+import com.gdu.app15.domain.UserDTO;
 import com.gdu.app15.mapper.BlogMapper;
 import com.gdu.app15.util.MyFileUtil;
 import com.gdu.app15.util.PageUtil;
@@ -107,7 +108,8 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void saveBlog(HttpServletRequest request, HttpServletResponse response) {
 		
-		// 파라미터 title, content
+		// 파라미터 userNo, title, content
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
@@ -130,6 +132,7 @@ public class BlogServiceImpl implements BlogService {
 				.title(title)
 				.content(content)
 				.ip(ip)
+				.user(UserDTO.builder().userNo(userNo).build())
 				.build();
 		
 		// DB에 Blog 저장

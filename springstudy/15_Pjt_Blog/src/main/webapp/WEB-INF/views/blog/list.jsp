@@ -10,10 +10,19 @@
 
 <div>
 	
+	<c:if test="${loginUser != null}">
+		${loginUser.name} 님 반갑습니다
+		<input type="button" value="로그아웃" onclick="location.href='${contextPath}/user/logout'">
+	</c:if>
+	
+	<hr>
+	
 	<h1>블로그 목록(전체 ${totalRecord}개)</h1>
 	
 	<div>
-		<input type="button" value="블로그 작성하기" onclick="location.href='${contextPath}/blog/write'">
+		<c:if test="${loginUser != null}">
+			<input type="button" value="블로그 작성하기" onclick="location.href='${contextPath}/blog/write'">
+		</c:if>
 	</div>
 	
 	<div>

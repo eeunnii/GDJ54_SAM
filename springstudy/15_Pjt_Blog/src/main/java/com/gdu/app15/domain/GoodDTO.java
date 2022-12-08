@@ -11,13 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class BlogDTO {
+public class GoodDTO {
+	private int userNo;
 	private int blogNo;
-	private String title;
-	private String content;
-	private int hit;
-	private String ip;
-	private Date createDate;
-	private Date modifyDate;
-	private UserDTO user;
+	private Date markDate;
 }

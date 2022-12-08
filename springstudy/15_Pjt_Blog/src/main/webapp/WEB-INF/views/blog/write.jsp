@@ -102,6 +102,11 @@
 	<form id="frm_write" action="${contextPath}/blog/add" method="post">
 	
 		<div>
+			작성자 ▷ ${loginUser.name}
+			<input type="hidden" name="userNo" value="${loginUser.userNo}">
+		</div>
+	
+		<div>
 			<label for="title">제목</label>
 			<input type="text" name="title" id="title">
 		</div>

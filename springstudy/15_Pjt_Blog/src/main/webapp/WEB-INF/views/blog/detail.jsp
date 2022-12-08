@@ -14,6 +14,14 @@
 	.blind {
 		display: none;
 	}
+	#lnk_good:hover span {
+		cursor: pointer;
+		color: #f83030;
+	}
+	#heart {
+		width: 16px;
+		margin-right: 5px;
+	}
 </style>
 
 <div>
@@ -21,6 +29,8 @@
 	<h1>${blog.title}</h1>
 	
 	<div>
+		<span>▷ 작성자 ${blog.user.name}</span>
+		&nbsp;&nbsp;&nbsp;
 		<span>▷ 작성일 <fmt:formatDate value="${blog.createDate}" pattern="yyyy. M. d HH:mm" /></span>
 		&nbsp;&nbsp;&nbsp;
 		<span>▷ 수정일 <fmt:formatDate value="${blog.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
@@ -39,8 +49,10 @@
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="blogNo" value="${blog.blogNo}">
-			<input type="button" value="수정" id="btn_edit_blog">
-			<input type="button" value="삭제" id="btn_remove_blog">
+			<c:if test="${loginUser.userNo == blog.user.userNo}">
+				<input type="button" value="수정" id="btn_edit_blog">
+				<input type="button" value="삭제" id="btn_remove_blog">
+			</c:if>
 			<input type="button" value="목록" onclick="location.href='${contextPath}/blog/list'">
 		</form>
 		<script>
@@ -59,10 +71,14 @@
 	
 	<hr>
 	
+	
 	<span id="btn_comment_list">
 		댓글
 		<span id="comment_count"></span>개
 	</span>
+	<a id="lnk_good">
+		<span id="heart"></span><span id="good">좋아요 </span><span id="good_count"></span>
+	</a>
 	
 	<hr>
 	
@@ -80,10 +96,13 @@
 					<input type="text" name="content" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
 				</div>
 				<div class="add_comment_btn">
-					<input type="button" value="작성완료" id="btn_add_comment">
+					<c:if test="${loginUser != null}">
+						<input type="button" value="작성완료" id="btn_add_comment">
+					</c:if>
 				</div>
 			</div>
 			<input type="hidden" name="blogNo" value="${blog.blogNo}">
+			<input type="hidden" name="userNo" value="${loginUser.userNo}">
 		</form>
 	</div>
 	
@@ -101,6 +120,10 @@
 		fn_removeComment();
 		fn_switchReplyArea();
 		fn_addReply();
+		
+		fn_goodCheck();
+		fn_goodCount();
+		fn_pressGood();
 		
 		// 함수 정의
 		function fn_commentCount(){
@@ -166,42 +189,40 @@
 					*/
 					// 화면에 댓글 목록 뿌리기
 					$('#comment_list').empty();
+					moment.locale('ko-KR');
 					$.each(resData.commentList, function(i, comment){
 						var div = '';
-						if(comment.depth == 0){
-							div += '<div>';
-						} else {
-							div += '<div style="margin-left: 40px;">';
-						}
-						if(comment.state == 1) {
-							div += '<div>';
-							div += comment.content;
-							// 작성자만 삭제할 수 있도록 if 처리 필요
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
-							if(comment.depth == 0) {
-								div += '<input type="button" value="답글" class="btn_reply_area">';
-							}
-							div += '</div>';
-						} else {
+						if(comment.state == -1) {
 							if(comment.depth == 0) {
 								div += '<div>삭제된 댓글입니다.</div>';
 							} else {
-								div += '<div>삭제된 답글입니다.</div>';
+								div += '<div style="margin-left: 40px;">삭제된 답글입니다.</div>';
 							}
+						} else {
+							div += '<div>';
+							div += '  <span style="margin-right:20px;">' + comment.user.name + '</span>';
+							div += '  <span style="font-size:12px; color:silver;">' + moment(comment.createDate).format('YYYY년 MM월 DD일 A h:mm:ss') + '</span>';
+							div += '</div>';
+							div += '<div>' + comment.content + '</div>';
 						}
-						div += '<div>';
-						moment.locale('ko-KR');
-						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
-						div += '</div>';
+						if('${loginUser.userNo}' != '') {
+							div += '<div>';
+							if('${loginUser.userNo}' == comment.user.userNo && comment.state == 1) {
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
+							} else if('${loginUser.userNo}' != comment.user.userNo && comment.depth == 0) {
+								div += '<input type="button" value="답글" class="btn_reply_area">';
+							}
+							div += '</div>';
+						}
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
 						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해주세요">';
-						// 로그인한 사용자만 볼 수 있도록 if 처리
-						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
+						if('${loginUser.userNo}' != '') {
+							div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
+						}
 						div += '</form>';
-						div += '</div>';
 						div += '</div>';
 						$('#comment_list').append(div);
 						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
@@ -280,6 +301,76 @@
 							alert('답글이 등록되었습니다.');
 							fn_commentList();
 							fn_commentCount();
+						}
+					}
+				});
+			});
+		}
+		
+		//////////////////////////////////////////////////
+		
+		// 내가 "좋아요"를 누른 게시글인가?(좋아요 테이블에 사용자와 게시글 정보가 있는지 확인, 눌렀으면 빨간하트, 안 눌렀으면 빈하트)
+		function fn_goodCheck() { 
+			$.ajax({
+				url: '${contextPath}/good/getGoodCheck',
+				type: 'get',
+				data: 'blogNo=${blog.blogNo}&userNo=${loginUser.userNo}',
+				dataType: 'json',
+				success: function(resData){
+					if (resData.count == 0) {
+						$('#heart').html('<img src="../resources/images/whiteheart.png" width="15px">');
+						$('#good').removeClass("good_checked");
+					} else {
+						$('#heart').html('<img src="../resources/images/redheart.png" width="15px">');
+						$('#good').addClass("good_checked");
+					}
+				}
+			});
+		}
+		
+		// "좋아요" 개수 표시하기
+		function fn_goodCount(){
+			$.ajax({
+				url: '${contextPath}/good/getGoodCount',
+				type: 'get',
+				data: 'blogNo=${blog.blogNo}',
+				dataType: 'json',
+				success: function(resData){
+					$('#good_count').empty();
+					$('#good_count').text(resData.count + '개');
+				}
+			});
+		}
+		
+		// "좋아요" 누른 경우
+		function fn_pressGood(){
+			$('#lnk_good').click(function(){
+				// 로그인을 해야 "좋아요"를 누를 수 있다.
+				if('${loginUser.userNo}' == ''){
+					alert('해당 기능은 로그인이 필요합니다.');
+					return;
+				}
+				// 셀프 좋아요 방지
+				if('${loginUser.userNo}' == '${blog.user.userNo}'){
+					alert('본인의 게시글에서는 "좋아요"를 누를 수 없습니다.');
+					return;
+				}
+				// "좋아요" 선택/해제 상태에 따른 하트 변경
+				$('#good').toggleClass("good_checked");
+				if ($('#good').hasClass("good_checked")) {
+					$('#heart').html('<img src="../resources/images/redheart.png" width="15px">');
+				} else {
+					$('#heart').html('<img src="../resources/images/whiteheart.png" width="15px">');
+				}
+				// "좋아요" 처리
+				$.ajax({
+					url: '${contextPath}/good/mark',
+					type: 'get',
+					data: 'blogNo=${blog.blogNo}&userNo=${loginUser.userNo}',
+					dataType: 'json',
+					success: function(resData){
+						if(resData.isSuccess) {
+							fn_goodCount();							
 						}
 					}
 				});
